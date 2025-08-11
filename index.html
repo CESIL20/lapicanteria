@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La Picantería</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    /* RESET */
+    * {margin:0;padding:0;box-sizing:border-box;}
+
+    /* Estilos generales */
+    body {
+      font-family:Arial,sans-serif;
+      background-color:#1a1a1a; /* Fondo oscuro general para combinar con el encabezado */
+      color:white; /* Texto claro para el fondo oscuro */
+      line-height:1.6;
+    }
+    /* Mantener estilos h2 para los títulos de sección, no los del encabezado */
+    h2 {
+      text-align:center;
+      color:#00BFFF; /* Azul vibrante para títulos principales de sección */
+      margin-bottom:30px;
+      font-size: 2.8em; /* Aumentar tamaño de fuente */
+      font-weight: bold;
+      text-shadow: 3px 3px 6px rgba(0,0,0,0.3); /* Sombra para profundidad */
+      letter-spacing: 1px; /* Espaciado entre letras */
+      transition: all 0.3s ease; /* Transición suave para efectos hover */
+    }
+    h2:hover {
+        color: #00FFFF; /* Cambiar a un azul más claro en hover (ej. Aqua) */
+        text-shadow: 4px 4px 8px rgba(0,0,0,0.4); /* Sombra más pronunciada en hover */
+        transform: translateY(-2px); /* Pequeño levantamiento en hover */
+    }
+
+    /* Estilos para el cambio de idioma */
+    .lang-es, .lang-en {display: none;} /* Oculta ambos por defecto */
+
+    /* Muestra el contenido en español cuando el cuerpo tiene la clase 'lang-active-es' */
+    body.lang-active-es .lang-es {display: block;}
+    body.lang-active-es .lang-es.inline-content {display: inline;}
+    body.lang-active-es .lang-es.inline-flex-content {display: inline-flex;}
+    /* Oculta explícitamente el inglés cuando el español está activo */
+    body.lang-active-es .lang-en {display: none !important;}
+
+    /* Muestra el contenido en inglés cuando el cuerpo tiene la clase 'lang-active-en' */
+    body.lang-active-en .lang-en {display: block;}
+    body.lang-active-en .lang-en.inline-content {display: inline;}
+    body.lang-active-en .lang-en.inline-flex-content {display: inline-flex;}
+    /* Oculta explícitamente el español cuando el inglés está activo */
+    body.lang-active-en .lang-es {display: none !important;}
+
+    /* Header y Navegación */
+    .header-nav-wrapper {
+        background-image: url('../static/img/fondo_piepagina.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        z-index: 100;
+        position: relative;
+    }
+
+    /* Overlay oscuro para el encabezado */
+    .header-nav-wrapper::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6); /* Color negro con 60% de opacidad */
+        z-index: 0; /* Asegura que el overlay esté detrás del contenido del header */
+    }
+
+    .main-header {
+        background-color: transparent;
+        color: white;
+        padding: 1rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap; /* Modificado para permitir que los elementos se envuelvan */
+        position: relative;
+        z-index: 1; /* Asegura que el contenido del header esté por encima del overlay */
+    }
+    .language-switcher {
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        display: flex;
+        gap: 10px;
+        z-index: 1001;
+    }
+    .language-switcher button {
+        background-color: rgba(0,0,0,0.5); /* Fondo más oscuro para el botón */
+        color: white; /* Texto blanco */
+        border: 1px solid rgba(255,255,255,0.3); /* Borde claro */
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background-color 0.3s, border-color 0.3s;
+    }
+    .language-switcher button:hover {
+        background-color: rgba(0,0,0,0.7);
+        border-color: #007bff;
+    }
+    .language-switcher button.active {
+        background-color: #007bff;
+        color: white;
+        border-color: #007bff;
+    }
+    
+    .header-left-group {display:flex;align-items:center;flex:1;}
+    .logo-container {display:flex;align-items:center;flex-shrink:0;margin-top:10px;justify-content:center;}
+    .logo-container img {width:230px;height:160px;border:3px solid transparent;border-radius:5px;transition:all 0.3s ease;}
+    .header-content {flex:1;display:flex;justify-content:center;align-items:center;box-sizing:border-box;}
+    .titulo {text-align:center;display:flex;flex-direction:column;align-items:center;}
+    .titulo h1 {font-family:'Georgia',serif;color:#fff;font-size:2em;margin:0;display:block;text-shadow:5px 5px 10px rgba(0,0,0,1);}
+    
+    /* Media Queries para Header y Navegación */
+    @media (max-width:768px){
+        .main-header{flex-direction:row;justify-content:space-between;align-items:center;padding:0.8rem 1rem;flex-wrap:wrap;} /* Asegura flex-wrap en pantallas medianas */
+        .language-switcher{top:5px;right:5px;gap:5px;}
+        .language-switcher button{padding:3px 6px;font-size:0.8em;}
+        .header-left-group{flex-direction:column;align-items:center;flex:1;}
+        .logo-container{width:auto;height:auto;margin-right:0;margin-bottom:5px;}
+        .logo-container img{width:100px;height:70px;}
+        .header-content{flex:none;justify-content:center;text-align:center;margin:0;}
+        .titulo h1{font-size:1em;}
+        .main-nav{margin-top:0;padding-bottom:5px;}
+        .main-nav ul{list-style:none;display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center;gap:8px;padding:0 10px;margin:0;}
+        .main-nav ul li a{font-size:15px;padding:5px 8px;}
+        .precio-item{width:90%;}
+        .contact-map-section .content-wrapper{flex-direction:column;align-items:center;}
+        .map-container-wrapper,.contact-info-wrapper{width:100%;max-width:100%;}
+        .whatsapp-float{width:auto;padding:8px 15px;font-size:0.8em;}
+    }
+    @media (max-width:480px){
+        .logo-container img{width:80px;height:55px;}
+        .titulo h1{font-size:0.8em;}
+        .main-nav ul li a{font-size:13px;padding:3px 6px;}
+        h2 { /* Ajuste para títulos en móviles */
+            font-size: 2em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+    }
+    /* Añadido un media query para pantallas muy pequeñas si es necesario ajustar aún más el encabezado */
+    @media (max-width:375px) {
+        .main-header {
+            padding: 0.5rem 0.5rem;
+            flex-direction: column; /* Asegura que los elementos del encabezado se apilen en pantallas muy pequeñas */
+            text-align: center;
+        }
+        .language-switcher {
+            position: static; /* Cambia a posición estática para que fluya con el contenido */
+            justify-content: center;
+            margin-top: 10px;
+        }
+        .header-left-group {
+            width: 100%;
+            justify-content: center;
+        }
+        .logo-container {
+            margin-bottom: 10px;
+        }
+    }
+
+    .main-nav {
+        background-color: transparent;
+        padding: 0;
+        width: 100%;
+        position: relative;
+        z-index: 200;
+        margin-top: 0px;
+        padding-bottom: 10px;
+    }
+    .main-nav ul {
+        list-style: none;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin: 0;
+        padding: 0;
+    }
+    .main-nav ul li a {
+        color: white; /* Texto blanco para el menú */
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 18px;
+        transition: color 0.3s;
+        padding: 0px 8px;
+        display: block;
+        background-color: transparent;
+    }
+    .main-nav ul li a:hover {
+        background-color: transparent;
+        color: #d32f2f;
+    }
+
+    /* CARRUSEL DE FOTOS */
+    .carousel-section {
+        width: 100%;
+        max-width: 1330px;
+        margin: 40px auto;
+        padding: 20px;
+        background-color: #222;
+        border-radius: 10px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        text-align: center;
+        position: relative;
+    }
+    .carousel-container {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        height: 500px; /* Altura fija para el carrusel en escritorio */
+    }
+    .carousel-track {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+      height: 100%;
+    }
+    .carousel-item {
+      flex-shrink: 0;
+      width: 100%;
+      height: 100%; /* El item ocupa toda la altura del contenedor */
+    }
+    .carousel-item img {
+      width: 100%;
+      height: 100%; /* La imagen ocupa toda la altura del item */
+      object-fit: cover; /* Recorta la imagen para que cubra el espacio sin distorsionarla */
+      display: block;
+      cursor: pointer; /* Añadido cursor pointer para indicar que es clickeable */
+    }
+    .carousel-button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0,0,0,0.5);
+      color: white;
+      border: none;
+      padding: 15px;
+      cursor: pointer;
+      z-index: 100;
+      font-size: 1.5em;
+      border-radius: 50%;
+      transition: background-color 0.3s;
+    }
+    .carousel-button:hover {
+      background-color: rgba(0,0,0,0.8);
+    }
+    .carousel-prev {left: 10px;}
+    .carousel-next {right: 10px;}
+    .carousel-dots {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      z-index: 100;
+    }
+    .dot {
+      width: 10px;
+      height: 10px;
+      background-color: rgba(255,255,255,0.5);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .dot.active {
+      background-color: white;
+    }
+
+    /* ESTILOS PARA EL MODAL DE IMAGEN */
+    .image-modal {
+      display: none; /* Oculto por defecto */
+      position: fixed;
+      z-index: 10000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.9); /* Fondo semi-transparente oscuro */
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .image-modal.show {
+        display: flex;
+    }
+    .modal-content {
+      width: 90%;
+      max-width: 1200px;
+      height: auto;
+      max-height: 90vh;
+      object-fit: contain; /* Ajusta la imagen sin distorsionarla */
+      animation-name: zoom;
+      animation-duration: 0.6s;
+    }
+    @keyframes zoom {
+      from {transform: scale(0.1)}
+      to {transform: scale(1)}
+    }
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 35px;
+      color: #fff;
+      font-size: 40px;
+      font-weight: bold;
+      transition: 0.3s;
+      cursor: pointer;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+    .modal-close:hover,
+    .modal-close:focus {
+      color: #bbb;
+      text-decoration: none;
+    }
+
+    /* Media query para ajustar la altura del carrusel en pantallas más pequeñas */
+    @media (max-width: 768px) {
+        .carousel-container {
+            height: 350px; /* Altura más baja para tabletas */
+        }
+    }
+    @media (max-width: 480px) {
+        .carousel-container {
+            height: 250px; /* Altura aún más baja para móviles */
+        }
+    }
+
+    /* Sección Nuestra Temática */
+    .our-theme-section {
+        width: 100%;
+        max-width: 1330px;
+        margin: 40px auto;
+        padding: 40px;
+        background-color: #222; /* Fondo oscuro para combinar */
+        color:white; /* Texto claro */
+        border-radius: 10px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        text-align: center;
+    }
+    .our-theme-section h2 {
+        color: #00BFFF; /* Azul vibrante para títulos */
+        font-size: 2.5em;
+        margin-bottom: 30px;
+    }
+    .our-theme-section p {
+        font-size: 1.2em;
+        margin-bottom: 20px;
+        line-height: 1.8;
+        color: white; /* Texto claro */
+    }
+    .theme-content-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: stretch;
+        gap: 30px;
+        margin-top: 30px;
+    }
+    .theme-image-column {
+        flex: 1;
+        min-width: 300px;
+        max-width: 500px;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .theme-image-column img {
+        max-width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        display: block;
+        margin: 0 auto;
+    }
+    .theme-text-column {
+        flex: 1;
+        min-width: 300px;
+        max-width: 700px;
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+    }
+    .theme-text-column p {
+        margin-bottom: 25px;
+        flex-shrink: 0;
+    }
+    .preparation-buttons {
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        gap: 15px;
+        justify-content: center;
+        flex-grow: 1;
+        align-content: stretch;
+    }
+    .preparation-button {
+        background-color: transparent; /* Fondo transparente */
+        color: white; /* Texto blanco */
+        padding: 8px 0; /* Menos padding para que se vea más como una línea */
+        border-radius: 0; /* Sin bordes redondeados */
+        cursor: pointer;
+        font-weight: bold;
+        text-align: center;
+        box-shadow: none; /* Sin sombra */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: auto; /* Altura automática */
+        border: none; /* Eliminar borde */
+        border-bottom: 2px solid #666; /* Línea gris más encendida */
+        transition: border-bottom-color 0.3s, color 0.3s; /* Transición para color de borde y texto */
+    }
+    .preparation-button:hover {
+        background-color: transparent;
+        border-bottom-color: #00BFFF; /* Azul vibrante para hover */
+        color: #00BFFF; /* Cambia el color del texto a azul vibrante en hover */
+        transform: none; /* No hay transformación en hover */
+    }
+
+    /* Sección Historia */
+    .historia-section h2 {color:#00BFFF;font-size:2.5em;margin-bottom:30px;} /* Azul vibrante para títulos */
+    .historia-section {
+        font-size:20px;
+        margin:40px auto;
+        padding:40px;
+        max-width:1330px;
+        color:#eee; /* Texto gris muy claro para contrastar con la imagen de fondo */
+        border-radius:10px;
+        box-shadow:0 8px 20px rgba(0,0,0,0.1);
+        line-height:1.6;
+        position: relative; /* Necesario para la animación de fondo */
+        overflow: hidden; /* Asegura que la animación de fondo se mantenga dentro de los límites */
+        background-image: url('../static/img/484142437_1065174388986290_1824956558464000683_n.jpg'); /* Imagen de fondo */
+        background-size: cover; /* Cubrir todo el espacio */
+        background-position: center; /* Centrar la imagen */
+        z-index: 1; /* Asegura que el contenido esté por encima del pseudo-elemento */
+    }
+
+    /* Keyframes para la animación del degradado de fondo */
+    @keyframes gradientAnimation {
+        0% { background-position: 0% 50%; }
+        50% { transform: translateY(-3px); }
+        100% { transform: translateY(0px); }
+    }
+    
+    .historia-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7); /* Overlay oscuro para mejorar la legibilidad del texto (aumentado a 0.7) */
+        z-index: -1; /* Coloca el pseudo-elemento detrás del contenido */
+    }
+
+    .historia-section p { /* Alinea los párrafos */
+        text-align: justify; /* Mantenido justificado */
+        margin-bottom: 1em; /* Espacio entre párrafos */
+        position: relative; /* Asegura que el texto esté por encima del ::before */
+        z-index: 2; /* Mayor que el z-index del ::before */
+        color: #eee; /* Texto gris muy claro para mayor claridad */
+    }
+    .historia-section p:last-child {
+        margin-bottom: 0; /* Elimina el margen inferior del último párrafo */
+    }
+
+    /* Sección Contacto y Mapa */
+    .contact-map-section {
+        background-color: #222; /* Fondo oscuro para combinar */
+        color:white; /* Texto claro */
+        padding: 40px 20px;
+        margin: 40px auto;
+        max-width: 1330px;
+        border-radius: 10px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        text-align: center;
+    }
+    .contact-map-section h2 {color:#00BFFF;margin-bottom:30px;font-size:2.5em;} /* Azul vibrante para títulos */
+    .content-wrapper {display:flex;flex-wrap:wrap;justify-content:center;align-items:stretch;gap:30px;}
+    .map-container-wrapper,.contact-info-wrapper {flex:1;min-width:320px;max-width:550px;display:flex;flex-direction:column;gap:10px;}
+    .map-container-wrapper {
+      background-color:#333; /* Fondo oscuro para los contenedores de mapa/contacto */
+      padding:25px;
+      border-radius:8px;
+      box-shadow:0 4px 8px rgba(0,0,0,0.2);
+      align-items:center;
+    }
+    .contact-info-wrapper {
+      background-color:#333; /* Fondo oscuro para los contenedores de mapa/contacto */
+      padding:25px;
+      border-radius:8px;
+      box-shadow:0 4px 8px rgba(0,0,0,0.2);
+      align-items:flex-start;
+    }
+    .map-container-wrapper h3,.contact-info-wrapper h3 {color:#00BFFF;font-size:1.8em;margin-bottom:10px;width:100%;text-align:center;} /* Azul vibrante para títulos */
+    .contact-info-wrapper h3 {color:#00BFFF;} /* Azul vibrante para títulos */
+    .map-container {height:300px;padding-bottom:0;position:relative;overflow:hidden;border-radius:8px;background-color:#444;box-shadow:0 2px 10px rgba(0,0,0,0.1);width:100%;} /* Fondo oscuro para el mapa */
+    .map-container iframe {position:absolute;top:0;left:0;width:100%;height:100%;border:0;}
+    .contact-item {display:flex;align-items:center;gap:10px;color:#ccc;font-size:1.1em;margin-bottom:5px;} /* Texto gris claro */
+    .contact-item:last-child {margin-bottom:0;}
+    .contact-item i {color:#00BFFF;font-size:1.3em;min-width:25px;text-align:center;} /* Azul vibrante para iconos */
+    .contact-item .fa-map-marker-alt {color:#DB4437;}
+    .contact-item .fa-phone {color:#25d366;}
+    .contact-item .fa-envelope {color:#1a73e8;} /* Azul de Google para email */
+    .contact-item .fa-clock {color:#1a73e8;}
+    .contact-info-wrapper .visit-message {
+        margin-top:auto;
+        text-align:center;
+        font-style:italic;
+        color:#eee; /* Texto gris muy claro */
+        padding-top:15px;
+        border-top:1px solid rgba(255,255,255,0.1); /* Borde claro */
+        font-size:1em;
+        line-height:1.4;
+        text-shadow:none; /* Quitado el text-shadow para fondo claro */
+    }
+    .text {color:white;font-size:1.6em;margin-top:40px;margin-bottom:20px;display:flex;justify-content:center;width:100%;} /* Texto blanco */
+    .social-icons {display:flex;justify-content:center;gap:20px;padding-bottom:20px;}
+    .social-icons a {color:white;font-size:2.5em;transition:color 0.3s ease,transform 0.2s ease;text-decoration:none;} /* Iconos blancos por defecto */
+    .social-icons a:hover {transform:translateY(-3px);}
+    .social-icons .fa-facebook {color:#1877F2;}
+    .social-icons .fa-instagram {background:linear-gradient(45deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+    .social-icons .fa-whatsapp {color:#25d366;}
+    .social-icons .fa-map-marker-alt {color:#DB4437;}
+
+    /* Media Queries para Contacto y Redes Sociales */
+    @media (max-width:900px){
+        .content-wrapper{flex-direction:column;align-items:center;}
+        .map-container-wrapper,.contact-info-wrapper{max-width:90%;min-width:unset;width:100%;}
+        .map-container iframe{height:250px;}
+        .contact-map-section h2{font-size:2em;}
+        .map-container-wrapper h3,.contact-info-wrapper h3{font-size:1.6em;}
+        .social-icons{font-size:2em;gap:15px;}
+    }
+    @media (max-width:768px){
+        .theme-content-wrapper{
+            flex-direction:column;
+            align-items:center;
+            gap:20px;
+        }
+        .preparation-buttons{
+            grid-template-columns: 1fr;
+        }
+    }
+    @media (max-width:480px){
+        .contact-map-section{padding:20px 10px;margin:20px auto;}
+        .social-icons{font-size:1.8em;gap:10px;}
+        .our-theme-section{padding:20px;margin:20px auto;}
+        .our-theme-section p{font-size:1em;}
+        .theme-image-column,.theme-text-column{min-width:unset;max-width:100%;}
+        .preparation-button{padding:10px 8px;font-size:1em;}
+    }
+
+    /* WhatsApp Float Button */
+    .whatsapp-float {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #25d366;
+        color: white;
+        padding: 12px 20px;
+        border-radius: 30px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 1.1em;
+        text-decoration: none;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        z-index: 1000;
+        transition: background-color 0.3s, transform 0.2s;
+    }
+    .whatsapp-float:hover {
+        background-color: #1da851;
+        transform: translateY(-3px);
+    }
+    .whatsapp-float i {font-size:1.5em;}
+
+    /* Footer */
+    .main-footer {
+        background-color: #111; /* Fondo muy oscuro para el footer */
+        color: #ccc; /* Texto gris claro */
+        text-align: center;
+        padding: 20px;
+        font-size: 0.9em;
+        margin-top: 30px;
+    }
+    .main-footer .footer-links a {
+        color: #007bff;
+        text-decoration: none;
+        margin: 0 10px;
+        transition: color 0.3s;
+    }
+    .main-footer .footer-links a:hover {color:#00BFFF;} /* Azul vibrante para hover del footer */
+
+    /* Mensaje de Reserva Flotante */
+    #reservation-message {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        background-color: rgba(220,53,69,0.9);
+        color: white;
+        padding: 25px 40px;
+        border-radius: 10px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+        z-index: 10000;
+        font-size: 2.2em;
+        font-weight: bold;
+        text-align: center;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+        max-width: 90%;
+        box-sizing: border-box;
+    }
+    #reservation-message.show {opacity:1;visibility:visible;}
+  </style>
+</head>
+<body class="lang-active-es"> <!-- Añadido lang-active-es por defecto -->
+  <div class="language-switcher">
+    <button id="lang-es-btn" class="active">ES</button>
+    <button id="lang-en-btn">EN</button>
+  </div>
+  <div id="reservation-message" class="flash-message info">
+    <span class="lang-es inline-content">No contamos con reserva, todo es por orden de llegada.</span>
+    <span class="lang-en inline-content">We do not take reservations; it's all first-come, first-served.</span>
+  </div>
+  <div class="header-nav-wrapper">
+    <header class="main-header">
+      <div class="header-left-group">
+        <div class="header-content">
+          <div class="titulo">
+            <h1 class="lang-es">Bienvenidos a</h1>
+            <h1 class="lang-en">Welcome to</h1>
+            <div class="logo-container">
+              <img src="../static/img/pikalogo.png" alt="Logo de La Picantería" width="230" height="160" onerror="this.onerror=null;this.src='https://placehold.co/230x160/080808/FFFFFF?text=Logo';" loading="lazy">
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <nav class="main-nav">
+      <ul>
+        <li><a href="#carrusel-section"><span class="lang-es inline-content">Inicio</span><span class="lang-en inline-content">Home</span></a></li>
+        <li><a href="#our-theme"><span class="lang-es inline-content">Nuestra Temática</span><span class="lang-en inline-content">Our Theme</span></a></li>
+        <li><a href="#historia"><span class="lang-es inline-content">Nuestra Historia</span><span class="lang-en inline-content">Our History</span></a></li>
+        <li><a href="https://drive.google.com/file/d/1aAkaZ-WnvFu8tN7WBn3rCiXv3gN4wL6i/view?usp=drive_link" target="_blank"><span class="lang-es inline-content">Nuestra Carta</span><span class="lang-en inline-content">Our Menu</span></a></li>
+        <li><a href="#contactos"><span class="lang-es inline-content">Contacto</span><span class="lang-en inline-content">Contact</span></a></li>
+      </ul>
+    </nav>
+  </div>
+  <!-- Nuevo Carrusel de Fotos -->
+  <section class="carousel-section" id="carrusel-section">
+      <div class="carousel-container">
+          <div class="carousel-track">
+              <!-- Las imágenes se insertarán aquí por JavaScript -->
+          </div>
+          <button class="carousel-button carousel-prev">&lt;</button>
+          <button class="carousel-button carousel-next">&gt;</button>
+          <div class="carousel-dots">
+              <!-- Los puntos del carrusel se insertarán aquí por JavaScript -->
+          </div>
+      </div>
+  </section>
+
+  <!-- Modal para mostrar la imagen grande -->
+  <div id="image-modal" class="image-modal">
+      <span id="modal-close-btn" class="modal-close">&times;</span>
+      <img class="modal-content" id="modal-image">
+  </div>
+
+  <section id="our-theme" class="our-theme-section">
+    <h2 class="lang-es">Nuestra Temática: Elige tu Pescado</h2>
+    <h2 class="lang-en">Our Theme: Choose Your Fish</h2>
+    <p>
+      <span class="lang-es inline-content">En La Picantería, tú eres el chef. Elige tu pescado fresco del día y nosotros lo preparamos a tu gusto en una variedad de estilos peruanos auténticos:</span>
+      <span class="lang-en inline-content">At La Picantería, you are the chef. Choose your fresh fish of the day, and we will prepare it to your liking in a variety of authentic Peruvian styles:</span>
+    </p>
+    <div class="theme-content-wrapper">
+      <div class="theme-image-column">
+        <img src="../static/img/s100.jpg" alt="Pescados frescos en exhibición" width="800" height="500" onerror="this.onerror=null;this.src='https://placehold.co/800x500/808000/FFFFFF?text=Pescados+frescos';" loading="lazy">
+      </div>
+      <div class="theme-text-column">
+        <div class="preparation-buttons">
+          <div class="preparation-button"><span class="lang-es inline-content">Ceviche</span><span class="lang-en inline-content">Ceviche</span></div>
+          <div class="preparation-button"><span class="lang-es inline-content">Jaladito Moche</span><span class="lang-en inline-content">Jaladito Moche</span></div>
+          <div class="preparation-button"><span class="lang-es inline-content">A la Parrilla</span><span class="lang-en inline-content">Grilled</span></div>
+          <div class="preparation-button"><span class="lang-es inline-content">Al Ajo y Mantequilla</span><span class="lang-en inline-content">With Garlic and Butter</span></div>
+          <div class="preparation-button"><span class="lang-es inline-content">En Jalea Limeña</span><span class="lang-en inline-content">In Limeña Jelly</span></div>
+          <div class="preparation-button"><span class="lang-es inline-content">En Jalea Chiclayana</span><span class="lang-en inline-content">In Chiclayana Jelly</span></div>
+          <div class="preparation-button"><span class="lang-es inline-content">Dulce y Picosa</span><span class="lang-en inline-content">Sweet and Spicy</span></div>
+          <div class="preparation-button"><span class="lang-es inline-content">Al Vapor</span><span class="lang-en inline-content">Steamed</span></div>
+          <div class="preparation-button"><span class="lang-es inline-content">En Sudado</span><span class="lang-en inline-content">In Sudado</span></div>
+          <div class="preparation-button"><span class="lang-es inline-content">En Escabeche</span><span class="lang-en inline-content">In Escabeche</span></div>
+          <div class="preparation-button"><span class="lang-es inline-content">En Chaufa</span><span class="lang-en inline-content">In Chaufa</span></div>
+          <div class="preparation-button"><span class="lang-es inline-content">En Estofado</span><span class="lang-en inline-content">In Stew</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="historia" class="historia-section">
+    <h2 class="lang-es">Nuestra Historia</h2>
+    <h2 class="lang-en">Our History</h2>
+    <p>
+      <span class="lang-es inline-content">La Picantería</span><br>
+      <span class="lang-en inline-content">La Picantería</span><br>
+      <span class="lang-es inline-content">El Perú servido en su mesa.</span>
+      <span class="lang-en inline-content">Peru served at your table.</span>
+    </p>
+    <p>
+      <span class="lang-es inline-content">
+        En La Picantería creemos que la buena mesa es un acto de memoria y celebración.
+        Aquí no solo se viene a comer: se viene a encontrarse con el Perú.
+      </span>
+      <span class="lang-en inline-content">
+        At La Picantería we believe that good dining is an an act of memory and celebration.
+        Here, you don’t just come to eat – you come to encounter Peru.
+      </span>
+    </p>
+    <p>
+      <span class="lang-es inline-content">
+        Nacimos inspirados en las antiguas Picanterías del Norte y del Sur, esos espacios donde la cocina se compartía en grandes mesas y el sabor unía a familias enteras. Hoy, desde Lima, mantenemos vivo ese espíritu, combinando tradición y modernidad en cada plato.
+      </span>
+      <span class="lang-en inline-content">
+        Inspired by the traditional picanterías of the North and South, those lively spaces where food was shared at large tables and flavor brought entire families together, we keep that spirit alive today from Lima, blending tradition and modernity in every dish.
+      </span>
+    </p>
+    <p>
+      <span class="lang-es inline-content">
+        A lo largo de toda la costa, nuestros pescadores nos traen el mar fresco cada mañana; los agricultores, la riqueza de nuestra tierra; y nuestro equipo, con respeto y pasión, transforma esos productos en experiencias que hablan de historia y orgullo.
+      </span>
+      <span class="lang-en inline-content">
+        Along our vast coastline, fishermen bring us the freshest catch every morning; from the land, farmers provide the richness of their harvests; and our team, with respect and passion, transforms these ingredients into experiences that speak of history and pride.
+      </span>
+    </p>
+    <p>
+      <span class="lang-es inline-content">
+        En nuestras mesas todo se comparte: desde el clásico cebiche, los guisos , los sudados, los asados , la parrilla. Sabores intensos, honestos, nacidos del fuego y de la paciencia, que nos recuerdan quiénes somos y de dónde venimos.
+      </span>
+      <span class="lang-en inline-content">
+        At our tables, everything is meant to be shared: from the classic cebiche to stews, hearty fish broths, slow roasts, and dishes from the grill. Bold, honest flavors born of fire and patience, reminding us who we are and where we came from.
+      </span>
+    </p>
+    <p>
+      <span class="lang-es inline-content">
+        La Picantería es un homenaje al Perú.
+        Un punto de encuentro para amigos, familias, viajeros y amantes de la cocina peruana que buscan autenticidad, producto y tradición servidos con orgullo.
+      </span>
+      <span class="lang-en inline-content">
+        La Picantería is a tribute to Peru.
+        A meeting place for friends, families, travelers, and lovers of Peruvian cuisine, all seeking authenticity, the finest ingredients, and tradition served with pride.
+      </span>
+    </p>
+    <p>
+      <span class="lang-es inline-content">
+        Bienvenido a La Picantería.
+        Siéntese a la mesa. Aquí todo empieza.
+      </span>
+      <span class="lang-en inline-content">
+        Welcome to La Picantería.
+        Take a seat. This is where everything begins.
+      </span>
+    </p>
+  </section>
+  <div class="contact-map-section" id="contactos">
+    <h2 class="lang-es">Visítanos y Contáctanos</h2>
+    <h2 class="lang-en">Visit and Contact Us</h2>
+    <div class="content-wrapper">
+      <div class="map-container-wrapper">
+        <h3 class="lang-es">Encuéntranos Aquí</h3>
+        <h3 class="lang-en">Find Us Here</h3>
+        <div class="map-container">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d62414.91981038331!2d-77.074764!3d-12.1167718!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105c81045eb8aff%3A0x9cce78ba3005d3f2!2sLa%20Picanter%C3%ADa!5e0!3m2!1ses!2spe!4v1750265087532!5m2!1ses!2spe!4v1750265087532!5m2!1ses!2spe"
+            width="600"
+            height="450"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </div>
+      <div class="contact-info-wrapper">
+    <h3 class="lang-es">Información de Contacto</h3>
+    <h3 class="lang-en">Contact Information</h3>
+    <div class="contact-item">
+        <a href="https://maps.google.com/?cid=11299101256184091634&g_mp=CiVnb29nbGUu<all_urls>maps.places.v1.Places.GetPlceu" target="_blank" aria-label="Ver en Google Maps">
+            <i class="fas fa-map-marker-alt"></i>
+        </a>
+        <span class="lang-es inline-content">Jr.Francisco Moreno 388, Surquillo, Lima, Perú</span>
+        <span class="lang-en inline-content">Jr.Francisco Moreno 388, Surquillo, Lima, Peru</span>
+    </div>
+    <div class="contact-item">
+        <a href="tel:+51953489892" aria-label="Llamar por teléfono">
+            <i class="fas fa-phone"></i>
+        </a>
+        <span class="lang-es inline-content">+51 953 489 892</span>
+        <span class="lang-en inline-content">+51 953 489 892</span>
+    </div>
+    <div class="contact-item">
+        <a href="mailto:informes@picanteriasdelperu.com" aria-label="Enviar correo a informes">
+            <i class="fas fa-envelope"></i>
+        </a>
+        <span class="lang-es inline-content">informes@picanteriasdelperu.com</span>
+        <span class="lang-en inline-content">informes@picanteriasdelperu.com</span>
+    </div>
+    <div class="contact-item">
+        <a href="mailto:lapicanteriasurquillo@gmail.com" aria-label="Enviar correo a lapicanteriasurquillo">
+            <i class="fas fa-envelope"></i>
+        </a>
+        <span class="lang-es inline-content">lapicanteriasurquillo@gmail.com</span>
+        <span class="lang-en inline-content">lapicanteriasurquillo@gmail.com</span>
+    </div>
+    <div class="contact-item">
+        <i class="fas fa-clock"></i>
+        <span class="lang-es inline-content">Mar-Dom: 12:00 PM - 5:30 PM</span>
+        <span class="lang-en inline-content">Tue-Sun: 12:00 PM - 5:30 PM</span>
+    </div>
+    <p class="visit-message">
+        <span class="lang-es inline-content">¡Esperamos tu visita para que piques y te rías!</span>
+        <span class="lang-en inline-content">We look forward to your visit so you can snack and laugh!</span>
+    </p>
+  </div>
+</div>
+</div>
+<div class="text">
+    <span class="lang-es inline-content">Encuéntranos en:</span>
+    <span class="lang-en inline-content">Find us on:</span>
+</div>
+<div class="social-icons">
+      <a href="https://www.facebook.com/share/1HTYw9wM1Q/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+      <a href="https://www.instagram.com/lapicanteriasurquillo?igsh=MWkwZXR5MDltbnJudQ==" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="https://api.whatsapp.com/send?phone=51953489892&text=Hola!%20Me%20gustaría%20realizar%20un%20pedido."target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://www.google.com/maps/place/La+Picanter%C3%ADa/@-12.1167718,-77.0263581,17z/data=!3m1!4b1!4m6!3m5!1s0x9105c81045eb8aff:0x9cce78ba3005d3f2!8m2!3d-12.1167718!4d-77.0237832!16s%2Fg%2F1pp2vk2y_?entry=ttu&g_ep=EgoyMDI1MDcyMC4wIKXMDSoASAFQAw%3D%3D" target="_blank" aria-label="Google Maps"><i class="fas fa-map-marker-alt"></i></a>
+    </div>
+</section>
+  <a class="whatsapp-float" href="https://api.whatsapp.com/send?phone=51953489892&text=Hola!%20Me%20gustaría%20realizar%20un%20pedido."  target="_blank">
+    <i class="fab fa-whatsapp"></i>
+    <span class="lang-es inline-flex-content">¿Necesitas ayuda? ¡Contáctanos!</span>
+    <span class="lang-en inline-flex-content">Need help? Contact us!</span>
+  </a>
+ <footer class="main-footer">
+    <p>
+        <span class="lang-es inline-content">&copy; 2025 La Picantería. Todos los derechos reservados.</span>
+        <span class="lang-en inline-content">&copy; 2025 La Picantería. All rights reserved.</span>
+    </p>
+    <div class="footer-links">
+    </div>
+</footer>
+    <script>
+    let reservationMessage;
+    let currentLanguage = localStorage.getItem('language') || 'es';
+
+    function setLanguage(lang){
+        currentLanguage = lang;
+        localStorage.setItem('language',lang);
+
+        // Elimina las clases de idioma existentes del body
+        document.body.classList.remove('lang-active-es', 'lang-active-en');
+        // Añade la clase del idioma activo al body
+        document.body.classList.add(`lang-active-${lang}`);
+
+        document.querySelectorAll('.language-switcher button').forEach(button=>{
+            button.classList.remove('active');
+        });
+        document.getElementById(`lang-${lang}-btn`).classList.add('active');
+        document.documentElement.lang = lang;
+
+        // Asegura que el mensaje de reserva se muestre brevemente al cambiar de idioma
+        if (reservationMessage) {
+            reservationMessage.classList.add('show');
+            clearTimeout(reservationMessage.hideTimeout); // Limpia cualquier temporizador de ocultación existente
+            reservationMessage.hideTimeout = setTimeout(()=>{
+                reservationMessage.classList.remove('show');
+            },5000); // Muestra por 5 segundos
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded',()=>{
+        reservationMessage = document.getElementById('reservation-message');
+        // Muestra el mensaje inicial por 5 segundos al cargar la página
+        if (reservationMessage) {
+            reservationMessage.classList.add('show');
+            reservationMessage.hideTimeout = setTimeout(()=>{
+                reservationMessage.classList.remove('show');
+            },5000);
+        }
+        
+        document.querySelectorAll('nav.main-nav a').forEach(anchor=>{
+            anchor.addEventListener('click',function(e){
+                const targetId=this.getAttribute('href');
+                if(targetId.startsWith('#')){
+                    e.preventDefault();
+                    const targetElement=document.querySelector(targetId);
+                    if(targetElement){
+                        targetElement.scrollIntoView({
+                            behavior:'smooth'
+                        });
+                    }
+                }
+            });
+        });
+
+        document.getElementById('lang-es-btn').addEventListener('click',()=>setLanguage('es'));
+        document.getElementById('lang-en-btn').addEventListener('click',()=>setLanguage('en'));
+        
+        // Establece el idioma inicial al cargar la página
+        setLanguage(currentLanguage);
+
+        // --- Lógica del Carrusel y Modal ---
+        const carouselTrack = document.querySelector('.carousel-track');
+        const prevButton = document.querySelector('.carousel-prev');
+        const nextButton = document.querySelector('.carousel-next');
+        const dotsContainer = document.querySelector('.carousel-dots');
+        const images = [
+            '../static/img/LP 1 (1).jpg',
+            '../static/img/LP 2.jpg',
+            '../static/img/44pimentel1.jpg',
+            '../static/img/LP 5.jpg',
+            '../static/img/LP 17.jpg',
+            '../static/img/LP 10.jpg',
+            '../static/img/LP 28.jpg',
+            '../static/img/LP 29.jpg',
+            '../static/img/LP 32.jpg',
+            '../static/img/LP 42.jpg',
+            '../static/img/solis_0016.jpg',
+            '../static/img/_63I0906.jpg',
+            
+        ];
+        let currentIndex = 0;
+        let autoSlideInterval;
+
+        // Rellenar el carrusel y los puntos
+        images.forEach((image, index) => {
+            // Añadir imagen al carrusel
+            const item = document.createElement('div');
+            item.className = 'carousel-item';
+            const img = document.createElement('img');
+            img.src = image;
+            img.alt = `Plato Estrella ${index + 1}`;
+            img.setAttribute('loading', 'lazy'); // Agregado el atributo lazy loading
+            img.setAttribute('onerror', 'this.onerror=null;this.src="https://placehold.co/800x500/A0A0A0/FFFFFF?text=Error";'); // Placeholder en caso de error
+            item.appendChild(img);
+            carouselTrack.appendChild(item);
+
+            // Añadir punto de navegación
+            const dot = document.createElement('div');
+            dot.className = 'dot';
+            if (index === 0) {
+                dot.classList.add('active');
+            }
+            dot.addEventListener('click', () => {
+                currentIndex = index;
+                updateCarousel();
+                stopAutoSlide(); // Detener el carrusel al hacer clic en un punto
+                startAutoSlide(); // Reiniciar el carrusel después de un tiempo
+            });
+            dotsContainer.appendChild(dot);
+        });
+
+        const dots = document.querySelectorAll('.dot');
+        const items = document.querySelectorAll('.carousel-item');
+        const carouselContainer = document.querySelector('.carousel-container');
+
+        function updateCarousel() {
+            const itemWidth = items[0].offsetWidth;
+            carouselTrack.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
+
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentIndex);
+            });
+        }
+
+        function nextSlide() {
+            currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
+            updateCarousel();
+        }
+
+        function prevSlide() {
+            currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
+            updateCarousel();
+        }
+        
+        function startAutoSlide() {
+            // Limpiar cualquier intervalo existente para evitar duplicados
+            stopAutoSlide();
+            autoSlideInterval = setInterval(nextSlide, 3000); // Cambia cada 3 segundos
+        }
+
+        function stopAutoSlide() {
+            clearInterval(autoSlideInterval);
+        }
+
+        prevButton.addEventListener('click', () => {
+            prevSlide();
+            stopAutoSlide(); // Detener al hacer clic
+            startAutoSlide(); // Reiniciar
+        });
+
+        nextButton.addEventListener('click', () => {
+            nextSlide();
+            stopAutoSlide(); // Detener al hacer clic
+            startAutoSlide(); // Reiniciar
+        });
+
+        carouselContainer.addEventListener('mouseenter', stopAutoSlide);
+        carouselContainer.addEventListener('mouseleave', startAutoSlide);
+
+        // Lógica del modal de imágenes
+        const modal = document.getElementById('image-modal');
+        const modalImage = document.getElementById('modal-image');
+        const modalCloseBtn = document.getElementById('modal-close-btn');
+
+        items.forEach(item => {
+            item.addEventListener('click', (e) => {
+                const clickedImageSrc = e.target.src;
+                modalImage.src = clickedImageSrc;
+                modal.classList.add('show');
+            });
+        });
+
+        modalCloseBtn.addEventListener('click', () => {
+            modal.classList.remove('show');
+        });
+
+        // Cerrar el modal al hacer clic fuera de la imagen
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('show');
+            }
+        });
+
+        // Cerrar con la tecla Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                modal.classList.remove('show');
+            }
+        });
+
+        // Asegurarse de que el carrusel se adapte al redimensionar la ventana
+        window.addEventListener('resize', updateCarousel);
+        
+        // Carga inicial
+        updateCarousel();
+        startAutoSlide(); // Iniciar el carrusel automático
+    });
+  </script>
+</body>
+</html>
