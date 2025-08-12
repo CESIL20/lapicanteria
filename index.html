@@ -531,22 +531,44 @@
         text-shadow:none; /* Quitado el text-shadow para fondo claro */
     }
     .text {color:white;font-size:1.6em;margin-top:40px;margin-bottom:20px;display:flex;justify-content:center;width:100%;} /* Texto blanco */
-    .social-icons {display:flex;justify-content:center;gap:30px;padding-bottom:10px;}
-    .social-icons a {color:white;font-size:2em;transition:color 0.3s ease,transform 0.2s ease;text-decoration:none;} /* Iconos blancos por defecto */
-    .social-icons a:hover {transform:translateY(-3px);}
-    .social-icons .fa-facebook {color:#1877F2;}
-    .social-icons .fa-instagram {background:linear-gradient(45deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-    .social-icons .fa-whatsapp {color:#25d366;}
-    .social-icons .fa-map-marker-alt {color:#DB4437;}
+    .social-icons {display: flex;justify-content: center;gap: 30px;padding-bottom: 10px;}
+    .social-icons a {color: white;font-size: 2em;transition: color 0.3s ease, transform 0.2s ease;text-decoration: none;}
+    .social-icons a:hover {transform: translateY(-3px);}
+    .social-icons .fa-facebook {color: #1877f2;}
+    .social-icons .fa-instagram {background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);-webkit-background-clip: text;-webkit-text-fill-color: transparent;}
+    .social-icons .fa-whatsapp {color: #25d366;}
+    .social-icons .fa-map-marker-alt {color: #db4437;}
 
-    /* Media Queries para Contacto y Redes Sociales */
-    @media (max-width:900px){
-        .content-wrapper{flex-direction:column;align-items:center;}
-        .map-container-wrapper,.contact-info-wrapper{max-width:90%;min-width:unset;width:100%;}
-        .map-container iframe{height:250px;}
-        .contact-map-section h2{font-size:2em;}
-        .map-container-wrapper h3,.contact-info-wrapper h3{font-size:1.6em;}
-        .social-icons{font-size:2em;gap:15px;}
+/* Media Queries para Contacto y Redes Sociales */
+@media (max-width: 900px) {
+  .content-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+  .map-container-wrapper,
+  .contact-info-wrapper {
+    max-width: 90%;
+    min-width: unset;
+    width: 100%;
+  }
+  .map-container iframe {
+    height: 250px;
+  }
+  .contact-map-section h2 {
+    font-size: 2em;
+  }
+  .map-container-wrapper h3,
+  .contact-info-wrapper h3 {
+    font-size: 1.6em;
+  }
+  .social-icons {
+    /* Aquí es donde se ajusta el tamaño en pantallas pequeñas */
+    gap: 15px;
+  }
+  .social-icons a {
+    font-size: 1.5em; /* Nuevo tamaño del ícono */
+  }
+}
     }
     @media (max-width:768px){
         .theme-content-wrapper{
