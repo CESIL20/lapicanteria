@@ -431,10 +431,20 @@
         color: #00BFFF; /* Cambia el color del texto a azul vibrante en hover */
         transform: none; /* No hay transformación en hover */
     }   
+    .preparation-content {
+        display: none; /* Ahora la sección se ocultará, la imagen se mostrará en el modal */
+        justify-content: center;
+    }
     .preparation-image {
-    display: none; /* Oculta todas las fotos por defecto */
-    /* Agrega aquí más estilos para el tamaño, bordes, etc. */
-}
+        display: none; /* Ocultamos todas las imágenes en línea */
+        max-width: 100%;
+        border-radius: 10px;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+    }
+    /* El primer elemento siempre se muestra por defecto */
+    .preparation-image:first-of-type {
+        display: none; /* No se muestra por defecto para que funcione con el modal */
+    }
     /* Sección Historia */
     .historia-section h2 {color:#00BFFF;font-size:2em;margin-bottom:30px;} /* Azul vibrante para títulos */
     .historia-section {
