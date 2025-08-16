@@ -430,8 +430,11 @@
         border-bottom-color: #00BFFF; /* Azul vibrante para hover */
         color: #00BFFF; /* Cambia el color del texto a azul vibrante en hover */
         transform: none; /* No hay transformación en hover */
-    }
-
+    }   
+    .preparation-image {
+    display: none; /* Oculta todas las fotos por defecto */
+    /* Agrega aquí más estilos para el tamaño, bordes, etc. */
+}
     /* Sección Historia */
     .historia-section h2 {color:#00BFFF;font-size:2em;margin-bottom:30px;} /* Azul vibrante para títulos */
     .historia-section {
@@ -721,35 +724,34 @@
       </div>
       <div class="theme-text-column">
        <div class="preparation-buttons">
-          <div class="preparation-button btn-ceviche"><span class="lang-es inline-content">Ceviche</span><span class="lang-en inline-content">Ceviche</span></div>
-          <div class="preparation-button btn-jaladito-moche"><span class="lang-es inline-content">Jaladito Moche</span><span class="lang-en inline-content">Jaladito Moche</span></div>
-          <div class="preparation-button btn-a la parrilla"><span class="lang-es inline-content">A la Parrilla</span><span class="lang-en inline-content">Grilled</span></div>
-          <div class="preparation-button btn-al ajo y mantequilla"><span class="lang-es inline-content">Al Ajo y Mantequilla</span><span class="lang-en inline-content">With Garlic and Butter</span></div>
-          <div class="preparation-button btn-en jalea limeña"><span class="lang-es inline-content">En Jalea Limeña</span><span class="lang-en inline-content">In Limeña Jelly</span></div>
-          <div class="preparation-button btn-en jalea chiclayana"><span class="lang-es inline-content">En Jalea Chiclayana</span><span class="lang-en inline-content">In Chiclayana Jelly</span></div>
-          <div class="preparation-button btn-dulce y picosa"><span class="lang-es inline-content">Dulce y Picosa</span><span class="lang-en inline-content">Sweet and Spicy</span></div>
-          <div class="preparation-button btn-al vapor"><span class="lang-es inline-content">Al Vapor</span><span class="lang-en inline-content">Steamed</span></div>
-          <div class="preparation-button btn-en sudado"><span class="lang-es inline-content">En Sudado</span><span class="lang-en inline-content">In Sudado</span></div>
-          <div class="preparation-button btn-en escabeche"><span class="lang-es inline-content">En Escabeche</span><span class="lang-en inline-content">In Escabeche</span></div>
-          <div class="preparation-button btn-en chaufa"><span class="lang-es inline-content">En Chaufa</span><span class="lang-en inline-content">In Chaufa</span></div>
-          <div class="preparation-button btn-en estofado"><span class="lang-es inline-content">En Estofado</span><span class="lang-en inline-content">In Stew</span></div>
-       </div>
+    <div class="preparation-button" data-meal="ceviche"><span class="lang-es inline-content">Ceviche</span><span class="lang-en inline-content">Ceviche</span></div>
+    <div class="preparation-button" data-meal="jaladito-moche"><span class="lang-es inline-content">Jaladito Moche</span><span class="lang-en inline-content">Jaladito Moche</span></div>
+    <div class="preparation-button" data-meal="a-la-parrilla"><span class="lang-es inline-content">A la Parrilla</span><span class="lang-en inline-content">Grilled</span></div>
+    <div class="preparation-button" data-meal="al-ajo-y-mantequilla"><span class="lang-es inline-content">Al Ajo y Mantequilla</span><span class="lang-en inline-content">With Garlic and Butter</span></div>
+    <div class="preparation-button" data-meal="en-jalea-limena"><span class="lang-es inline-content">En Jalea Limeña</span><span class="lang-en inline-content">In Limeña Jelly</span></div>
+    <div class="preparation-button" data-meal="en-jalea-chiclayana"><span class="lang-es inline-content">En Jalea Chiclayana</span><span class="lang-en inline-content">In Chiclayana Jelly</span></div>
+    <div class="preparation-button" data-meal="dulce-y-picosa"><span class="lang-es inline-content">Dulce y Picosa</span><span class="lang-en inline-content">Sweet and Spicy</span></div>
+    <div class="preparation-button" data-meal="al-vapor"><span class="lang-es inline-content">Al Vapor</span><span class="lang-en inline-content">Steamed</span></div>
+    <div class="preparation-button" data-meal="en-sudado"><span class="lang-es inline-content">En Sudado</span><span class="lang-en inline-content">In Sudado</span></div>
+    <div class="preparation-button" data-meal="en-escabeche"><span class="lang-es inline-content">En Escabeche</span><span class="lang-en inline-content">In Escabeche</span></div>
+    <div class="preparation-button" data-meal="en-chaufa"><span class="lang-es inline-content">En Chaufa</span><span class="lang-en inline-content">In Chaufa</span></div>
+    <div class="preparation-button" data-meal="en-estofado"><span class="lang-es inline-content">En Estofado</span><span class="lang-en inline-content">In Stew</span></div>
+</div>
 
 <div class="image-container">
     <img src="ruta/a/tu/imagen-ceviche.jpg" alt="Ceviche" class="preparation-image" data-image="btn-ceviche">
     <img src="ruta/a/tu/imagen-jaladito.jpg" alt="Jaladito Moche" class="preparation-image" data-image="btn-jaladito-moche">
-    <img src="ruta/a/tu/imagen-a la parrilla.jpg" alt="Ceviche" class="preparation-image" data-image="btn-a la parrilla">
-    <img src="ruta/a/tu/imagen-al ajo y mantequilla.jpg" alt="Jaladito Moche" class="preparation-image" data-image="btn-al ajo y mantequilla">
-    <img src="ruta/a/tu/imagen-en jalea limeña.jpg" alt="Ceviche" class="preparation-image" data-image="btn-en jalea limeña">
-    <img src="ruta/a/tu/imagen-en jalea chiclayana.jpg" alt="Jaladito Moche" class="preparation-image" data-image="btn-en jalea chiclayana">
-    <img src="ruta/a/tu/imagen-dulce y picosa.jpg" alt="Ceviche" class="preparation-image" data-image="btn-dulce y picosa">
-    <img src="ruta/a/tu/imagen-al vapor.jpg" alt="Jaladito Moche" class="preparation-image" data-image="btn-al vapor">
-    <img src="ruta/a/tu/imagen-en sudado.jpg" alt="Ceviche" class="preparation-image" data-image="btn-en sudado">
-    <img src="ruta/a/tu/imagen-en jalea escabeche.jpg" alt="Jaladito Moche" class="preparation-image" data-image="btn-en escabeche">
-    <img src="ruta/a/tu/imagen-en chaufa.jpg" alt="Ceviche" class="preparation-image" data-image="btn-en chaufa">
-    <img src="ruta/a/tu/imagen-en estofado.jpg" alt="Jaladito Moche" class="preparation-image" data-image="btn-en estofado">
-    </div>
-
+    <img src="ruta/a/tu/imagen-a-la-parrilla.jpg" alt="A la Parrilla" class="preparation-image" data-image="btn-a-la-parrilla">
+    <img src="ruta/a/tu/imagen-al-ajo-y-mantequilla.jpg" alt="Al Ajo y Mantequilla" class="preparation-image" data-image="btn-al-ajo-y-mantequilla">
+    <img src="ruta/a/tu/imagen-en-jalea-limena.jpg" alt="En Jalea Limeña" class="preparation-image" data-image="btn-en-jalea-limena">
+    <img src="ruta/a/tu/imagen-en-jalea-chiclayana.jpg" alt="En Jalea Chiclayana" class="preparation-image" data-image="btn-en-jalea-chiclayana">
+    <img src="ruta/a/tu/imagen-dulce-y-picosa.jpg" alt="Dulce y Picosa" class="preparation-image" data-image="btn-dulce-y-picosa">
+    <img src="ruta/a/tu/imagen-al-vapor.jpg" alt="Al Vapor" class="preparation-image" data-image="btn-al-vapor">
+    <img src="ruta/a/tu/imagen-en-sudado.jpg" alt="En Sudado" class="preparation-image" data-image="btn-en-sudado">
+    <img src="ruta/a/tu/imagen-en-escabeche.jpg" alt="En Escabeche" class="preparation-image" data-image="btn-en-escabeche">
+    <img src="ruta/a/tu/imagen-en-chaufa.jpg" alt="En Chaufa" class="preparation-image" data-image="btn-en-chaufa">
+    <img src="ruta/a/tu/imagen-en-estofado.jpg" alt="En Estofado" class="preparation-image" data-image="btn-en-estofado">
+</div>
   <section id="historia" class="historia-section">
     <h2 class="lang-es">Nuestra Historia</h2>
     <h2 class="lang-en">Our History</h2>
@@ -1096,7 +1098,32 @@
         // Carga inicial
         updateCarousel();
         startAutoSlide(); // Iniciar el carrusel automático
+       });
+      
+      document.addEventListener('DOMContentLoaded', () => {
+    const buttons = document.querySelectorAll('.preparation-button');
+    const images = document.querySelectorAll('.preparation-image');
+
+    buttons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Oculta todas las imágenes
+            images.forEach(image => {
+                image.style.display = 'none';
+            });
+
+            // Obtiene el valor del atributo de datos del botón
+            // Asegúrate de que este valor coincida con el data-image de las imágenes
+            const buttonData = button.getAttribute('data-meal');
+
+            // Encuentra la imagen que coincide
+            const targetImage = document.querySelector(`.preparation-image[data-image="btn-${buttonData}"]`);
+
+            if (targetImage) {
+                targetImage.style.display = 'block';
+            }
+        });
     });
+});
   </script>
 </body>
 </html>
