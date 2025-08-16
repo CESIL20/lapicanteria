@@ -338,7 +338,7 @@
     }
 
     /* Sección Nuestra Temática */
-    .our-theme-section {
+   .our-theme-section {
         width: 100%;
         max-width: 1330px;
         margin: 40px auto;
@@ -430,22 +430,15 @@
         border-bottom-color: #00BFFF; /* Azul vibrante para hover */
         color: #00BFFF; /* Cambia el color del texto a azul vibrante en hover */
         transform: none; /* No hay transformación en hover */
-    }   
-    .preparation-content {
-        display: none; /* Ahora la sección se ocultará, la imagen se mostrará en el modal */
-        justify-content: center;
     }
+    
     .preparation-image {
         display: none; /* Ocultamos todas las imágenes en línea */
         max-width: 100%;
         border-radius: 10px;
         box-shadow: 0 5px 10px rgba(0,0,0,0.3);
     }
-    /* El primer elemento siempre se muestra por defecto */
-    .preparation-image:first-of-type {
-        display: none; /* No se muestra por defecto para que funcione con el modal */
-    }
-    /* Sección Historia */
+    
     .historia-section h2 {color:#00BFFF;font-size:2em;margin-bottom:30px;} /* Azul vibrante para títulos */
     .historia-section {
         font-size:18px;
@@ -732,36 +725,79 @@
       <div class="theme-image-column">
         <img src="s100.jpg" alt="Pescados frescos en exhibición" width="800" height="500" onerror="this.onerror=null;this.src='https://placehold.co/800x500/808000/FFFFFF?text=Pescados+frescos';" loading="lazy">
       </div>
-      <div class="theme-text-column">
-       <div class="preparation-buttons">
-    <div class="preparation-button" data-meal="ceviche"><span class="lang-es inline-content">Ceviche</span><span class="lang-en inline-content">Ceviche</span></div>
-    <div class="preparation-button" data-meal="jaladito-moche"><span class="lang-es inline-content">Jaladito Moche</span><span class="lang-en inline-content">Jaladito Moche</span></div>
-    <div class="preparation-button" data-meal="a-la-parrilla"><span class="lang-es inline-content">A la Parrilla</span><span class="lang-en inline-content">Grilled</span></div>
-    <div class="preparation-button" data-meal="al-ajo-y-mantequilla"><span class="lang-es inline-content">Al Ajo y Mantequilla</span><span class="lang-en inline-content">With Garlic and Butter</span></div>
-    <div class="preparation-button" data-meal="en-jalea-limena"><span class="lang-es inline-content">En Jalea Limeña</span><span class="lang-en inline-content">In Limeña Jelly</span></div>
-    <div class="preparation-button" data-meal="en-jalea-chiclayana"><span class="lang-es inline-content">En Jalea Chiclayana</span><span class="lang-en inline-content">In Chiclayana Jelly</span></div>
-    <div class="preparation-button" data-meal="dulce-y-picosa"><span class="lang-es inline-content">Dulce y Picosa</span><span class="lang-en inline-content">Sweet and Spicy</span></div>
-    <div class="preparation-button" data-meal="al-vapor"><span class="lang-es inline-content">Al Vapor</span><span class="lang-en inline-content">Steamed</span></div>
-    <div class="preparation-button" data-meal="en-sudado"><span class="lang-es inline-content">En Sudado</span><span class="lang-en inline-content">In Sudado</span></div>
-    <div class="preparation-button" data-meal="en-escabeche"><span class="lang-es inline-content">En Escabeche</span><span class="lang-en inline-content">In Escabeche</span></div>
-    <div class="preparation-button" data-meal="en-chaufa"><span class="lang-es inline-content">En Chaufa</span><span class="lang-en inline-content">In Chaufa</span></div>
-    <div class="preparation-button" data-meal="en-estofado"><span class="lang-es inline-content">En Estofado</span><span class="lang-en inline-content">In Stew</span></div>
-        <div class="image-container">
-    <img src="ruta/a/tu/imagen-ceviche.jpg" alt="Ceviche" class="preparation-image" data-image="btn-ceviche">
-    <img src="ruta/a/tu/imagen-jaladito.jpg" alt="Jaladito Moche" class="preparation-image" data-image="btn-jaladito-moche">
-    <img src="ruta/a/tu/imagen-a-la-parrilla.jpg" alt="A la Parrilla" class="preparation-image" data-image="btn-a-la-parrilla">
-    <img src="ruta/a/tu/imagen-al-ajo-y-mantequilla.jpg" alt="Al Ajo y Mantequilla" class="preparation-image" data-image="btn-al-ajo-y-mantequilla">
-    <img src="ruta/a/tu/imagen-en-jalea-limena.jpg" alt="En Jalea Limeña" class="preparation-image" data-image="btn-en-jalea-limena">
-    <img src="ruta/a/tu/imagen-en-jalea-chiclayana.jpg" alt="En Jalea Chiclayana" class="preparation-image" data-image="btn-en-jalea-chiclayana">
-    <img src="ruta/a/tu/imagen-dulce-y-picosa.jpg" alt="Dulce y Picosa" class="preparation-image" data-image="btn-dulce-y-picosa">
-    <img src="ruta/a/tu/imagen-al-vapor.jpg" alt="Al Vapor" class="preparation-image" data-image="btn-al-vapor">
-    <img src="ruta/a/tu/imagen-en-sudado.jpg" alt="En Sudado" class="preparation-image" data-image="btn-en-sudado">
-    <img src="ruta/a/tu/imagen-en-escabeche.jpg" alt="En Escabeche" class="preparation-image" data-image="btn-en-escabeche">
-    <img src="ruta/a/tu/imagen-en-chaufa.jpg" alt="En Chaufa" class="preparation-image" data-image="btn-en-chaufa">
-    <img src="ruta/a/tu/imagen-en-estofado.jpg" alt="En Estofado" class="preparation-image" data-image="btn-en-estofado">
-</div>
-       </div>
+       <!-- Columna de botones y menú oculto -->
+        <div class="theme-text-column">
+          <!-- Contenedor de botones (tu estructura proporcionada) -->
+          <div class="preparation-buttons">
+            <button class="preparation-button" data-meal="ceviche">
+              <span class="lang-es inline-content">Ceviche</span>
+              <span class="lang-en inline-content hidden">Ceviche</span>
+            </button>
+            <button class="preparation-button" data-meal="jaladito-moche">
+              <span class="lang-es inline-content">Jaladito Moche</span>
+              <span class="lang-en inline-content hidden">Jaladito Moche</span>
+            </button>
+            <button class="preparation-button" data-meal="a-la-parrilla">
+              <span class="lang-es inline-content">A la Parrilla</span>
+              <span class="lang-en inline-content hidden">Grilled</span>
+            </button>
+            <button class="preparation-button" data-meal="al-ajo-y-mantequilla">
+              <span class="lang-es inline-content">Al Ajo y Mantequilla</span>
+              <span class="lang-en inline-content hidden">With Garlic and Butter</span>
+            </button>
+            <button class="preparation-button" data-meal="en-jalea-limena">
+              <span class="lang-es inline-content">En Jalea Limeña</span>
+              <span class="lang-en inline-content hidden">In Limeña Jelly</span>
+            </button>
+            <button class="preparation-button" data-meal="en-jalea-chiclayana">
+              <span class="lang-es inline-content">En Jalea Chiclayana</span>
+              <span class="lang-en inline-content hidden">In Chiclayana Jelly</span>
+            </button>
+            <button class="preparation-button" data-meal="dulce-y-picosa">
+              <span class="lang-es inline-content">Dulce y Picosa</span>
+              <span class="lang-en inline-content hidden">Sweet and Spicy</span>
+            </button>
+            <button class="preparation-button" data-meal="al-vapor">
+              <span class="lang-es inline-content">Al Vapor</span>
+              <span class="lang-en inline-content hidden">Steamed</span>
+            </button>
+            <button class="preparation-button" data-meal="en-sudado">
+              <span class="lang-es inline-content">En Sudado</span>
+              <span class="lang-en inline-content hidden">In Sudado</span>
+            </button>
+            <button class="preparation-button" data-meal="en-escabeche">
+              <span class="lang-es inline-content">En Escabeche</span>
+              <span class="lang-en inline-content hidden">In Escabeche</span>
+            </button>
+            <button class="preparation-button" data-meal="en-chaufa">
+              <span class="lang-es inline-content">En Chaufa</span>
+              <span class="lang-en inline-content hidden">In Chaufa</span>
+            </button>
+            <button class="preparation-button" data-meal="en-estofado">
+              <span class="lang-es inline-content">En Estofado</span>
+              <span class="lang-en inline-content hidden">In Stew</span>
+            </button>
+          </div>
+          
+          <!-- Contenedor de imágenes (se mantiene oculto) -->
+          <div class="image-container">
+            <!-- He cambiado las rutas de las imágenes a un placeholder genérico -->
+            <img src="https://placehold.co/600x400/2a2a2a/ffffff?text=Ceviche" alt="Ceviche" class="preparation-image" data-image="btn-ceviche">
+            <img src="https://placehold.co/600x400/2a2a2a/ffffff?text=Jaladito+Moche" alt="Jaladito Moche" class="preparation-image" data-image="btn-jaladito-moche">
+            <img src="https://placehold.co/600x400/2a2a2a/ffffff?text=A+la+Parrilla" alt="A la Parrilla" class="preparation-image" data-image="btn-a-la-parrilla">
+            <img src="https://placehold.co/600x400/2a2a2a/ffffff?text=Al+Ajo+y+Mantequilla" alt="Al Ajo y Mantequilla" class="preparation-image" data-image="btn-al-ajo-y-mantequilla">
+            <img src="https://placehold.co/600x400/2a2a2a/ffffff?text=En+Jalea+Limeña" alt="En Jalea Limeña" class="preparation-image" data-image="btn-en-jalea-limena">
+            <img src="https://placehold.co/600x400/2a2a2a/ffffff?text=En+Jalea+Chiclayana" alt="En Jalea Chiclayana" class="preparation-image" data-image="btn-en-jalea-chiclayana">
+            <img src="https://placehold.co/600x400/2a2a2a/ffffff?text=Dulce+y+Picosa" alt="Dulce y Picosa" class="preparation-image" data-image="btn-dulce-y-picosa">
+            <img src="https://placehold.co/600x400/2a2a2a/ffffff?text=Al+Vapor" alt="Al Vapor" class="preparation-image" data-image="btn-al-vapor">
+            <img src="https://placehold.co/600x400/2a2a2a/ffffff?text=En+Sudado" alt="En Sudado" class="preparation-image" data-image="btn-en-sudado">
+            <img src="https://placehold.co/600x400/2a2a2a/ffffff?text=En+Escabeche" alt="En Escabeche" class="preparation-image" data-image="btn-en-escabeche">
+            <img src="https://placehold.co/600x400/2a2a2a/ffffff?text=En+Chaufa" alt="En Chaufa" class="preparation-image" data-image="btn-en-chaufa">
+            <img src="https://placehold.co/600x400/2a2a2a/ffffff?text=En+Estofado" alt="En Estofado" class="preparation-image" data-image="btn-en-estofado">
+          </div>
+        </div>
       </div>
+    </section>
   <section id="historia" class="historia-section">
     <h2 class="lang-es">Nuestra Historia</h2>
     <h2 class="lang-en">Our History</h2>
