@@ -167,39 +167,47 @@
         }
     }
 
-    .main-nav {
-        background-color: transparent;
-        padding: 0;
-        width: 100%;
-        position: relative;
-        z-index: 200;
-        margin-top: 0px;
-        padding-bottom: 10px;
-    }
-    .main-nav ul {
-        list-style: none;
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 10px;
-        margin: 0;
-        padding: 0;
-    }
-    .main-nav ul li a {
-        color: white; /* Texto blanco para el menú */
-        text-decoration: none;
-        font-weight: bold;
-        font-size: 18px;
-        transition: color 0.3s;
-        padding: 0px 8px;
-        display: block;
-        background-color: transparent;
-    }
-    .main-nav ul li a:hover {
-        background-color: transparent;
-        color: #d32f2f;
-    }
+    /* Estilos existentes para todas las pantallas */
+.main-nav {
+    background-color: transparent;
+    padding: 0;
+    width: 100%;
+    position: relative;
+    z-index: 200;
+    margin-top: 0px;
+    padding-bottom: 10px;
+}
+.main-nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+}
+.main-nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px; /* Tamaño de fuente para PC */
+    transition: color 0.3s;
+    padding: 0px 8px;
+    display: block;
+    background-color: transparent;
+}
+.main-nav ul li a:hover {
+    background-color: transparent;
+    color: #d32f2f;
+}
 
+/* Media query para pantallas más pequeñas, por ejemplo, 768px de ancho o menos */
+@media (max-width: 768px) {
+    .main-nav ul li a {
+        font-size: 16px; /* Tamaño de fuente más pequeño para móviles */
+        padding: 0px 6px; /* Ajuste el padding para un mejor espaciado en móviles */
+    }
+}
     /* CARRUSEL DE FOTOS */
     .carousel-section {
         width: 100%;
