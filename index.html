@@ -606,28 +606,36 @@
 
     /* WhatsApp Float Button */
     .whatsapp-float {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        background-color: #25d366;
-        color: white;
-        padding: 12px 20px;
-        border-radius: 30px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        font-size: 1.1em;
-        text-decoration: none;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        z-index: 1000;
-        transition: background-color 0.3s, transform 0.2s;
-    }
-    .whatsapp-float:hover {
-        background-color: #1da851;
-        transform: translateY(-3px);
-    }
-    .whatsapp-float i {font-size:1.5em;}
-
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #25d366;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1em;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            z-index: 1000;
+            transition: background-color 0.3s, transform 0.2s;
+            cursor: grab;
+        }
+        .whatsapp-float:active {
+            cursor: grabbing;
+        }
+        .whatsapp-float:hover {
+            background-color: #1da851;
+            transform: translateY(-3px);
+        }
+        .whatsapp-float i {font-size:1.5em;}
+        /* Opcional: Oculta los textos para un diseño más minimalista en móviles */
+        @media (max-width: 768px) {
+            .whatsapp-float .inline-flex-content {
+                display: none;
+            }
     /* Footer */
     .main-footer {
         background-color: #111; /* Fondo muy oscuro para el footer */
@@ -949,11 +957,12 @@
       <a href="https://www.google.com/maps/place/La+Picanter%C3%ADa/@-12.1167718,-77.0263581,17z/data=!3m1!4b1!4m6!3m5!1s0x9105c81045eb8aff:0x9cce78ba3005d3f2!8m2!3d-12.1167718!4d-77.0237832!16s%2Fg%2F1pp2vk2y_?entry=ttu&g_ep=EgoyMDI1MDcyMC4wIKXMDSoASAFQAw%3D%3D" target="_blank" aria-label="Google Maps"><i class="fas fa-map-marker-alt"></i></a>
     </div>
 </section>
-  <a class="whatsapp-float" href="https://api.whatsapp.com/send?phone=51953489892&text=Hola!%20Me%20gustaría%20realizar%20un%20pedido."  target="_blank">
-    <i class="fab fa-whatsapp"></i>
-    <span class="lang-es inline-flex-content">¿Necesitas ayuda? ¡Contáctanos!</span>
-    <span class="lang-en inline-flex-content">Need help? Contact us!</span>
-  </a>
+  <a id="whatsapp-draggable-button" class="whatsapp-float" href="https://api.whatsapp.com/send?phone=51953489892&text=Hola!%20Me%20gustaría%20realizar%20un%20pedido." target="_blank">
+        <i class="fab fa-whatsapp"></i>
+        <span class="lang-es inline-flex-content">¿Necesitas ayuda? ¡Contáctanos!</span>
+        <span class="lang-en inline-flex-content">Need help? Contact us!</span>
+    </a>
+
  <footer class="main-footer">
     <p>
         <span class="lang-es inline-content">&copy; 2025 La Picantería. Todos los derechos reservados.</span>
@@ -1184,6 +1193,56 @@
         });
     });
 });
+      document.addEventListener('DOMContentLoaded', (event) => {
+            const whatsappButton = document.getElementById('whatsapp-draggable-button');
+            let isDragging = false;
+            let offsetX, offsetY;
+
+            whatsappButton.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                e.preventDefault(); 
+                offsetX = e.clientX - whatsappButton.getBoundingClientRect().left;
+                offsetY = e.clientY - whatsappButton.getBoundingClientRect().top;
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                const newX = e.clientX - offsetX;
+                const newY = e.clientY - offsetY;
+                whatsappButton.style.left = newX + 'px';
+                whatsappButton.style.top = newY + 'px';
+                whatsappButton.style.right = 'auto';
+                whatsappButton.style.bottom = 'auto';
+            });
+
+            document.addEventListener('mouseup', () => {
+                isDragging = false;
+            });
+
+            // Soporte para pantallas táctiles
+            whatsappButton.addEventListener('touchstart', (e) => {
+                isDragging = true;
+                e.preventDefault();
+                const touch = e.touches[0];
+                offsetX = touch.clientX - whatsappButton.getBoundingClientRect().left;
+                offsetY = touch.clientY - whatsappButton.getBoundingClientRect().top;
+            });
+
+            document.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                const touch = e.touches[0];
+                const newX = touch.clientX - offsetX;
+                const newY = touch.clientY - offsetY;
+                whatsappButton.style.left = newX + 'px';
+                whatsappButton.style.top = newY + 'px';
+                whatsappButton.style.right = 'auto';
+                whatsappButton.style.bottom = 'auto';
+            });
+
+            document.addEventListener('touchend', () => {
+                isDragging = false;
+            });
+        });
   </script>
 </body>
 </html>
