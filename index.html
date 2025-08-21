@@ -689,7 +689,7 @@
     }
     .main-footer .footer-links a:hover {color:#00BFFF;} /* Azul vibrante para hover del footer */
 
-/* Mensaje de Reserva Flotante */
+ /* Mensaje de Reserva Flotante */
     #reservation-message {
         position: fixed;
         top: 50%;
@@ -711,9 +711,12 @@
         box-sizing: border-box;
     }
     #reservation-message.show {opacity:1;visibility:visible;}
-
+    @media (max-width: 768px) {
+        #reservation-message {
+            font-size: 1.2em;
+            padding: 15px 25px;
+        }
     }
-}
   </style>
 </head>
 <body class="lang-active-es"> <!-- Añadido lang-active-es por defecto -->
@@ -999,30 +1002,35 @@
 </footer>
     <script>
     let reservationMessage;
-let currentLanguage = localStorage.getItem('language') || 'es';
+    let currentLanguage = localStorage.getItem('language') || 'es';
 
-function setLanguage(lang) {
-    currentLanguage = lang;
-    localStorage.setItem('language', lang);
+    function setLanguage(lang) {
+        currentLanguage = lang;
+        localStorage.setItem('language', lang);
 
-    document.body.classList.remove('lang-active-es', 'lang-active-en');
-    document.body.classList.add(`lang-active-${lang}`);
+        document.body.classList.remove('lang-active-es', 'lang-active-en');
+        document.body.classList.add(`lang-active-${lang}`);
 
-    document.querySelectorAll('.language-switcher button').forEach(button => {
-        button.classList.remove('active');
-    });
-    document.getElementById(`lang-${lang}-btn`).classList.add('active');
-    document.documentElement.lang = lang;
-
-    if (reservationMessage) {
-        reservationMessage.classList.add('show');
-        clearTimeout(reservationMessage.hideTimeout);
-        reservationMessage.hideTimeout = setTimeout(() => {
-            reservationMessage.classList.remove('show');
-        }, 5000);
+        document.querySelectorAll('.language-switcher button').forEach(button => {
+            button.classList.remove('active');
+        });
+        document.getElementById(`lang-${lang}-btn`)?.classList.add('active');
+        document.documentElement.lang = lang;
     }
-}
 
+    document.addEventListener('DOMContentLoaded', () => {
+        // Configurar idioma
+        setLanguage(currentLanguage);
+
+        // Mostrar y ocultar mensaje de reserva
+        reservationMessage = document.getElementById('reservation-message');
+        if (reservationMessage) {
+            reservationMessage.classList.add('show');
+            reservationMessage.hideTimeout = setTimeout(() => {
+                reservationMessage.classList.remove('show');
+            }, 5000); // desaparece tras 5s
+        }
+    });
 document.addEventListener('DOMContentLoaded', () => {
     // --- LÓGICA DE IDIOMA INICIAL ---
     // Asegúrate de establecer el idioma ANTES de mostrar cualquier mensaje.
