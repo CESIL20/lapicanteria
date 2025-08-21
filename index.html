@@ -1003,276 +1003,250 @@
 </footer>
     <script>
     let reservationMessage;
-    let currentLanguage = localStorage.getItem('language') || 'es';
+let currentLanguage = localStorage.getItem('language') || 'es';
 
-    function setLanguage(lang){
-        currentLanguage = lang;
-        localStorage.setItem('language',lang);
+function setLanguage(lang) {
+    currentLanguage = lang;
+    localStorage.setItem('language', lang);
 
-        // Elimina las clases de idioma existentes del body
-        document.body.classList.remove('lang-active-es', 'lang-active-en');
-        // Añade la clase del idioma activo al body
-        document.body.classList.add(`lang-active-${lang}`);
+    document.body.classList.remove('lang-active-es', 'lang-active-en');
+    document.body.classList.add(`lang-active-${lang}`);
 
-        document.querySelectorAll('.language-switcher button').forEach(button=>{
-            button.classList.remove('active');
-        });
-        document.getElementById(`lang-${lang}-btn`).classList.add('active');
-        document.documentElement.lang = lang;
+    document.querySelectorAll('.language-switcher button').forEach(button => {
+        button.classList.remove('active');
+    });
+    document.getElementById(`lang-${lang}-btn`).classList.add('active');
+    document.documentElement.lang = lang;
 
-        // Asegura que el mensaje de reserva se muestre brevemente al cambiar de idioma
-        if (reservationMessage) {
-            reservationMessage.classList.add('show');
-            clearTimeout(reservationMessage.hideTimeout); // Limpia cualquier temporizador de ocultación existente
-            reservationMessage.hideTimeout = setTimeout(()=>{
-                reservationMessage.classList.remove('show');
-            },5000); // Muestra por 5 segundos
-        }
+    if (reservationMessage) {
+        reservationMessage.classList.add('show');
+        clearTimeout(reservationMessage.hideTimeout);
+        reservationMessage.hideTimeout = setTimeout(() => {
+            reservationMessage.classList.remove('show');
+        }, 5000);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    // --- LÓGICA DE IDIOMA INICIAL ---
+    // Asegúrate de establecer el idioma ANTES de mostrar cualquier mensaje.
+    setLanguage(currentLanguage);
+
+    // --- LÓGICA DEL MENSAJE FLOTANTE ---
+    // Ahora que el idioma está configurado, podemos trabajar con el mensaje.
+    reservationMessage = document.getElementById('reservation-message');
+    if (reservationMessage) {
+        // La clase 'show' ya se añade en la función setLanguage, así que no es necesario aquí.
+        // Pero si quieres un mensaje de carga inicial, puedes dejarlo o modificarlo.
+        // Como tu setLanguage ya lo hace, puedes eliminar este bloque si solo quieres que se active al cambiar de idioma.
+        // O dejarlo para que se muestre una vez al cargar la página.
+        reservationMessage.classList.add('show');
+        reservationMessage.hideTimeout = setTimeout(() => {
+            reservationMessage.classList.remove('show');
+        }, 5000);
     }
 
-    document.addEventListener('DOMContentLoaded',()=>{
-        reservationMessage = document.getElementById('reservation-message');
-        // Muestra el mensaje inicial por 5 segundos al cargar la página
-        if (reservationMessage) {
-            reservationMessage.classList.add('show');
-            reservationMessage.hideTimeout = setTimeout(()=>{
-                reservationMessage.classList.remove('show');
-            },5000);
+    // --- Lógica del Carrusel y Modal ---
+    const carouselTrack = document.querySelector('.carousel-track');
+    const prevButton = document.querySelector('.carousel-prev');
+    const nextButton = document.querySelector('.carousel-next');
+    const dotsContainer = document.querySelector('.carousel-dots');
+    const images = [
+        'LP 1 (1).jpg', 'LP 2.jpg', '44pimentel1.jpg', 'LP 5.jpg', 'LP 17.jpg',
+        'LP 10.jpg', 'LP 28.jpg', 'LP 29.jpg', 'LP 32.jpg', 'LP 42.jpg', 'solis_0016.jpg',
+    ];
+    let currentIndex = 0;
+    let autoSlideInterval;
+
+    images.forEach((image, index) => {
+        const item = document.createElement('div');
+        item.className = 'carousel-item';
+        const img = document.createElement('img');
+        img.src = image;
+        img.alt = `Plato Estrella ${index + 1}`;
+        img.setAttribute('loading', 'lazy');
+        img.setAttribute('onerror', 'this.onerror=null;this.src="https://placehold.co/800x500/A0A0A0/FFFFFF?text=Error";');
+        item.appendChild(img);
+        carouselTrack.appendChild(item);
+
+        const dot = document.createElement('div');
+        dot.className = 'dot';
+        if (index === 0) {
+            dot.classList.add('active');
         }
-        
-        document.querySelectorAll('nav.main-nav a').forEach(anchor=>{
-            anchor.addEventListener('click',function(e){
-                const targetId=this.getAttribute('href');
-                if(targetId.startsWith('#')){
-                    e.preventDefault();
-                    const targetElement=document.querySelector(targetId);
-                    if(targetElement){
-                        targetElement.scrollIntoView({
-                            behavior:'smooth'
-                        });
-                    }
-                }
-            });
-        });
-
-        document.getElementById('lang-es-btn').addEventListener('click',()=>setLanguage('es'));
-        document.getElementById('lang-en-btn').addEventListener('click',()=>setLanguage('en'));
-        
-        // Establece el idioma inicial al cargar la página
-        setLanguage(currentLanguage);
-
-        // --- Lógica del Carrusel y Modal ---
-        const carouselTrack = document.querySelector('.carousel-track');
-        const prevButton = document.querySelector('.carousel-prev');
-        const nextButton = document.querySelector('.carousel-next');
-        const dotsContainer = document.querySelector('.carousel-dots');
-        const images = [
-            'LP 1 (1).jpg',
-            'LP 2.jpg',
-            '44pimentel1.jpg',
-            'LP 5.jpg',
-            'LP 17.jpg',
-            'LP 10.jpg',
-            'LP 28.jpg',
-            'LP 29.jpg',
-            'LP 32.jpg',
-            'LP 42.jpg',
-            'solis_0016.jpg',
-            
-            
-        ];
-        let currentIndex = 0;
-        let autoSlideInterval;
-
-        // Rellenar el carrusel y los puntos
-        images.forEach((image, index) => {
-            // Añadir imagen al carrusel
-            const item = document.createElement('div');
-            item.className = 'carousel-item';
-            const img = document.createElement('img');
-            img.src = image;
-            img.alt = `Plato Estrella ${index + 1}`;
-            img.setAttribute('loading', 'lazy'); // Agregado el atributo lazy loading
-            img.setAttribute('onerror', 'this.onerror=null;this.src="https://placehold.co/800x500/A0A0A0/FFFFFF?text=Error";'); // Placeholder en caso de error
-            item.appendChild(img);
-            carouselTrack.appendChild(item);
-
-            // Añadir punto de navegación
-            const dot = document.createElement('div');
-            dot.className = 'dot';
-            if (index === 0) {
-                dot.classList.add('active');
-            }
-            dot.addEventListener('click', () => {
-                currentIndex = index;
-                updateCarousel();
-                stopAutoSlide(); // Detener el carrusel al hacer clic en un punto
-                startAutoSlide(); // Reiniciar el carrusel después de un tiempo
-            });
-            dotsContainer.appendChild(dot);
-        });
-
-        const dots = document.querySelectorAll('.dot');
-        const items = document.querySelectorAll('.carousel-item');
-        const carouselContainer = document.querySelector('.carousel-container');
-
-        function updateCarousel() {
-            const itemWidth = items[0].offsetWidth;
-            carouselTrack.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
-
-            dots.forEach((dot, index) => {
-                dot.classList.toggle('active', index === currentIndex);
-            });
-        }
-
-        function nextSlide() {
-            currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
+        dot.addEventListener('click', () => {
+            currentIndex = index;
             updateCarousel();
-        }
-
-        function prevSlide() {
-            currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-            updateCarousel();
-        }
-        
-        function startAutoSlide() {
-            // Limpiar cualquier intervalo existente para evitar duplicados
             stopAutoSlide();
-            autoSlideInterval = setInterval(nextSlide, 3000); // Cambia cada 3 segundos
-        }
-
-        function stopAutoSlide() {
-            clearInterval(autoSlideInterval);
-        }
-
-        prevButton.addEventListener('click', () => {
-            prevSlide();
-            stopAutoSlide(); // Detener al hacer clic
-            startAutoSlide(); // Reiniciar
+            startAutoSlide();
         });
+        dotsContainer.appendChild(dot);
+    });
 
-        nextButton.addEventListener('click', () => {
-            nextSlide();
-            stopAutoSlide(); // Detener al hacer clic
-            startAutoSlide(); // Reiniciar
+    const dots = document.querySelectorAll('.dot');
+    const items = document.querySelectorAll('.carousel-item');
+    const carouselContainer = document.querySelector('.carousel-container');
+
+    function updateCarousel() {
+        const itemWidth = items[0].offsetWidth;
+        carouselTrack.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
+        dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === currentIndex);
         });
+    }
 
-        carouselContainer.addEventListener('mouseenter', stopAutoSlide);
-        carouselContainer.addEventListener('mouseleave', startAutoSlide);
-
-        // Lógica del modal de imágenes
-        const modal = document.getElementById('image-modal');
-        const modalImage = document.getElementById('modal-image');
-        const modalCloseBtn = document.getElementById('modal-close-btn');
-
-        items.forEach(item => {
-            item.addEventListener('click', (e) => {
-                const clickedImageSrc = e.target.src;
-                modalImage.src = clickedImageSrc;
-                modal.classList.add('show');
-            });
-        });
-
-        modalCloseBtn.addEventListener('click', () => {
-            modal.classList.remove('show');
-        });
-
-        // Cerrar el modal al hacer clic fuera de la imagen
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.classList.remove('show');
-            }
-        });
-
-        // Cerrar con la tecla Escape
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                modal.classList.remove('show');
-            }
-        });
-
-        // Asegurarse de que el carrusel se adapte al redimensionar la ventana
-        window.addEventListener('resize', updateCarousel);
-        
-        // Carga inicial
+    function nextSlide() {
+        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
         updateCarousel();
-        startAutoSlide(); // Iniciar el carrusel automático
-       });
-      
-      document.addEventListener('DOMContentLoaded', () => {
-    const buttons = document.querySelectorAll('.preparation-button');
-    const images = document.querySelectorAll('.preparation-image');
+    }
 
-    buttons.forEach(button => {
+    function prevSlide() {
+        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
+        updateCarousel();
+    }
+    
+    function startAutoSlide() {
+        stopAutoSlide();
+        autoSlideInterval = setInterval(nextSlide, 3000);
+    }
+
+    function stopAutoSlide() {
+        clearInterval(autoSlideInterval);
+    }
+
+    prevButton.addEventListener('click', () => {
+        prevSlide();
+        stopAutoSlide();
+        startAutoSlide();
+    });
+
+    nextButton.addEventListener('click', () => {
+        nextSlide();
+        stopAutoSlide();
+        startAutoSlide();
+    });
+
+    carouselContainer.addEventListener('mouseenter', stopAutoSlide);
+    carouselContainer.addEventListener('mouseleave', startAutoSlide);
+
+    const modal = document.getElementById('image-modal');
+    const modalImage = document.getElementById('modal-image');
+    const modalCloseBtn = document.getElementById('modal-close-btn');
+
+    items.forEach(item => {
+        item.addEventListener('click', (e) => {
+            const clickedImageSrc = e.target.src;
+            modalImage.src = clickedImageSrc;
+            modal.classList.add('show');
+        });
+    });
+
+    modalCloseBtn.addEventListener('click', () => {
+        modal.classList.remove('show');
+    });
+
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.classList.remove('show');
+        }
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            modal.classList.remove('show');
+        }
+    });
+
+    window.addEventListener('resize', updateCarousel);
+    updateCarousel();
+    startAutoSlide();
+
+    // --- Lógica del Scroll Suave ---
+    document.querySelectorAll('nav.main-nav a').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('href');
+            if (targetId.startsWith('#')) {
+                e.preventDefault();
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        });
+    });
+
+    // --- Lógica del cambio de idioma (botones) ---
+    document.getElementById('lang-es-btn').addEventListener('click', () => setLanguage('es'));
+    document.getElementById('lang-en-btn').addEventListener('click', () => setLanguage('en'));
+
+    // --- Lógica de los botones de preparación de comida ---
+    const preparationButtons = document.querySelectorAll('.preparation-button');
+    const preparationImages = document.querySelectorAll('.preparation-image');
+
+    preparationButtons.forEach(button => {
         button.addEventListener('click', () => {
-            // Oculta todas las imágenes
-            images.forEach(image => {
+            preparationImages.forEach(image => {
                 image.style.display = 'none';
             });
-
-            // Obtiene el valor del atributo de datos del botón
-            // Asegúrate de que este valor coincida con el data-image de las imágenes
             const buttonData = button.getAttribute('data-meal');
-
-            // Encuentra la imagen que coincide
             const targetImage = document.querySelector(`.preparation-image[data-image="btn-${buttonData}"]`);
-
             if (targetImage) {
                 targetImage.style.display = 'block';
             }
         });
     });
+
+    // --- Lógica del botón flotante de WhatsApp ---
+    const whatsappButton = document.getElementById('whatsapp-draggable-button');
+    let isDragging = false;
+    let offsetX, offsetY;
+
+    whatsappButton.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        e.preventDefault();
+        offsetX = e.clientX - whatsappButton.getBoundingClientRect().left;
+        offsetY = e.clientY - whatsappButton.getBoundingClientRect().top;
+    });
+
+    document.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        const newX = e.clientX - offsetX;
+        const newY = e.clientY - offsetY;
+        whatsappButton.style.left = newX + 'px';
+        whatsappButton.style.top = newY + 'px';
+        whatsappButton.style.right = 'auto';
+        whatsappButton.style.bottom = 'auto';
+    });
+
+    document.addEventListener('mouseup', () => {
+        isDragging = false;
+    });
+
+    whatsappButton.addEventListener('touchstart', (e) => {
+        isDragging = true;
+        e.preventDefault();
+        const touch = e.touches[0];
+        offsetX = touch.clientX - whatsappButton.getBoundingClientRect().left;
+        offsetY = touch.clientY - whatsappButton.getBoundingClientRect().top;
+    });
+
+    document.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        const touch = e.touches[0];
+        const newX = touch.clientX - offsetX;
+        const newY = touch.clientY - offsetY;
+        whatsappButton.style.left = newX + 'px';
+        whatsappButton.style.top = newY + 'px';
+        whatsappButton.style.right = 'auto';
+        whatsappButton.style.bottom = 'auto';
+    });
+
+    document.addEventListener('touchend', () => {
+        isDragging = false;
+    });
 });
-      document.addEventListener('DOMContentLoaded', (event) => {
-            const whatsappButton = document.getElementById('whatsapp-draggable-button');
-            let isDragging = false;
-            let offsetX, offsetY;
-
-            whatsappButton.addEventListener('mousedown', (e) => {
-                isDragging = true;
-                e.preventDefault(); 
-                offsetX = e.clientX - whatsappButton.getBoundingClientRect().left;
-                offsetY = e.clientY - whatsappButton.getBoundingClientRect().top;
-            });
-
-            document.addEventListener('mousemove', (e) => {
-                if (!isDragging) return;
-                const newX = e.clientX - offsetX;
-                const newY = e.clientY - offsetY;
-                whatsappButton.style.left = newX + 'px';
-                whatsappButton.style.top = newY + 'px';
-                whatsappButton.style.right = 'auto';
-                whatsappButton.style.bottom = 'auto';
-            });
-
-            document.addEventListener('mouseup', () => {
-                isDragging = false;
-            });
-
-            // Soporte para pantallas táctiles
-            whatsappButton.addEventListener('touchstart', (e) => {
-                isDragging = true;
-                e.preventDefault();
-                const touch = e.touches[0];
-                offsetX = touch.clientX - whatsappButton.getBoundingClientRect().left;
-                offsetY = touch.clientY - whatsappButton.getBoundingClientRect().top;
-            });
-
-            document.addEventListener('touchmove', (e) => {
-                if (!isDragging) return;
-                const touch = e.touches[0];
-                const newX = touch.clientX - offsetX;
-                const newY = touch.clientY - offsetY;
-                whatsappButton.style.left = newX + 'px';
-                whatsappButton.style.top = newY + 'px';
-                whatsappButton.style.right = 'auto';
-                whatsappButton.style.bottom = 'auto';
-            });
-
-            document.addEventListener('touchend', () => {
-                isDragging = false;
-            });
-        });
   </script>
 </body>
 </html>
