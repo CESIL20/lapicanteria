@@ -135,14 +135,14 @@
         .precio-item{width:90%;}
         .contact-map-section .content-wrapper{flex-direction:column;align-items:center;}
         .map-container-wrapper,.contact-info-wrapper{width:100%;max-width:100%;}
-        .whatsapp-float{width:auto;padding:8px 15px;font-size:0.8em;}
+        .whatsapp-float{width:auto;padding:8px 10px;font-size:0.6em;}
     }
     @media (max-width:480px){
         .logo-container img{width:80px;height:55px;}
-        .titulo h1{font-size:0.8em;}
+        .titulo h1{font-size:0.6em;}
         .main-nav ul li a{font-size:13px;padding:3px 6px;}
         h2 { /* Ajuste para títulos en móviles */
-            font-size: 2em;
+            font-size: 1.5em;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
     }
@@ -198,6 +198,11 @@
     .main-nav ul li a:hover {
         background-color: transparent;
         color: #d32f2f;
+    }/* Media query para pantallas más pequeñas, por ejemplo, 768px de ancho o menos */
+@media (max-width: 768px) {
+    .main-nav ul li a {
+        font-size: 5px; /* Tamaño de fuente más pequeño para móviles */
+        padding: 0px 6px; /* Ajuste el padding para un mejor espaciado en móviles */
     }
 
     /* CARRUSEL DE FOTOS */
@@ -218,7 +223,7 @@
         overflow: hidden;
         border-radius: 8px;
         box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        height: 500px; /* Altura fija para el carrusel en escritorio */
+        height: 600px; /* Altura fija para el carrusel en escritorio */
     }
     .carousel-track {
       display: flex;
@@ -403,7 +408,7 @@
     .preparation-buttons {
         display: grid;
         grid-template-columns: repeat(2,1fr);
-        gap: 15px;
+        gap: 12px;
         justify-content: center;
         flex-grow: 1;
         align-content: stretch;
@@ -411,7 +416,7 @@
     .preparation-button {
         background-color: transparent; /* Fondo transparente */
         color: white; /* Texto blanco */
-        padding: 8px 0; /* Menos padding para que se vea más como una línea */
+        padding: 5px 0; /* Menos padding para que se vea más como una línea */
         border-radius: 0; /* Sin bordes redondeados */
         cursor: pointer;
         font-weight: bold;
@@ -431,11 +436,16 @@
         color: #00BFFF; /* Cambia el color del texto a azul vibrante en hover */
         transform: none; /* No hay transformación en hover */
     }
-
+    .preparation-image {
+        display: none; /* Ocultamos todas las imágenes en línea */
+        max-width: 100%;
+        border-radius: 10px;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+    }
     /* Sección Historia */
     .historia-section h2 {color:#00BFFF;font-size:2.5em;margin-bottom:30px;} /* Azul vibrante para títulos */
     .historia-section {
-        font-size:20px;
+        font-size:18px;
         margin:40px auto;
         padding:40px;
         max-width:1330px;
@@ -479,31 +489,30 @@
     .historia-section p:last-child {
         margin-bottom: 0; /* Elimina el margen inferior del último párrafo */
     }
-
-    /* Sección Contacto y Mapa */
+        /* Sección Contacto y Mapa */
     .contact-map-section {
         background-color: #222; /* Fondo oscuro para combinar */
         color:white; /* Texto claro */
-        padding: 40px 20px;
-        margin: 40px auto;
+        padding: 30px 10px;
+        margin: 30px auto;
         max-width: 1330px;
         border-radius: 10px;
         box-shadow: 0 8px 20px rgba(0,0,0,0.1);
         text-align: center;
     }
-    .contact-map-section h2 {color:#00BFFF;margin-bottom:30px;font-size:2.5em;} /* Azul vibrante para títulos */
+    .contact-map-section h2 {color:#00BFFF;margin-bottom:30px;font-size:2em;} /* Azul vibrante para títulos */
     .content-wrapper {display:flex;flex-wrap:wrap;justify-content:center;align-items:stretch;gap:30px;}
     .map-container-wrapper,.contact-info-wrapper {flex:1;min-width:320px;max-width:550px;display:flex;flex-direction:column;gap:10px;}
     .map-container-wrapper {
       background-color:#333; /* Fondo oscuro para los contenedores de mapa/contacto */
-      padding:25px;
+      padding:35px;
       border-radius:8px;
       box-shadow:0 4px 8px rgba(0,0,0,0.2);
       align-items:center;
     }
     .contact-info-wrapper {
       background-color:#333; /* Fondo oscuro para los contenedores de mapa/contacto */
-      padding:25px;
+      padding:35px;
       border-radius:8px;
       box-shadow:0 4px 8px rgba(0,0,0,0.2);
       align-items:flex-start;
@@ -512,24 +521,60 @@
     .contact-info-wrapper h3 {color:#00BFFF;} /* Azul vibrante para títulos */
     .map-container {height:300px;padding-bottom:0;position:relative;overflow:hidden;border-radius:8px;background-color:#444;box-shadow:0 2px 10px rgba(0,0,0,0.1);width:100%;} /* Fondo oscuro para el mapa */
     .map-container iframe {position:absolute;top:0;left:0;width:100%;height:100%;border:0;}
-    .contact-item {display:flex;align-items:center;gap:10px;color:#ccc;font-size:1.1em;margin-bottom:5px;} /* Texto gris claro */
-    .contact-item:last-child {margin-bottom:0;}
-    .contact-item i {color:#00BFFF;font-size:1.3em;min-width:25px;text-align:center;} /* Azul vibrante para iconos */
-    .contact-item .fa-map-marker-alt {color:#DB4437;}
-    .contact-item .fa-phone {color:#25d366;}
-    .contact-item .fa-envelope {color:#1a73e8;} /* Azul de Google para email */
-    .contact-item .fa-clock {color:#1a73e8;}
-    .contact-info-wrapper .visit-message {
-        margin-top:auto;
-        text-align:center;
-        font-style:italic;
-        color:#eee; /* Texto gris muy claro */
-        padding-top:15px;
-        border-top:1px solid rgba(255,255,255,0.1); /* Borde claro */
-        font-size:1em;
-        line-height:1.4;
-        text-shadow:none; /* Quitado el text-shadow para fondo claro */
-    }
+    .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #ccc;              /* Texto gris claro */
+    font-size: 1.1em;
+    margin-bottom: 5px;
+}
+.contact-item:last-child {
+    margin-bottom: 0;
+}
+
+/* Íconos */
+.contact-item i {
+    font-size: 1.3em;
+    min-width: 25px;
+    text-align: center;
+}
+.contact-item .fa-map-marker-alt { color: #DB4437; } /* Rojo Google Maps */
+.contact-item .fa-phone { color: #25d366; }          /* Verde WhatsApp */
+.contact-item .fa-envelope { color: #1a73e8; }       /* Azul Google */
+.contact-item .fa-clock { color: #1a73e8; }
+
+/* Enlaces (para que iPhone no los pinte azul/subrayado) */
+.contact-item a {
+    color: inherit;          /* hereda el color del texto */
+    text-decoration: none;   /* sin subrayado */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.contact-item a:hover {
+    color: #25d366;          /* efecto hover (puedes cambiarlo) */
+    text-decoration: underline; /* opcional */
+}
+
+/* Textos dentro del enlace (bilingüe) */
+.contact-item a span {
+    word-break: break-all;
+    overflow-wrap: break-word;
+}
+
+/* Mensaje final en sección contacto */
+.contact-info-wrapper .visit-message {
+    margin-top: auto;
+    text-align: center;
+    font-style: italic;
+    color: #eee; /* Texto gris muy claro */
+    padding-top: 15px;
+    border-top: 1px solid rgba(255,255,255,0.1); /* Borde claro */
+    font-size: 1em;
+    line-height: 1.4;
+    text-shadow: none; /* quitado el text-shadow para fondo claro */
+}
     .text {color:white;font-size:1.6em;margin-top:40px;margin-bottom:20px;display:flex;justify-content:center;width:100%;} /* Texto blanco */
     .social-icons {display:flex;justify-content:center;gap:20px;padding-bottom:20px;}
     .social-icons a {color:white;font-size:2.5em;transition:color 0.3s ease,transform 0.2s ease;text-decoration:none;} /* Iconos blancos por defecto */
@@ -649,7 +694,7 @@
             <h1 class="lang-es">Bienvenidos a</h1>
             <h1 class="lang-en">Welcome to</h1>
             <div class="logo-container">
-              <img src="../static/img/pikalogo.png" alt="Logo de La Picantería" width="230" height="160" onerror="this.onerror=null;this.src='https://placehold.co/230x160/080808/FFFFFF?text=Logo';" loading="lazy">
+              <img src="pikalogo.png" alt="Logo de La Picantería" width="230" height="160" onerror="this.onerror=null;this.src='https://placehold.co/230x160/080808/FFFFFF?text=Logo';" loading="lazy">
             </div>
           </div>
         </div>
