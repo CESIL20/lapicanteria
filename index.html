@@ -122,7 +122,7 @@
     
     /* Media Queries para Header y Navegación */
     @media (max-width:768px){
-        .main-header{flex-direction:row;justify-content:space-between;align-items:center;padding:0.8rem 1rem;flex-wrap:wrap;} /* Asegura flex-wrap en pantallas medianas */
+        .main-header{flex-direction:row;justify-content:space-between;align-items:center;padding:0.6rem 1rem;flex-wrap:wrap;} /* Asegura flex-wrap en pantallas medianas */
         .language-switcher{top:5px;right:5px;gap:5px;}
         .language-switcher button{padding:3px 6px;font-size:0.8em;}
         .header-left-group{flex-direction:column;align-items:center;flex:1;}
@@ -131,19 +131,19 @@
         .header-content{flex:none;justify-content:center;text-align:center;margin:0;}
         .titulo h1{font-size:1em;}
         .main-nav{margin-top:0;padding-bottom:5px;}
-        .main-nav ul{list-style:none;display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center;gap:8px;padding:0 10px;margin:0;}
+        .main-nav ul{list-style:none;display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center;gap:8px;padding:0 8px;margin:0;}
         .main-nav ul li a{font-size:15px;padding:5px 8px;}
         .precio-item{width:90%;}
         .contact-map-section .content-wrapper{flex-direction:column;align-items:center;}
         .map-container-wrapper,.contact-info-wrapper{width:100%;max-width:100%;}
-        .whatsapp-float{width:auto;padding:8px 15px;font-size:0.8em;}
+        .whatsapp-float{width:auto;padding:8px 10px;font-size:0.6em;}
     }
     @media (max-width:480px){
         .logo-container img{width:80px;height:55px;}
-        .titulo h1{font-size:0.8em;}
+        .titulo h1{font-size:0.6em;}
         .main-nav ul li a{font-size:13px;padding:3px 6px;}
         h2 { /* Ajuste para títulos en móviles */
-            font-size: 2em;
+            font-size: 1.5em;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
     }
@@ -168,48 +168,56 @@
         }
     }
 
-    .main-nav {
-        background-color: transparent;
-        padding: 0;
-        width: 100%;
-        position: relative;
-        z-index: 200;
-        margin-top: 0px;
-        padding-bottom: 10px;
-    }
-    .main-nav ul {
-        list-style: none;
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 10px;
-        margin: 0;
-        padding: 0;
-    }
-    .main-nav ul li a {
-        color: white; /* Texto blanco para el menú */
-        text-decoration: none;
-        font-weight: bold;
-        font-size: 18px;
-        transition: color 0.3s;
-        padding: 0px 8px;
-        display: block;
-        background-color: transparent;
-    }
-    .main-nav ul li a:hover {
-        background-color: transparent;
-        color: #d32f2f;
-    }
+    /* Estilos existentes para todas las pantallas */
+.main-nav {
+    background-color: transparent;
+    padding: 0;
+    width: 100%;
+    position: relative;
+    z-index: 200;
+    margin-top: 0px;
+    padding-bottom: 10px;
+}
+.main-nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+}
+.main-nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px; /* Tamaño de fuente para PC */
+    transition: color 0.3s;
+    padding: 0px 8px;
+    display: block;
+    background-color: transparent;
+}
+.main-nav ul li a:hover {
+    background-color: transparent;
+    color: #d32f2f;
+}
 
+/* Media query para pantallas más pequeñas, por ejemplo, 768px de ancho o menos */
+@media (max-width: 768px) {
+    .main-nav ul li a {
+        font-size: 5px; /* Tamaño de fuente más pequeño para móviles */
+        padding: 0px 6px; /* Ajuste el padding para un mejor espaciado en móviles */
+    }
+}
     /* CARRUSEL DE FOTOS */
     .carousel-section {
         width: 100%;
         max-width: 1330px;
-        margin: 40px auto;
-        padding: 20px;
+        margin: 0;
+        padding: 10px;
         background-color: #222;
         border-radius: 10px;
-        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        box-shadow: 0px 8px 20px rgba(0,0,0,0.1);
         text-align: center;
         position: relative;
     }
@@ -217,9 +225,9 @@
         position: relative;
         width: 100%;
         overflow: hidden;
-        border-radius: 8px;
+        border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        height: 500px; /* Altura fija para el carrusel en escritorio */
+        height: 600px; /* Altura fija para el carrusel en escritorio */
     }
     .carousel-track {
       display: flex;
@@ -339,7 +347,7 @@
     }
 
     /* Sección Nuestra Temática */
-    .our-theme-section {
+   .our-theme-section {
         width: 100%;
         max-width: 1330px;
         margin: 40px auto;
@@ -352,11 +360,11 @@
     }
     .our-theme-section h2 {
         color: #00BFFF; /* Azul vibrante para títulos */
-        font-size: 2.5em;
+        font-size: 1.2em;
         margin-bottom: 30px;
     }
     .our-theme-section p {
-        font-size: 1.2em;
+        font-size: 0.8em;
         margin-bottom: 20px;
         line-height: 1.8;
         color: white; /* Texto claro */
@@ -404,7 +412,7 @@
     .preparation-buttons {
         display: grid;
         grid-template-columns: repeat(2,1fr);
-        gap: 15px;
+        gap: 12px;
         justify-content: center;
         flex-grow: 1;
         align-content: stretch;
@@ -412,7 +420,7 @@
     .preparation-button {
         background-color: transparent; /* Fondo transparente */
         color: white; /* Texto blanco */
-        padding: 8px 0; /* Menos padding para que se vea más como una línea */
+        padding: 5px 0; /* Menos padding para que se vea más como una línea */
         border-radius: 0; /* Sin bordes redondeados */
         cursor: pointer;
         font-weight: bold;
@@ -432,11 +440,17 @@
         color: #00BFFF; /* Cambia el color del texto a azul vibrante en hover */
         transform: none; /* No hay transformación en hover */
     }
-
-    /* Sección Historia */
-    .historia-section h2 {color:#00BFFF;font-size:2.5em;margin-bottom:30px;} /* Azul vibrante para títulos */
+    
+    .preparation-image {
+        display: none; /* Ocultamos todas las imágenes en línea */
+        max-width: 100%;
+        border-radius: 10px;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+    }
+    
+    .historia-section h2 {color:#00BFFF;font-size:2em;margin-bottom:30px;} /* Azul vibrante para títulos */
     .historia-section {
-        font-size:20px;
+        font-size:18px;
         margin:40px auto;
         padding:40px;
         max-width:1330px;
@@ -485,26 +499,26 @@
     .contact-map-section {
         background-color: #222; /* Fondo oscuro para combinar */
         color:white; /* Texto claro */
-        padding: 40px 20px;
-        margin: 40px auto;
+        padding: 30px 10px;
+        margin: 30px auto;
         max-width: 1330px;
         border-radius: 10px;
         box-shadow: 0 8px 20px rgba(0,0,0,0.1);
         text-align: center;
     }
-    .contact-map-section h2 {color:#00BFFF;margin-bottom:30px;font-size:2.5em;} /* Azul vibrante para títulos */
+    .contact-map-section h2 {color:#00BFFF;margin-bottom:30px;font-size:2em;} /* Azul vibrante para títulos */
     .content-wrapper {display:flex;flex-wrap:wrap;justify-content:center;align-items:stretch;gap:30px;}
     .map-container-wrapper,.contact-info-wrapper {flex:1;min-width:320px;max-width:550px;display:flex;flex-direction:column;gap:10px;}
     .map-container-wrapper {
       background-color:#333; /* Fondo oscuro para los contenedores de mapa/contacto */
-      padding:25px;
+      padding:35px;
       border-radius:8px;
       box-shadow:0 4px 8px rgba(0,0,0,0.2);
       align-items:center;
     }
     .contact-info-wrapper {
       background-color:#333; /* Fondo oscuro para los contenedores de mapa/contacto */
-      padding:25px;
+      padding:35px;
       border-radius:8px;
       box-shadow:0 4px 8px rgba(0,0,0,0.2);
       align-items:flex-start;
@@ -513,43 +527,101 @@
     .contact-info-wrapper h3 {color:#00BFFF;} /* Azul vibrante para títulos */
     .map-container {height:300px;padding-bottom:0;position:relative;overflow:hidden;border-radius:8px;background-color:#444;box-shadow:0 2px 10px rgba(0,0,0,0.1);width:100%;} /* Fondo oscuro para el mapa */
     .map-container iframe {position:absolute;top:0;left:0;width:100%;height:100%;border:0;}
-    .contact-item {display:flex;align-items:center;gap:10px;color:#ccc;font-size:1.1em;margin-bottom:5px;} /* Texto gris claro */
-    .contact-item:last-child {margin-bottom:0;}
-    .contact-item i {color:#00BFFF;font-size:1.3em;min-width:25px;text-align:center;} /* Azul vibrante para iconos */
-    .contact-item .fa-map-marker-alt {color:#DB4437;}
-    .contact-item .fa-phone {color:#25d366;}
-    .contact-item .fa-envelope {color:#1a73e8;} /* Azul de Google para email */
-    .contact-item .fa-clock {color:#1a73e8;}
-    .contact-info-wrapper .visit-message {
-        margin-top:auto;
-        text-align:center;
-        font-style:italic;
-        color:#eee; /* Texto gris muy claro */
-        padding-top:15px;
-        border-top:1px solid rgba(255,255,255,0.1); /* Borde claro */
-        font-size:1em;
-        line-height:1.4;
-        text-shadow:none; /* Quitado el text-shadow para fondo claro */
-    }
-    .text {color:white;font-size:1.6em;margin-top:40px;margin-bottom:20px;display:flex;justify-content:center;width:100%;} /* Texto blanco */
-    .social-icons {display:flex;justify-content:center;gap:20px;padding-bottom:20px;}
-    .social-icons a {color:white;font-size:2.5em;transition:color 0.3s ease,transform 0.2s ease;text-decoration:none;} /* Iconos blancos por defecto */
-    .social-icons a:hover {transform:translateY(-3px);}
-    .social-icons .fa-facebook {color:#1877F2;}
-    .social-icons .fa-instagram {background:linear-gradient(45deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-    .social-icons .fa-whatsapp {color:#25d366;}
-    .social-icons .fa-map-marker-alt {color:#DB4437;}
+    .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #ccc;              /* Texto gris claro */
+    font-size: 1.1em;
+    margin-bottom: 5px;
+}
+.contact-item:last-child {
+    margin-bottom: 0;
+}
 
-    /* Media Queries para Contacto y Redes Sociales */
-    @media (max-width:900px){
-        .content-wrapper{flex-direction:column;align-items:center;}
-        .map-container-wrapper,.contact-info-wrapper{max-width:90%;min-width:unset;width:100%;}
-        .map-container iframe{height:250px;}
-        .contact-map-section h2{font-size:2em;}
-        .map-container-wrapper h3,.contact-info-wrapper h3{font-size:1.6em;}
-        .social-icons{font-size:2em;gap:15px;}
-    }
-    @media (max-width:768px){
+/* Íconos */
+.contact-item i {
+    font-size: 1.3em;
+    min-width: 25px;
+    text-align: center;
+}
+.contact-item .fa-map-marker-alt { color: #DB4437; } /* Rojo Google Maps */
+.contact-item .fa-phone { color: #25d366; }          /* Verde WhatsApp */
+.contact-item .fa-envelope { color: #1a73e8; }       /* Azul Google */
+.contact-item .fa-clock { color: #1a73e8; }
+
+/* Enlaces (para que iPhone no los pinte azul/subrayado) */
+.contact-item a {
+    color: inherit;          /* hereda el color del texto */
+    text-decoration: none;   /* sin subrayado */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.contact-item a:hover {
+    color: #25d366;          /* efecto hover (puedes cambiarlo) */
+    text-decoration: underline; /* opcional */
+}
+
+/* Textos dentro del enlace (bilingüe) */
+.contact-item a span {
+    word-break: break-all;
+    overflow-wrap: break-word;
+}
+
+/* Mensaje final en sección contacto */
+.contact-info-wrapper .visit-message {
+    margin-top: auto;
+    text-align: center;
+    font-style: italic;
+    color: #eee; /* Texto gris muy claro */
+    padding-top: 15px;
+    border-top: 1px solid rgba(255,255,255,0.1); /* Borde claro */
+    font-size: 1em;
+    line-height: 1.4;
+    text-shadow: none; /* quitado el text-shadow para fondo claro */
+}
+    .text {color:white;font-size:1.6em;margin-top:40px;margin-bottom:20px;display:flex;justify-content:center;width:100%;} /* Texto blanco */
+    .social-icons {display: flex;justify-content: center;gap: 30px;padding-bottom: 10px;}
+    .social-icons a {color: white;font-size: 2em;transition: color 0.3s ease, transform 0.2s ease;text-decoration: none;}
+    .social-icons a:hover {transform: translateY(-3px);}
+    .social-icons .fa-facebook {color: #1877f2;}
+    .social-icons .fa-instagram {background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);-webkit-background-clip: text;-webkit-text-fill-color: transparent;}
+    .social-icons .fa-whatsapp {color: #25d366;}
+    .social-icons .fa-map-marker-alt {color: #db4437;}
+
+/* Media Queries para Contacto y Redes Sociales */
+@media (max-width: 768px) {
+  .content-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+  .map-container-wrapper,
+  .contact-info-wrapper {
+    max-width: 100%;
+    min-width: unset;
+    width: 100%;
+  }
+  .map-container iframe {
+    height: 250px;
+  }
+  .contact-map-section h2 {
+    font-size: 1.2em;
+  }
+  .map-container-wrapper h3,
+  .contact-info-wrapper h3 {
+    font-size: 1.2em;
+  }
+  .social-icons {
+    /* Aquí es donde se ajusta el tamaño en pantallas pequeñas */
+    gap: 5px;
+  }
+  .social-icons a {
+    font-size: 1em; /* Nuevo tamaño del ícono */
+  }
+}
+    
+    @media (max-width:480px){
         .theme-content-wrapper{
             flex-direction:column;
             align-items:center;
@@ -559,7 +631,7 @@
             grid-template-columns: 1fr;
         }
     }
-    @media (max-width:480px){
+    @media (max-width:375px){
         .contact-map-section{padding:20px 10px;margin:20px auto;}
         .social-icons{font-size:1.8em;gap:10px;}
         .our-theme-section{padding:20px;margin:20px auto;}
@@ -570,28 +642,37 @@
 
     /* WhatsApp Float Button */
     .whatsapp-float {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        background-color: #25d366;
-        color: white;
-        padding: 12px 20px;
-        border-radius: 30px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        font-size: 1.1em;
-        text-decoration: none;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        z-index: 1000;
-        transition: background-color 0.3s, transform 0.2s;
-    }
-    .whatsapp-float:hover {
-        background-color: #1da851;
-        transform: translateY(-3px);
-    }
-    .whatsapp-float i {font-size:1.5em;}
-
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #25d366;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1em;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            z-index: 1000;
+            transition: background-color 0.3s, transform 0.2s;
+            cursor: grab;
+        }
+        .whatsapp-float:active {
+            cursor: grabbing;
+        }
+        .whatsapp-float:hover {
+            background-color: #1da851;
+            transform: translateY(-3px);
+        }
+        .whatsapp-float i {font-size:1.5em;}
+        /* Opcional: Oculta los textos para un diseño más minimalista en móviles */
+        @media (max-width: 768px) {
+            .whatsapp-float .inline-flex-content {
+                display: none;
+            }
+          }
     /* Footer */
     .main-footer {
         background-color: #111; /* Fondo muy oscuro para el footer */
@@ -609,7 +690,7 @@
     }
     .main-footer .footer-links a:hover {color:#00BFFF;} /* Azul vibrante para hover del footer */
 
-    /* Mensaje de Reserva Flotante */
+ /* Mensaje de Reserva Flotante */
     #reservation-message {
         position: fixed;
         top: 50%;
@@ -631,6 +712,26 @@
         box-sizing: border-box;
     }
     #reservation-message.show {opacity:1;visibility:visible;}
+    /* Estilos para PC (opcional, si quieres un tamaño de fuente diferente en pantallas grandes) */
+@media (min-width: 769px) {
+    #reservation-message {
+        font-size: 2.2em;
+    }
+}
+    @media (max-width: 768px) {
+        #reservation-message {
+            font-size: 1.2em;
+            padding: 15px 25px;
+        }
+    }
+          @media (min-width: 768px) { /* Se aplica a pantallas de 768px o más */
+  .mensaje-flotante {
+    width: 100%;
+    max-width: 1000px; /* Un ancho máximo para evitar que se vea muy largo */
+    margin: 0 auto; /* Centra el contenedor del mensaje */
+    text-align: center; /* Centra el texto dentro del contenedor */
+  }
+}
   </style>
 </head>
 <body class="lang-active-es"> <!-- Añadido lang-active-es por defecto -->
@@ -697,24 +798,79 @@
       <div class="theme-image-column">
         <img src="s100.jpg" alt="Pescados frescos en exhibición" width="800" height="500" onerror="this.onerror=null;this.src='https://placehold.co/800x500/808000/FFFFFF?text=Pescados+frescos';" loading="lazy">
       </div>
-      <div class="theme-text-column">
-        <div class="preparation-buttons">
-          <div class="preparation-button"><span class="lang-es inline-content">Ceviche</span><span class="lang-en inline-content">Ceviche</span></div>
-          <div class="preparation-button"><span class="lang-es inline-content">Jaladito Moche</span><span class="lang-en inline-content">Jaladito Moche</span></div>
-          <div class="preparation-button"><span class="lang-es inline-content">A la Parrilla</span><span class="lang-en inline-content">Grilled</span></div>
-          <div class="preparation-button"><span class="lang-es inline-content">Al Ajo y Mantequilla</span><span class="lang-en inline-content">With Garlic and Butter</span></div>
-          <div class="preparation-button"><span class="lang-es inline-content">En Jalea Limeña</span><span class="lang-en inline-content">In Limeña Jelly</span></div>
-          <div class="preparation-button"><span class="lang-es inline-content">En Jalea Chiclayana</span><span class="lang-en inline-content">In Chiclayana Jelly</span></div>
-          <div class="preparation-button"><span class="lang-es inline-content">Dulce y Picosa</span><span class="lang-en inline-content">Sweet and Spicy</span></div>
-          <div class="preparation-button"><span class="lang-es inline-content">Al Vapor</span><span class="lang-en inline-content">Steamed</span></div>
-          <div class="preparation-button"><span class="lang-es inline-content">En Sudado</span><span class="lang-en inline-content">In Sudado</span></div>
-          <div class="preparation-button"><span class="lang-es inline-content">En Escabeche</span><span class="lang-en inline-content">In Escabeche</span></div>
-          <div class="preparation-button"><span class="lang-es inline-content">En Chaufa</span><span class="lang-en inline-content">In Chaufa</span></div>
-          <div class="preparation-button"><span class="lang-es inline-content">En Estofado</span><span class="lang-en inline-content">In Stew</span></div>
+       <!-- Columna de botones y menú oculto -->
+        <div class="theme-text-column">
+          <!-- Contenedor de botones (tu estructura proporcionada) -->
+          <div class="preparation-buttons">
+            <button class="preparation-button" data-meal="ceviche">
+              <span class="lang-es inline-content">Ceviche</span>
+              <span class="lang-en inline-content hidden">Ceviche</span>
+            </button>
+            <button class="preparation-button" data-meal="jaladito-moche">
+              <span class="lang-es inline-content">Jaladito Moche</span>
+              <span class="lang-en inline-content hidden">Jaladito Moche</span>
+            </button>
+            <button class="preparation-button" data-meal="a-la-parrilla">
+              <span class="lang-es inline-content">A la Parrilla</span>
+              <span class="lang-en inline-content hidden">Grilled</span>
+            </button>
+            <button class="preparation-button" data-meal="al-ajo-y-mantequilla">
+              <span class="lang-es inline-content">Al Ajo y Mantequilla</span>
+              <span class="lang-en inline-content hidden">With Garlic and Butter</span>
+            </button>
+            <button class="preparation-button" data-meal="en-jalea-limena">
+              <span class="lang-es inline-content">En Jalea Limeña</span>
+              <span class="lang-en inline-content hidden">In Limeña Jelly</span>
+            </button>
+            <button class="preparation-button" data-meal="en-jalea-chiclayana">
+              <span class="lang-es inline-content">En Jalea Chiclayana</span>
+              <span class="lang-en inline-content hidden">In Chiclayana Jelly</span>
+            </button>
+            <button class="preparation-button" data-meal="dulce-y-picosa">
+              <span class="lang-es inline-content">Dulce y Picosa</span>
+              <span class="lang-en inline-content hidden">Sweet and Spicy</span>
+            </button>
+            <button class="preparation-button" data-meal="al-vapor">
+              <span class="lang-es inline-content">Al Vapor</span>
+              <span class="lang-en inline-content hidden">Steamed</span>
+            </button>
+            <button class="preparation-button" data-meal="en-sudado">
+              <span class="lang-es inline-content">En Sudado</span>
+              <span class="lang-en inline-content hidden">In Sudado</span>
+            </button>
+            <button class="preparation-button" data-meal="en-escabeche">
+              <span class="lang-es inline-content">En Escabeche</span>
+              <span class="lang-en inline-content hidden">In Escabeche</span>
+            </button>
+            <button class="preparation-button" data-meal="en-chaufa">
+              <span class="lang-es inline-content">En Chaufa</span>
+              <span class="lang-en inline-content hidden">In Chaufa</span>
+            </button>
+            <button class="preparation-button" data-meal="en-estofado">
+              <span class="lang-es inline-content">En Estofado</span>
+              <span class="lang-en inline-content hidden">In Stew</span>
+            </button>
+          </div>
+          
+          <!-- Contenedor de imágenes (se mantiene oculto) -->
+          <div class="image-container">
+            <!-- He cambiado las rutas de las imágenes a un placeholder genérico -->
+            <img src="LP 1 (1).jpg" alt="Ceviche" class="preparation-image" data-image="btn-ceviche">
+            <img src="https://placehold.co/600x400/2a2a2a/ffffff?text=Jaladito+Moche" alt="Jaladito Moche" class="preparation-image" data-image="btn-jaladito-moche">
+            <img src="https://placehold.co/600x400/2a2a2a/ffffff?text=A+la+Parrilla" alt="A la Parrilla" class="preparation-image" data-image="btn-a-la-parrilla">
+            <img src="https://placehold.co/600x400/2a2a2a/ffffff?text=Al+Ajo+y+Mantequilla" alt="Al Ajo y Mantequilla" class="preparation-image" data-image="btn-al-ajo-y-mantequilla">
+            <img src="https://placehold.co/600x400/2a2a2a/ffffff?text=En+Jalea+Limeña" alt="En Jalea Limeña" class="preparation-image" data-image="btn-en-jalea-limena">
+            <img src="_63I0906.jpg" alt="En Jalea Chiclayana" class="preparation-image" data-image="btn-en-jalea-chiclayana">
+            <img src="https://placehold.co/600x400/2a2a2a/ffffff?text=Dulce+y+Picosa" alt="Dulce y Picosa" class="preparation-image" data-image="btn-dulce-y-picosa">
+            <img src="https://placehold.co/600x400/2a2a2a/ffffff?text=Al+Vapor" alt="Al Vapor" class="preparation-image" data-image="btn-al-vapor">
+            <img src="https://placehold.co/600x400/2a2a2a/ffffff?text=En+Sudado" alt="En Sudado" class="preparation-image" data-image="btn-en-sudado">
+            <img src="https://placehold.co/600x400/2a2a2a/ffffff?text=En+Escabeche" alt="En Escabeche" class="preparation-image" data-image="btn-en-escabeche">
+            <img src="https://placehold.co/600x400/2a2a2a/ffffff?text=En+Chaufa" alt="En Chaufa" class="preparation-image" data-image="btn-en-chaufa">
+            <img src="https://placehold.co/600x400/2a2a2a/ffffff?text=En+Estofado" alt="En Estofado" class="preparation-image" data-image="btn-en-estofado">
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
   <section id="historia" class="historia-section">
     <h2 class="lang-es">Nuestra Historia</h2>
     <h2 class="lang-en">Our History</h2>
@@ -809,13 +965,13 @@
         <span class="lang-en inline-content">Jr.Francisco Moreno 388, Surquillo, Lima, Peru</span>
     </div>
     <div class="contact-item">
-        <a href="tel:+51953489892" aria-label="Llamar por teléfono">
-            <i class="fas fa-phone"></i>
-        </a>
+    <a href="tel:+51953489892" aria-label="Llamar por teléfono" class="phone-link">
+        <i class="fas fa-phone"></i>
         <span class="lang-es inline-content">+51 953 489 892</span>
         <span class="lang-en inline-content">+51 953 489 892</span>
-    </div>
-    <div class="contact-item">
+    </a>
+</div>
+ <div class="contact-item">
         <a href="mailto:lapicanteriasurquillo@gmail.com" aria-label="Enviar correo a lapicanteriasurquillo">
             <i class="fas fa-envelope"></i>
         </a>
@@ -845,11 +1001,12 @@
       <a href="https://www.google.com/maps/place/La+Picanter%C3%ADa/@-12.1167718,-77.0263581,17z/data=!3m1!4b1!4m6!3m5!1s0x9105c81045eb8aff:0x9cce78ba3005d3f2!8m2!3d-12.1167718!4d-77.0237832!16s%2Fg%2F1pp2vk2y_?entry=ttu&g_ep=EgoyMDI1MDcyMC4wIKXMDSoASAFQAw%3D%3D" target="_blank" aria-label="Google Maps"><i class="fas fa-map-marker-alt"></i></a>
     </div>
 </section>
-  <a class="whatsapp-float" href="https://api.whatsapp.com/send?phone=51953489892&text=Hola!%20Me%20gustaría%20realizar%20un%20pedido."  target="_blank">
-    <i class="fab fa-whatsapp"></i>
-    <span class="lang-es inline-flex-content">¿Necesitas ayuda? ¡Contáctanos!</span>
-    <span class="lang-en inline-flex-content">Need help? Contact us!</span>
-  </a>
+  <a id="whatsapp-draggable-button" class="whatsapp-float" href="https://api.whatsapp.com/send?phone=51953489892&text=Hola!%20Me%20gustaría%20realizar%20un%20pedido." target="_blank">
+        <i class="fab fa-whatsapp"></i>
+        <span class="lang-es inline-flex-content">¿Necesitas ayuda? ¡Contáctanos!</span>
+        <span class="lang-en inline-flex-content">Need help? Contact us!</span>
+    </a>
+
  <footer class="main-footer">
     <p>
         <span class="lang-es inline-content">&copy; 2025 La Picantería. Todos los derechos reservados.</span>
@@ -862,197 +1019,204 @@
     let reservationMessage;
     let currentLanguage = localStorage.getItem('language') || 'es';
 
-    function setLanguage(lang){
+    function setLanguage(lang) {
         currentLanguage = lang;
-        localStorage.setItem('language',lang);
+        localStorage.setItem('language', lang);
 
-        // Elimina las clases de idioma existentes del body
         document.body.classList.remove('lang-active-es', 'lang-active-en');
-        // Añade la clase del idioma activo al body
         document.body.classList.add(`lang-active-${lang}`);
 
-        document.querySelectorAll('.language-switcher button').forEach(button=>{
+        document.querySelectorAll('.language-switcher button').forEach(button => {
             button.classList.remove('active');
         });
-        document.getElementById(`lang-${lang}-btn`).classList.add('active');
+        document.getElementById(`lang-${lang}-btn`)?.classList.add('active');
         document.documentElement.lang = lang;
-
-        // Asegura que el mensaje de reserva se muestre brevemente al cambiar de idioma
-        if (reservationMessage) {
-            reservationMessage.classList.add('show');
-            clearTimeout(reservationMessage.hideTimeout); // Limpia cualquier temporizador de ocultación existente
-            reservationMessage.hideTimeout = setTimeout(()=>{
-                reservationMessage.classList.remove('show');
-            },5000); // Muestra por 5 segundos
-        }
     }
 
-    document.addEventListener('DOMContentLoaded',()=>{
-        reservationMessage = document.getElementById('reservation-message');
-        // Muestra el mensaje inicial por 5 segundos al cargar la página
-        if (reservationMessage) {
-            reservationMessage.classList.add('show');
-            reservationMessage.hideTimeout = setTimeout(()=>{
-                reservationMessage.classList.remove('show');
-            },5000);
-        }
-        
-        document.querySelectorAll('nav.main-nav a').forEach(anchor=>{
-            anchor.addEventListener('click',function(e){
-                const targetId=this.getAttribute('href');
-                if(targetId.startsWith('#')){
-                    e.preventDefault();
-                    const targetElement=document.querySelector(targetId);
-                    if(targetElement){
-                        targetElement.scrollIntoView({
-                            behavior:'smooth'
-                        });
-                    }
-                }
-            });
-        });
-
-        document.getElementById('lang-es-btn').addEventListener('click',()=>setLanguage('es'));
-        document.getElementById('lang-en-btn').addEventListener('click',()=>setLanguage('en'));
-        
-        // Establece el idioma inicial al cargar la página
+    document.addEventListener('DOMContentLoaded', () => {
+        // Configurar idioma
         setLanguage(currentLanguage);
 
-        // --- Lógica del Carrusel y Modal ---
-        const carouselTrack = document.querySelector('.carousel-track');
-        const prevButton = document.querySelector('.carousel-prev');
-        const nextButton = document.querySelector('.carousel-next');
-        const dotsContainer = document.querySelector('.carousel-dots');
-        const images = [
-            'LP 1 (1).jpg', 'LP 2.jpg', '44pimentel1.jpg', 'LP 5.jpg', 'LP 17.jpg',
+        // Mostrar y ocultar mensaje de reserva
+        reservationMessage = document.getElementById('reservation-message');
+        if (reservationMessage) {
+            reservationMessage.classList.add('show');
+            reservationMessage.hideTimeout = setTimeout(() => {
+                reservationMessage.classList.remove('show');
+            }, 5000); // desaparece tras 5s
+        }
+    });
+document.addEventListener('DOMContentLoaded', () => {
+    // --- LÓGICA DE IDIOMA INICIAL ---
+    // Asegúrate de establecer el idioma ANTES de mostrar cualquier mensaje.
+    setLanguage(currentLanguage);
+
+    // --- LÓGICA DEL MENSAJE FLOTANTE ---
+    // Ahora que el idioma está configurado, podemos trabajar con el mensaje.
+    reservationMessage = document.getElementById('reservation-message');
+    if (reservationMessage) {
+        // La clase 'show' ya se añade en la función setLanguage, así que no es necesario aquí.
+        // Pero si quieres un mensaje de carga inicial, puedes dejarlo o modificarlo.
+        // Como tu setLanguage ya lo hace, puedes eliminar este bloque si solo quieres que se active al cambiar de idioma.
+        // O dejarlo para que se muestre una vez al cargar la página.
+        reservationMessage.classList.add('show');
+        reservationMessage.hideTimeout = setTimeout(() => {
+            reservationMessage.classList.remove('show');
+        }, 5000);
+    }
+
+    // --- Lógica del Carrusel y Modal ---
+    const carouselTrack = document.querySelector('.carousel-track');
+    const prevButton = document.querySelector('.carousel-prev');
+    const nextButton = document.querySelector('.carousel-next');
+    const dotsContainer = document.querySelector('.carousel-dots');
+    const images = [
+        'LP 1 (1).jpg', 'LP 2.jpg', '44pimentel1.jpg', 'LP 5.jpg', 'LP 17.jpg',
         'LP 10.jpg', 'LP 28.jpg', 'LP 29.jpg', 'LP 32.jpg', 'LP 42.jpg', 'solis_0016.jpg',
         'NAVAJAS.jpg', 'IMG_7403 (1).jpg', 'IMG_1592 (1).jpg'
-            
-        ];
-        let currentIndex = 0;
-        let autoSlideInterval;
+    ];
+    let currentIndex = 0;
+    let autoSlideInterval;
 
-        // Rellenar el carrusel y los puntos
-        images.forEach((image, index) => {
-            // Añadir imagen al carrusel
-            const item = document.createElement('div');
-            item.className = 'carousel-item';
-            const img = document.createElement('img');
-            img.src = image;
-            img.alt = `Plato Estrella ${index + 1}`;
-            img.setAttribute('loading', 'lazy'); // Agregado el atributo lazy loading
-            img.setAttribute('onerror', 'this.onerror=null;this.src="https://placehold.co/800x500/A0A0A0/FFFFFF?text=Error";'); // Placeholder en caso de error
-            item.appendChild(img);
-            carouselTrack.appendChild(item);
+    images.forEach((image, index) => {
+        const item = document.createElement('div');
+        item.className = 'carousel-item';
+        const img = document.createElement('img');
+        img.src = image;
+        img.alt = `Plato Estrella ${index + 1}`;
+        img.setAttribute('loading', 'lazy');
+        img.setAttribute('onerror', 'this.onerror=null;this.src="https://placehold.co/800x500/A0A0A0/FFFFFF?text=Error";');
+        item.appendChild(img);
+        carouselTrack.appendChild(item);
 
-            // Añadir punto de navegación
-            const dot = document.createElement('div');
-            dot.className = 'dot';
-            if (index === 0) {
-                dot.classList.add('active');
-            }
-            dot.addEventListener('click', () => {
-                currentIndex = index;
-                updateCarousel();
-                stopAutoSlide(); // Detener el carrusel al hacer clic en un punto
-                startAutoSlide(); // Reiniciar el carrusel después de un tiempo
-            });
-            dotsContainer.appendChild(dot);
-        });
-
-        const dots = document.querySelectorAll('.dot');
-        const items = document.querySelectorAll('.carousel-item');
-        const carouselContainer = document.querySelector('.carousel-container');
-
-        function updateCarousel() {
-            const itemWidth = items[0].offsetWidth;
-            carouselTrack.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
-
-            dots.forEach((dot, index) => {
-                dot.classList.toggle('active', index === currentIndex);
-            });
+        const dot = document.createElement('div');
+        dot.className = 'dot';
+        if (index === 0) {
+            dot.classList.add('active');
         }
-
-        function nextSlide() {
-            currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
+        dot.addEventListener('click', () => {
+            currentIndex = index;
             updateCarousel();
-        }
-
-        function prevSlide() {
-            currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-            updateCarousel();
-        }
-        
-        function startAutoSlide() {
-            // Limpiar cualquier intervalo existente para evitar duplicados
             stopAutoSlide();
-            autoSlideInterval = setInterval(nextSlide, 3000); // Cambia cada 3 segundos
-        }
-
-        function stopAutoSlide() {
-            clearInterval(autoSlideInterval);
-        }
-
-        prevButton.addEventListener('click', () => {
-            prevSlide();
-            stopAutoSlide(); // Detener al hacer clic
-            startAutoSlide(); // Reiniciar
+            startAutoSlide();
         });
-
-        nextButton.addEventListener('click', () => {
-            nextSlide();
-            stopAutoSlide(); // Detener al hacer clic
-            startAutoSlide(); // Reiniciar
-        });
-
-        carouselContainer.addEventListener('mouseenter', stopAutoSlide);
-        carouselContainer.addEventListener('mouseleave', startAutoSlide);
-
-        // Lógica del modal de imágenes
-        const modal = document.getElementById('image-modal');
-        const modalImage = document.getElementById('modal-image');
-        const modalCloseBtn = document.getElementById('modal-close-btn');
-
-        items.forEach(item => {
-            item.addEventListener('click', (e) => {
-                const clickedImageSrc = e.target.src;
-                modalImage.src = clickedImageSrc;
-                modal.classList.add('show');
-            });
-        });
-
-        modalCloseBtn.addEventListener('click', () => {
-            modal.classList.remove('show');
-        });
-
-        // Cerrar el modal al hacer clic fuera de la imagen
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.classList.remove('show');
-            }
-        });
-
-        // Cerrar con la tecla Escape
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                modal.classList.remove('show');
-            }
-        });
-
-        // Asegurarse de que el carrusel se adapte al redimensionar la ventana
-        window.addEventListener('resize', updateCarousel);
-        
-        // Carga inicial
-        updateCarousel();
-        startAutoSlide(); // Iniciar el carrusel automático
+        dotsContainer.appendChild(dot);
     });
-   
+
+    const dots = document.querySelectorAll('.dot');
+    const items = document.querySelectorAll('.carousel-item');
+    const carouselContainer = document.querySelector('.carousel-container');
+
+    function updateCarousel() {
+        const itemWidth = items[0].offsetWidth;
+        carouselTrack.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
+        dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === currentIndex);
+        });
+    }
+
+    function nextSlide() {
+        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
+        updateCarousel();
+    }
+
+    function prevSlide() {
+        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
+        updateCarousel();
+    }
+    
+    function startAutoSlide() {
+        stopAutoSlide();
+        autoSlideInterval = setInterval(nextSlide, 3000);
+    }
+
+    function stopAutoSlide() {
+        clearInterval(autoSlideInterval);
+    }
+
+    prevButton.addEventListener('click', () => {
+        prevSlide();
+        stopAutoSlide();
+        startAutoSlide();
+    });
+
+    nextButton.addEventListener('click', () => {
+        nextSlide();
+        stopAutoSlide();
+        startAutoSlide();
+    });
+
+    carouselContainer.addEventListener('mouseenter', stopAutoSlide);
+    carouselContainer.addEventListener('mouseleave', startAutoSlide);
+
+    const modal = document.getElementById('image-modal');
+    const modalImage = document.getElementById('modal-image');
+    const modalCloseBtn = document.getElementById('modal-close-btn');
+
+    items.forEach(item => {
+        item.addEventListener('click', (e) => {
+            const clickedImageSrc = e.target.src;
+            modalImage.src = clickedImageSrc;
+            modal.classList.add('show');
+        });
+    });
+
+    modalCloseBtn.addEventListener('click', () => {
+        modal.classList.remove('show');
+    });
+
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.classList.remove('show');
+        }
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            modal.classList.remove('show');
+        }
+    });
+
+    window.addEventListener('resize', updateCarousel);
+    updateCarousel();
+    startAutoSlide();
+
+    // --- Lógica del Scroll Suave ---
+    document.querySelectorAll('nav.main-nav a').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('href');
+            if (targetId.startsWith('#')) {
+                e.preventDefault();
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        });
+    });
 
     // --- Lógica del cambio de idioma (botones) ---
     document.getElementById('lang-es-btn').addEventListener('click', () => setLanguage('es'));
     document.getElementById('lang-en-btn').addEventListener('click', () => setLanguage('en'));
 
-   
+    // --- Lógica de los botones de preparación de comida ---
+    const preparationButtons = document.querySelectorAll('.preparation-button');
+    const preparationImages = document.querySelectorAll('.preparation-image');
+
+    preparationButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            preparationImages.forEach(image => {
+                image.style.display = 'none';
+            });
+            const buttonData = button.getAttribute('data-meal');
+            const targetImage = document.querySelector(`.preparation-image[data-image="btn-${buttonData}"]`);
+            if (targetImage) {
+                targetImage.style.display = 'block';
+            }
+        });
+    });
 
     // --- Lógica del botón flotante de WhatsApp ---
     const whatsappButton = document.getElementById('whatsapp-draggable-button');
@@ -1106,3 +1270,4 @@
   </script>
 </body>
 </html>
+
