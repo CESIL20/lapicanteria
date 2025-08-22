@@ -1046,6 +1046,92 @@
         updateCarousel();
         startAutoSlide(); // Iniciar el carrusel automático
     });
+      // --- Lógica del Scroll Suave ---
+    document.querySelectorAll('nav.main-nav a').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('href');
+            if (targetId.startsWith('#')) {
+                e.preventDefault();
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        });
+    });
+
+    // --- Lógica del cambio de idioma (botones) ---
+    document.getElementById('lang-es-btn').addEventListener('click', () => setLanguage('es'));
+    document.getElementById('lang-en-btn').addEventListener('click', () => setLanguage('en'));
+
+    // --- Lógica de los botones de preparación de comida ---
+    const preparationButtons = document.querySelectorAll('.preparation-button');
+    const preparationImages = document.querySelectorAll('.preparation-image');
+
+    preparationButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            preparationImages.forEach(image => {
+                image.style.display = 'none';
+            });
+            const buttonData = button.getAttribute('data-meal');
+            const targetImage = document.querySelector(`.preparation-image[data-image="btn-${buttonData}"]`);
+            if (targetImage) {
+                targetImage.style.display = 'block';
+            }
+        });
+    });
+
+    // --- Lógica del botón flotante de WhatsApp ---
+    const whatsappButton = document.getElementById('whatsapp-draggable-button');
+    let isDragging = false;
+    let offsetX, offsetY;
+
+    whatsappButton.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        e.preventDefault();
+        offsetX = e.clientX - whatsappButton.getBoundingClientRect().left;
+        offsetY = e.clientY - whatsappButton.getBoundingClientRect().top;
+    });
+
+    document.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        const newX = e.clientX - offsetX;
+        const newY = e.clientY - offsetY;
+        whatsappButton.style.left = newX + 'px';
+        whatsappButton.style.top = newY + 'px';
+        whatsappButton.style.right = 'auto';
+        whatsappButton.style.bottom = 'auto';
+    });
+
+    document.addEventListener('mouseup', () => {
+        isDragging = false;
+    });
+
+    whatsappButton.addEventListener('touchstart', (e) => {
+        isDragging = true;
+        e.preventDefault();
+        const touch = e.touches[0];
+        offsetX = touch.clientX - whatsappButton.getBoundingClientRect().left;
+        offsetY = touch.clientY - whatsappButton.getBoundingClientRect().top;
+    });
+
+    document.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        const touch = e.touches[0];
+        const newX = touch.clientX - offsetX;
+        const newY = touch.clientY - offsetY;
+        whatsappButton.style.left = newX + 'px';
+        whatsappButton.style.top = newY + 'px';
+        whatsappButton.style.right = 'auto';
+        whatsappButton.style.bottom = 'auto';
+    });
+
+    document.addEventListener('touchend', () => {
+        isDragging = false;
+    });
+});
   </script>
 </body>
 </html>
