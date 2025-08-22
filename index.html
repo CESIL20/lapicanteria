@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+  <meta name="format-detection" content="telephone=no">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>La Picantería</title>
@@ -52,7 +53,7 @@
 
     /* Header y Navegación */
     .header-nav-wrapper {
-        background-image: url('../static/img/fondo_piepagina.jpg');
+        background-image: url('fondo_piepagina.jpg');
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -445,7 +446,7 @@
         line-height:1.6;
         position: relative; /* Necesario para la animación de fondo */
         overflow: hidden; /* Asegura que la animación de fondo se mantenga dentro de los límites */
-        background-image: url('../static/img/484142437_1065174388986290_1824956558464000683_n.jpg'); /* Imagen de fondo */
+        background-image: url('484142437_1065174388986290_1824956558464000683_n.jpg'); /* Imagen de fondo */
         background-size: cover; /* Cubrir todo el espacio */
         background-position: center; /* Centrar la imagen */
         z-index: 1; /* Asegura que el contenido esté por encima del pseudo-elemento */
@@ -649,7 +650,7 @@
             <h1 class="lang-es">Bienvenidos a</h1>
             <h1 class="lang-en">Welcome to</h1>
             <div class="logo-container">
-              <img src="../static/img/pikalogo.png" alt="Logo de La Picantería" width="230" height="160" onerror="this.onerror=null;this.src='https://placehold.co/230x160/080808/FFFFFF?text=Logo';" loading="lazy">
+              <img src="pikalogo.png" alt="Logo de La Picantería" width="230" height="160" onerror="this.onerror=null;this.src='https://placehold.co/230x160/080808/FFFFFF?text=Logo';" loading="lazy">
             </div>
           </div>
         </div>
@@ -694,7 +695,7 @@
     </p>
     <div class="theme-content-wrapper">
       <div class="theme-image-column">
-        <img src="../static/img/s100.jpg" alt="Pescados frescos en exhibición" width="800" height="500" onerror="this.onerror=null;this.src='https://placehold.co/800x500/808000/FFFFFF?text=Pescados+frescos';" loading="lazy">
+        <img src="s100.jpg" alt="Pescados frescos en exhibición" width="800" height="500" onerror="this.onerror=null;this.src='https://placehold.co/800x500/808000/FFFFFF?text=Pescados+frescos';" loading="lazy">
       </div>
       <div class="theme-text-column">
         <div class="preparation-buttons">
@@ -815,13 +816,6 @@
         <span class="lang-en inline-content">+51 953 489 892</span>
     </div>
     <div class="contact-item">
-        <a href="mailto:informes@picanteriasdelperu.com" aria-label="Enviar correo a informes">
-            <i class="fas fa-envelope"></i>
-        </a>
-        <span class="lang-es inline-content">informes@picanteriasdelperu.com</span>
-        <span class="lang-en inline-content">informes@picanteriasdelperu.com</span>
-    </div>
-    <div class="contact-item">
         <a href="mailto:lapicanteriasurquillo@gmail.com" aria-label="Enviar correo a lapicanteriasurquillo">
             <i class="fas fa-envelope"></i>
         </a>
@@ -930,18 +924,9 @@
         const nextButton = document.querySelector('.carousel-next');
         const dotsContainer = document.querySelector('.carousel-dots');
         const images = [
-            '../static/img/LP 1 (1).jpg',
-            '../static/img/LP 2.jpg',
-            '../static/img/44pimentel1.jpg',
-            '../static/img/LP 5.jpg',
-            '../static/img/LP 17.jpg',
-            '../static/img/LP 10.jpg',
-            '../static/img/LP 28.jpg',
-            '../static/img/LP 29.jpg',
-            '../static/img/LP 32.jpg',
-            '../static/img/LP 42.jpg',
-            '../static/img/solis_0016.jpg',
-            '../static/img/_63I0906.jpg',
+            'LP 1 (1).jpg', 'LP 2.jpg', '44pimentel1.jpg', 'LP 5.jpg', 'LP 17.jpg',
+        'LP 10.jpg', 'LP 28.jpg', 'LP 29.jpg', 'LP 32.jpg', 'LP 42.jpg', 'solis_0016.jpg',
+        'NAVAJAS.jpg', 'IMG_7403 (1).jpg', 'IMG_1592 (1).jpg'
             
         ];
         let currentIndex = 0;
