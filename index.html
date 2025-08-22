@@ -1279,8 +1279,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
-
-    // --- Lógica del cambio de idioma (botones) ---
+     // --- Lógica del cambio de idioma (botones) ---
+    document.getElementById('lang-es-btn').addEventListener('click', () => setLanguage('es'));
+    document.getElementById('lang-en-btn').addEventListener('click', () => setLanguage('en'));
+  
+  
    document.addEventListener('DOMContentLoaded', () => {
             const modal = document.getElementById('imageModal');
             const modalImage = document.getElementById('modalImage');
