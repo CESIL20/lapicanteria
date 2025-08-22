@@ -1046,42 +1046,13 @@
         updateCarousel();
         startAutoSlide(); // Iniciar el carrusel automático
     });
-      // --- Lógica del Scroll Suave ---
-    document.querySelectorAll('nav.main-nav a').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            const targetId = this.getAttribute('href');
-            if (targetId.startsWith('#')) {
-                e.preventDefault();
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    targetElement.scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                }
-            }
-        });
-    });
+   
 
     // --- Lógica del cambio de idioma (botones) ---
     document.getElementById('lang-es-btn').addEventListener('click', () => setLanguage('es'));
     document.getElementById('lang-en-btn').addEventListener('click', () => setLanguage('en'));
 
-    // --- Lógica de los botones de preparación de comida ---
-    const preparationButtons = document.querySelectorAll('.preparation-button');
-    const preparationImages = document.querySelectorAll('.preparation-image');
-
-    preparationButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            preparationImages.forEach(image => {
-                image.style.display = 'none';
-            });
-            const buttonData = button.getAttribute('data-meal');
-            const targetImage = document.querySelector(`.preparation-image[data-image="btn-${buttonData}"]`);
-            if (targetImage) {
-                targetImage.style.display = 'block';
-            }
-        });
-    });
+   
 
     // --- Lógica del botón flotante de WhatsApp ---
     const whatsappButton = document.getElementById('whatsapp-draggable-button');
