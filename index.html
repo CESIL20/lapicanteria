@@ -347,106 +347,169 @@
     }
 
     /* Sección Nuestra Temática */
-   .our-theme-section {
-        width: 100%;
-        max-width: 1330px;
+   /* ===================================== */
+/* ESTILOS BASE PARA PANTALLAS PEQUEÑAS  */
+/* ===================================== */
+.our-theme-section {
+    width: 100%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #222;
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.our-theme-section h2 {
+    color: #00BFFF;
+    font-size: 1.8em;
+    margin-bottom: 20px;
+}
+
+.our-theme-section p {
+    font-size: 1em;
+    margin-bottom: 15px;
+    line-height: 1.6;
+    color: white;
+}
+
+.theme-content-wrapper {
+    display: flex;
+    flex-direction: column; /* Apila las columnas verticalmente por defecto */
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.theme-image-column {
+    min-width: unset;
+    max-width: 100%;
+    text-align: center;
+}
+
+.theme-image-column img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.theme-text-column {
+    min-width: unset;
+    max-width: 100%;
+    text-align: center;
+}
+
+.theme-text-column p {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.preparation-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.preparation-button {
+    background-color: transparent;
+    color: white;
+    padding: 12px 0;
+    border-radius: 0;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: none;
+    height: auto;
+    border: none;
+    border-bottom: 2px solid #666;
+    transition: border-bottom-color 0.3s, color 0.3s;
+    font-size: 1em;
+}
+
+.preparation-button:hover {
+    background-color: transparent;
+    border-bottom-color: #00BFFF;
+    color: #00BFFF;
+    transform: none;
+}
+
+/* ===================================== */
+/* ESTILOS PARA PANTALLAS DE ESCRITORIO  */
+/* ===================================== */
+@media (min-width: 768px) {
+    .our-theme-section {
+        max-width: 1330px; /* Limita el ancho en escritorios */
         margin: 40px auto;
         padding: 40px;
-        background-color: #222; /* Fondo oscuro para combinar */
-        color:white; /* Texto claro */
-        border-radius: 10px;
-        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-        text-align: center;
     }
+    
     .our-theme-section h2 {
-        color: #00BFFF; /* Azul vibrante para títulos */
-        font-size: 1.2em;
+        font-size: 2.5em;
         margin-bottom: 30px;
     }
+
     .our-theme-section p {
-        font-size: 0.8em;
-        margin-bottom: 20px;
+        font-size: 1.2em;
         line-height: 1.8;
-        color: white; /* Texto claro */
     }
+
     .theme-content-wrapper {
-        display: flex;
-        flex-wrap: wrap;
+        flex-direction: row; /* Vuelve a poner las columnas en fila en escritorios */
         justify-content: center;
         align-items: stretch;
         gap: 30px;
         margin-top: 30px;
     }
+
     .theme-image-column {
-        flex: 1;
+        flex: 1; /* Habilita el flexbox para el tamaño de las columnas */
         min-width: 300px;
         max-width: 500px;
-        text-align: center;
-        display: flex;
-        align-items: center;
-        justify-content: center;
     }
+
     .theme-image-column img {
         max-width: 100%;
         height: 100%;
-        object-fit: cover;
+        object-fit: cover; /* Cambia a cover para llenar el espacio */
         border-radius: 10px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        display: block;
-        margin: 0 auto;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     }
+    
     .theme-text-column {
         flex: 1;
         min-width: 300px;
         max-width: 700px;
-        text-align: left;
+        text-align: left; /* Alinea el texto a la izquierda */
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         height: 100%;
     }
+
     .theme-text-column p {
         margin-bottom: 25px;
         flex-shrink: 0;
+        text-align: left; /* Alinea el texto del párrafo a la izquierda */
     }
+
     .preparation-buttons {
-        display: grid;
-        grid-template-columns: repeat(2,1fr);
-        gap: 12px;
+        display: grid; /* Vuelve al grid para los botones */
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
         justify-content: center;
         flex-grow: 1;
         align-content: stretch;
     }
+
     .preparation-button {
-        background-color: transparent; /* Fondo transparente */
-        color: white; /* Texto blanco */
-        padding: 5px 0; /* Menos padding para que se vea más como una línea */
-        border-radius: 0; /* Sin bordes redondeados */
-        cursor: pointer;
-        font-weight: bold;
-        text-align: center;
-        box-shadow: none; /* Sin sombra */
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: auto; /* Altura automática */
-        border: none; /* Eliminar borde */
-        border-bottom: 2px solid #666; /* Línea gris más encendida */
-        transition: border-bottom-color 0.3s, color 0.3s; /* Transición para color de borde y texto */
+        padding: 8px 0;
     }
-    .preparation-button:hover {
-        background-color: transparent;
-        border-bottom-color: #00BFFF; /* Azul vibrante para hover */
-        color: #00BFFF; /* Cambia el color del texto a azul vibrante en hover */
-        transform: none; /* No hay transformación en hover */
-    }
-    
-    .preparation-image {
-        display: none; /* Ocultamos todas las imágenes en línea */
-        max-width: 100%;
-        border-radius: 10px;
-        box-shadow: 0 5px 10px rgba(0,0,0,0.3);
-    }
+}
     
     .historia-section h2 {color:#00BFFF;font-size:2em;margin-bottom:30px;} /* Azul vibrante para títulos */
     .historia-section {
