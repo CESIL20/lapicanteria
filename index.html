@@ -8,721 +8,1629 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <style>
     /*
- * GENERAL STYLES & TYPOGRAPHY
- */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #1a1a1a;
-    color: white;
-    line-height: 1.6;
-}
+<style>
 
-h2 {
-    text-align: center;
-    color: #00BFFF;
-    margin-bottom: 30px;
-    font-size: 2.8em;
-    font-weight: bold;
-    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
-    letter-spacing: 1px;
-    transition: all 0.3s ease;
-}
+    /* RESET */
 
-h2:hover {
-    color: #00FFFF;
-    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.4);
-    transform: translateY(-2px);
-}
+    * {margin:0;padding:0;box-sizing:border-box;}
 
-/*
- * LANGUAGE SWITCHER
- */
-.lang-es, .lang-en { display: none; }
 
-body.lang-active-es .lang-es { display: block; }
-body.lang-active-es .lang-es.inline-content { display: inline; }
-body.lang-active-es .lang-es.inline-flex-content { display: inline-flex; }
-body.lang-active-en .lang-en { display: block; }
-body.lang-active-en .lang-en.inline-content { display: inline; }
-body.lang-active-en .lang-en.inline-flex-content { display: inline-flex; }
 
-/*
- * HEADER & NAVIGATION
- */
-.header-nav-wrapper {
-    background-image: url('fondo_piepagina.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    z-index: 100;
-    position: relative;
-}
+    /* Estilos generales */
 
-.header-nav-wrapper::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    z-index: 0;
-}
+    body {
 
-.main-header {
-    background-color: transparent;
-    color: white;
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    position: relative;
-    z-index: 1;
-}
+      font-family:Arial,sans-serif;
 
-.language-switcher {
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    display: flex;
-    gap: 10px;
-    z-index: 1001;
-}
+      background-color:#1a1a1a; /* Fondo oscuro general para combinar con el encabezado */
 
-.language-switcher button {
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.3s, border-color 0.3s;
-}
+      color:white; /* Texto claro para el fondo oscuro */
 
-.language-switcher button:hover {
-    background-color: rgba(0, 0, 0, 0.7);
-    border-color: #007bff;
-}
+      line-height:1.6;
 
-.language-switcher button.active {
-    background-color: #007bff;
-    color: white;
-    border-color: #007bff;
-}
+    }
 
-.header-left-group { display: flex; align-items: center; flex: 1; }
-.logo-container { display: flex; align-items: center; flex-shrink: 0; margin-top: 10px; justify-content: center; }
-.logo-container img { width: 230px; height: 160px; border: 3px solid transparent; border-radius: 5px; transition: all 0.3s ease; }
-.header-content { flex: 1; display: flex; justify-content: center; align-items: center; box-sizing: border-box; }
-.titulo { text-align: center; display: flex; flex-direction: column; align-items: center; }
-.titulo h1 { font-family: 'Georgia', serif; color: #fff; font-size: 2em; margin: 0; display: block; text-shadow: 5px 5px 10px rgba(0, 0, 0, 1); }
+    /* Mantener estilos h2 para los títulos de sección, no los del encabezado */
+
+    h2 {
+
+      text-align:center;
+
+      color:#00BFFF; /* Azul vibrante para títulos principales de sección */
+
+      margin-bottom:30px;
+
+      font-size: 2.8em; /* Aumentar tamaño de fuente */
+
+      font-weight: bold;
+
+      text-shadow: 3px 3px 6px rgba(0,0,0,0.3); /* Sombra para profundidad */
+
+      letter-spacing: 1px; /* Espaciado entre letras */
+
+      transition: all 0.3s ease; /* Transición suave para efectos hover */
+
+    }
+
+    h2:hover {
+
+        color: #00FFFF; /* Cambiar a un azul más claro en hover (ej. Aqua) */
+
+        text-shadow: 4px 4px 8px rgba(0,0,0,0.4); /* Sombra más pronunciada en hover */
+
+        transform: translateY(-2px); /* Pequeño levantamiento en hover */
+
+    }
+
+
+
+    /* Estilos para el cambio de idioma */
+
+    .lang-es, .lang-en {display: none;} /* Oculta ambos por defecto */
+
+
+
+    /* Muestra el contenido en español cuando el cuerpo tiene la clase 'lang-active-es' */
+
+    body.lang-active-es .lang-es {display: block;}
+
+    body.lang-active-es .lang-es.inline-content {display: inline;}
+
+    body.lang-active-es .lang-es.inline-flex-content {display: inline-flex;}
+
+    /* Oculta explícitamente el inglés cuando el español está activo */
+
+    body.lang-active-es .lang-en {display: none !important;}
+
+
+
+    /* Muestra el contenido en inglés cuando el cuerpo tiene la clase 'lang-active-en' */
+
+    body.lang-active-en .lang-en {display: block;}
+
+    body.lang-active-en .lang-en.inline-content {display: inline;}
+
+    body.lang-active-en .lang-en.inline-flex-content {display: inline-flex;}
+
+    /* Oculta explícitamente el español cuando el inglés está activo */
+
+    body.lang-active-en .lang-es {display: none !important;}
+
+
+
+    /* Header y Navegación */
+
+    .header-nav-wrapper {
+
+        background-image: url('fondo_piepagina.jpg');
+
+        background-size: cover;
+
+        background-position: center;
+
+        background-repeat: no-repeat;
+
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+
+        z-index: 100;
+
+        position: relative;
+
+    }
+
+
+
+    /* Overlay oscuro para el encabezado */
+
+    .header-nav-wrapper::before {
+
+        content: '';
+
+        position: absolute;
+
+        top: 0;
+
+        left: 0;
+
+        width: 100%;
+
+        height: 100%;
+
+        background: rgba(0, 0, 0, 0.6); /* Color negro con 60% de opacidad */
+
+        z-index: 0; /* Asegura que el overlay esté detrás del contenido del header */
+
+    }
+
+
+
+    .main-header {
+
+        background-color: transparent;
+
+        color: white;
+
+        padding: 1rem 2rem;
+
+        display: flex;
+
+        justify-content: space-between;
+
+        align-items: center;
+
+        flex-wrap: wrap; /* Modificado para permitir que los elementos se envuelvan */
+
+        position: relative;
+
+        z-index: 1; /* Asegura que el contenido del header esté por encima del overlay */
+
+    }
+
+    .language-switcher {
+
+        position: absolute;
+
+        top: 10px;
+
+        right: 20px;
+
+        display: flex;
+
+        gap: 10px;
+
+        z-index: 1001;
+
+    }
+
+    .language-switcher button {
+
+        background-color: rgba(0,0,0,0.5); /* Fondo más oscuro para el botón */
+
+        color: white; /* Texto blanco */
+
+        border: 1px solid rgba(255,255,255,0.3); /* Borde claro */
+
+        padding: 5px 10px;
+
+        border-radius: 5px;
+
+        cursor: pointer;
+
+        font-weight: bold;
+
+        transition: background-color 0.3s, border-color 0.3s;
+
+    }
+
+    .language-switcher button:hover {
+
+        background-color: rgba(0,0,0,0.7);
+
+        border-color: #007bff;
+
+    }
+
+    .language-switcher button.active {
+
+        background-color: #007bff;
+
+        color: white;
+
+        border-color: #007bff;
+
+    }
+
+    
+
+    .header-left-group {display:flex;align-items:center;flex:1;}
+
+    .logo-container {display:flex;align-items:center;flex-shrink:0;margin-top:10px;justify-content:center;}
+
+    .logo-container img {width:230px;height:160px;border:3px solid transparent;border-radius:5px;transition:all 0.3s ease;}
+
+    .header-content {flex:1;display:flex;justify-content:center;align-items:center;box-sizing:border-box;}
+
+    .titulo {text-align:center;display:flex;flex-direction:column;align-items:center;}
+
+    .titulo h1 {font-family:'Georgia',serif;color:#fff;font-size:2em;margin:0;display:block;text-shadow:5px 5px 10px rgba(0,0,0,1);}
+
+    
+
+    /* Media Queries para Header y Navegación */
+
+    @media (max-width:768px){
+
+        .main-header{flex-direction:row;justify-content:space-between;align-items:center;padding:0.6rem 1rem;flex-wrap:wrap;} /* Asegura flex-wrap en pantallas medianas */
+
+        .language-switcher{top:5px;right:5px;gap:5px;}
+
+        .language-switcher button{padding:3px 6px;font-size:0.8em;}
+
+        .header-left-group{flex-direction:column;align-items:center;flex:1;}
+
+        .logo-container{width:auto;height:auto;margin-right:0;margin-bottom:5px;}
+
+        .logo-container img{width:100px;height:70px;}
+
+        .header-content{flex:none;justify-content:center;text-align:center;margin:0;}
+
+        .titulo h1{font-size:1em;}
+
+        .main-nav{margin-top:0;padding-bottom:5px;}
+
+        .main-nav ul{list-style:none;display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center;gap:8px;padding:0 8px;margin:0;}
+
+        .main-nav ul li a{font-size:15px;padding:5px 8px;}
+
+        .precio-item{width:90%;}
+
+        .contact-map-section .content-wrapper{flex-direction:column;align-items:center;}
+
+        .map-container-wrapper,.contact-info-wrapper{width:100%;max-width:100%;}
+
+        .whatsapp-float{width:auto;padding:8px 10px;font-size:0.6em;}
+
+    }
+
+    @media (max-width:480px){
+
+        .logo-container img{width:80px;height:55px;}
+
+        .titulo h1{font-size:0.6em;}
+
+        .main-nav ul li a{font-size:13px;padding:3px 6px;}
+
+        h2 { /* Ajuste para títulos en móviles */
+
+            font-size: 1.5em;
+
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+
+        }
+
+    }
+
+    /* Añadido un media query para pantallas muy pequeñas si es necesario ajustar aún más el encabezado */
+
+    @media (max-width:375px) {
+
+        .main-header {
+
+            padding: 0.5rem 0.5rem;
+
+            flex-direction: column; /* Asegura que los elementos del encabezado se apilen en pantallas muy pequeñas */
+
+            text-align: center;
+
+        }
+
+        .language-switcher {
+
+            position: static; /* Cambia a posición estática para que fluya con el contenido */
+
+            justify-content: center;
+
+            margin-top: 10px;
+
+        }
+
+        .header-left-group {
+
+            width: 100%;
+
+            justify-content: center;
+
+        }
+
+        .logo-container {
+
+            margin-bottom: 10px;
+
+        }
+
+    }
+
+
+
+    /* Estilos existentes para todas las pantallas */
 
 .main-nav {
-    background-color: transparent;
-    padding: 0;
-    width: 100%;
-    position: relative;
-    z-index: 200;
-    margin-top: 0px;
-    padding-bottom: 10px;
+
+    background-color: transparent;
+
+    padding: 0;
+
+    width: 100%;
+
+    position: relative;
+
+    z-index: 200;
+
+    margin-top: 0px;
+
+    padding-bottom: 10px;
+
 }
 
 .main-nav ul {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin: 0;
-    padding: 0;
+
+    list-style: none;
+
+    display: flex;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin: 0;
+
+    padding: 0;
+
 }
 
 .main-nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 18px;
-    transition: color 0.3s;
-    padding: 0px 8px;
-    display: block;
-    background-color: transparent;
+
+    color: white;
+
+    text-decoration: none;
+
+    font-weight: bold;
+
+    font-size: 18px; /* Tamaño de fuente para PC */
+
+    transition: color 0.3s;
+
+    padding: 0px 8px;
+
+    display: block;
+
+    background-color: transparent;
+
 }
 
 .main-nav ul li a:hover {
-    background-color: transparent;
-    color: #d32f2f;
+
+    background-color: transparent;
+
+    color: #d32f2f;
+
 }
 
-/*
- * CAROUSEL
- */
-.carousel-section {
-    width: 100%;
-    max-width: 1330px;
-    margin: 0 auto;
-    padding: 10px;
-    background-color: #222;
-    border-radius: 10px;
-    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    position: relative;
+
+
+/* Media query para pantallas más pequeñas, por ejemplo, 768px de ancho o menos */
+
+@media (max-width: 768px) {
+
+    .main-nav ul li a {
+
+        font-size: 5px; /* Tamaño de fuente más pequeño para móviles */
+
+        padding: 0px 6px; /* Ajuste el padding para un mejor espaciado en móviles */
+
+    }
+
 }
 
-.carousel-container {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    height: 600px;
+    /* CARRUSEL DE FOTOS */
+
+    .carousel-section {
+
+        width: 100%;
+
+        max-width: 1330px;
+
+        margin: 0;
+
+        padding: 10px;
+
+        background-color: #222;
+
+        border-radius: 10px;
+
+        box-shadow: 0px 8px 20px rgba(0,0,0,0.1);
+
+        text-align: center;
+
+        position: relative;
+
+    }
+
+    .carousel-container {
+
+        position: relative;
+
+        width: 100%;
+
+        overflow: hidden;
+
+        border-radius: 10px;
+
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+
+        height: 600px; /* Altura fija para el carrusel en escritorio */
+
+    }
+
+    .carousel-track {
+
+      display: flex;
+
+      transition: transform 0.5s ease-in-out;
+
+      height: 100%;
+
+    }
+
+    .carousel-item {
+
+      flex-shrink: 0;
+
+      width: 100%;
+
+      height: 100%; /* El item ocupa toda la altura del contenedor */
+
+    }
+
+    .carousel-item img {
+
+      width: 100%;
+
+      height: 100%; /* La imagen ocupa toda la altura del item */
+
+      object-fit: cover; /* Recorta la imagen para que cubra el espacio sin distorsionarla */
+
+      display: block;
+
+      cursor: pointer; /* Añadido cursor pointer para indicar que es clickeable */
+
+    }
+
+    .carousel-button {
+
+      position: absolute;
+
+      top: 50%;
+
+      transform: translateY(-50%);
+
+      background-color: rgba(0,0,0,0.5);
+
+      color: white;
+
+      border: none;
+
+      padding: 15px;
+
+      cursor: pointer;
+
+      z-index: 100;
+
+      font-size: 1.5em;
+
+      border-radius: 50%;
+
+      transition: background-color 0.3s;
+
+    }
+
+    .carousel-button:hover {
+
+      background-color: rgba(0,0,0,0.8);
+
+    }
+
+    .carousel-prev {left: 10px;}
+
+    .carousel-next {right: 10px;}
+
+    .carousel-dots {
+
+      position: absolute;
+
+      bottom: 20px;
+
+      left: 50%;
+
+      transform: translateX(-50%);
+
+      display: flex;
+
+      gap: 10px;
+
+      z-index: 100;
+
+    }
+
+    .dot {
+
+      width: 10px;
+
+      height: 10px;
+
+      background-color: rgba(255,255,255,0.5);
+
+      border-radius: 50%;
+
+      cursor: pointer;
+
+      transition: background-color 0.3s;
+
+    }
+
+    .dot.active {
+
+      background-color: white;
+
+    }
+
+
+
+    /* ESTILOS PARA EL MODAL DE IMAGEN */
+
+    .image-modal {
+
+      display: none; /* Oculto por defecto */
+
+      position: fixed;
+
+      z-index: 10000;
+
+      left: 0;
+
+      top: 0;
+
+      width: 100%;
+
+      height: 100%;
+
+      overflow: auto;
+
+      background-color: rgba(0,0,0,0.9); /* Fondo semi-transparente oscuro */
+
+      align-items: center;
+
+      justify-content: center;
+
+      padding: 20px;
+
+    }
+
+    .image-modal.show {
+
+        display: flex;
+
+    }
+
+    .modal-content {
+
+      width: 90%;
+
+      max-width: 1200px;
+
+      height: auto;
+
+      max-height: 90vh;
+
+      object-fit: contain; /* Ajusta la imagen sin distorsionarla */
+
+      animation-name: zoom;
+
+      animation-duration: 0.6s;
+
+    }
+
+    @keyframes zoom {
+
+      from {transform: scale(0.1)}
+
+      to {transform: scale(1)}
+
+    }
+
+    .modal-close {
+
+      position: absolute;
+
+      top: 20px;
+
+      right: 35px;
+
+      color: #fff;
+
+      font-size: 40px;
+
+      font-weight: bold;
+
+      transition: 0.3s;
+
+      cursor: pointer;
+
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+
+    }
+
+    .modal-close:hover,
+
+    .modal-close:focus {
+
+      color: #bbb;
+
+      text-decoration: none;
+
+    }
+
+     * SECCIÓN "NUESTRA TEMÁTICA"
+
+        * Estilos para la sección principal del menú, adaptables a móviles y escritorio.
+
+        */
+
+        .our-theme-section {
+
+            width: 100%;
+
+            max-width: 1330px;
+
+            margin: 20px auto;
+
+            padding: 20px;
+
+            background-color: #222;
+
+            color: white;
+
+            border-radius: 10px;
+
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+            text-align: center;
+
+        }
+
+        .our-theme-section h2 {
+
+            color: #00BFFF;
+
+            font-size: 1.8em;
+
+            margin-bottom: 20px;
+
+        }
+
+        .our-theme-section p {
+
+            font-size: 1em;
+
+            margin-bottom: 15px;
+
+            line-height: 1.6;
+
+            color: white;
+
+        }
+
+        .theme-content-wrapper {
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            align-items: center;
+
+            gap: 20px;
+
+            margin-top: 20px;
+
+        }
+
+        .theme-image-column {
+
+            min-width: unset;
+
+            max-width: 100%;
+
+            text-align: center;
+
+        }
+
+        .theme-image-column img {
+
+            width: 100%;
+
+            height: auto;
+
+            object-fit: contain;
+
+            border-radius: 8px;
+
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+
+        }
+
+        .theme-text-column {
+
+            min-width: unset;
+
+            max-width: 100%;
+
+            text-align: center;
+
+        }
+
+        .theme-text-column p {
+
+            margin-bottom: 20px;
+
+            text-align: center;
+
+        }
+
+        .preparation-buttons {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 5px;
+
+            margin-top: 10px;
+
+        }
+
+        .preparation-button {
+
+            background-color: transparent;
+
+            color: white;
+
+            padding: 8px 0;
+
+            border-radius: 0;
+
+            cursor: pointer;
+
+            font-weight: bold;
+
+            text-align: center;
+
+            box-shadow: none;
+
+            height: auto;
+
+            border: none;
+
+            border-bottom: 2px solid #666;
+
+            transition: border-bottom-color 0.3s, color 0.3s;
+
+            font-size: 0.9em;
+
+        }
+
+        .preparation-button:hover {
+
+            background-color: transparent;
+
+            border-bottom-color: #00BFFF;
+
+            color: #00BFFF;
+
+            transform: none;
+
+        }
+
+        
+
+        /*
+
+        * ESTILOS DEL MODAL (VENTANA FLOTANTE)
+
+        * Estos estilos crean el efecto de una ventana que flota sobre el contenido.
+
+        */
+
+        .image-modal {
+
+            display: none; /* Oculto por defecto */
+
+            position: fixed;
+
+            z-index: 1000; /* Asegura que esté por encima de todo lo demás */
+
+            left: 0;
+
+            top: 0;
+
+            width: 100%;
+
+            height: 100%;
+
+            background-color: rgba(0,0,0,0.9); /* Fondo semi-transparente oscuro */
+
+            align-items: center;
+
+            justify-content: center;
+
+            animation: fadeIn 0.3s; /* Animación de entrada */
+
+        }
+
+        /* Clase para mostrar el modal */
+
+        .image-modal.active {
+
+            display: flex;
+
+        }
+
+        .modal-content {
+
+            width: 90%;
+
+            max-width: 800px;
+
+            max-height: 90vh;
+
+            object-fit: contain;
+
+            border-radius: 10px;
+
+        }
+
+        .modal-close {
+
+            position: absolute;
+
+            top: 20px;
+
+            right: 35px;
+
+            color: #fff;
+
+            font-size: 40px;
+
+            font-weight: bold;
+
+            transition: 0.3s;
+
+            cursor: pointer;
+
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+
+        }
+
+        .modal-close:hover,
+
+        .modal-close:focus {
+
+            color: #bbb;
+
+            text-decoration: none;
+
+        }
+
+        /* Animación de entrada */
+
+        @keyframes fadeIn {
+
+            from { opacity: 0; }
+
+            to { opacity: 1; }
+
+        }
+
+
+
+        /*
+
+        * MEDIA QUERIES PARA ADAPTACIÓN
+
+        * Los estilos para pantallas grandes se aplican a partir de 768px.
+
+        */
+
+        @media (min-width: 768px) {
+
+            .our-theme-section {
+
+                margin: 40px auto;
+
+                padding: 40px;
+
+            }
+
+            .our-theme-section h2 {
+
+                font-size: 2.5em;
+
+                margin-bottom: 30px;
+
+            }
+
+            .our-theme-section p {
+
+                font-size: 1.2em;
+
+                line-height: 1.8;
+
+            }
+
+            .theme-content-wrapper {
+
+                flex-direction: row;
+
+                justify-content: center;
+
+                align-items: stretch;
+
+                gap: 30px;
+
+                margin-top: 30px;
+
+            }
+
+            .theme-image-column {
+
+                flex: 1;
+
+                min-width: 300px;
+
+                max-width: 500px;
+
+            }
+
+            .theme-image-column img {
+
+                max-width: 100%;
+
+                height: 100%;
+
+                object-fit: cover;
+
+                border-radius: 10px;
+
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+
+            }
+
+            .theme-text-column {
+
+                flex: 1;
+
+                min-width: 300px;
+
+                max-width: 700px;
+
+                text-align: left;
+
+                display: flex;
+
+                flex-direction: column;
+
+                justify-content: space-between;
+
+                height: 100%;
+
+            }
+
+            .theme-text-column p {
+
+                margin-bottom: 25px;
+
+                flex-shrink: 0;
+
+                text-align: left;
+
+            }
+
+            .preparation-buttons {
+
+                display: grid;
+
+                grid-template-columns: repeat(2, 1fr);
+
+                gap: 10px;
+
+                justify-content: center;
+
+                flex-grow: 1;
+
+                align-content: stretch;
+
+            }
+
+            .preparation-button {
+
+                padding: 5px 0;
+
+            }
+
+        }
+
+        /* Oculta las imágenes de la preparación por defecto */
+
+        .image-container {
+
+            display: none;
+
+        }
+
+    
+
+    .historia-section h2 {color:#00BFFF;font-size:2em;margin-bottom:30px;} /* Azul vibrante para títulos */
+
+    .historia-section {
+
+        font-size:18px;
+
+        margin:40px auto;
+
+        padding:40px;
+
+        max-width:1330px;
+
+        color:#eee; /* Texto gris muy claro para contrastar con la imagen de fondo */
+
+        border-radius:10px;
+
+        box-shadow:0 8px 20px rgba(0,0,0,0.1);
+
+        line-height:1.6;
+
+        position: relative; /* Necesario para la animación de fondo */
+
+        overflow: hidden; /* Asegura que la animación de fondo se mantenga dentro de los límites */
+
+        background-image: url('484142437_1065174388986290_1824956558464000683_n.jpg'); /* Imagen de fondo */
+
+        background-size: cover; /* Cubrir todo el espacio */
+
+        background-position: center; /* Centrar la imagen */
+
+        z-index: 1; /* Asegura que el contenido esté por encima del pseudo-elemento */
+
+    }
+
+
+
+    /* Keyframes para la animación del degradado de fondo */
+
+    @keyframes gradientAnimation {
+
+        0% { background-position: 0% 50%; }
+
+        50% { transform: translateY(-3px); }
+
+        100% { transform: translateY(0px); }
+
+    }
+
+    
+
+    .historia-section::before {
+
+        content: '';
+
+        position: absolute;
+
+        top: 0;
+
+        left: 0;
+
+        width: 100%;
+
+        height: 100%;
+
+        background: rgba(0, 0, 0, 0.7); /* Overlay oscuro para mejorar la legibilidad del texto (aumentado a 0.7) */
+
+        z-index: -1; /* Coloca el pseudo-elemento detrás del contenido */
+
+    }
+
+
+
+    .historia-section p { /* Alinea los párrafos */
+
+        text-align: justify; /* Mantenido justificado */
+
+        margin-bottom: 1em; /* Espacio entre párrafos */
+
+        position: relative; /* Asegura que el texto esté por encima del ::before */
+
+        z-index: 2; /* Mayor que el z-index del ::before */
+
+        color: #eee; /* Texto gris muy claro para mayor claridad */
+
+    }
+
+    .historia-section p:last-child {
+
+        margin-bottom: 0; /* Elimina el margen inferior del último párrafo */
+
+    }
+
+
+
+    /* Sección Contacto y Mapa */
+
+    .contact-map-section {
+
+        background-color: #222; /* Fondo oscuro para combinar */
+
+        color:white; /* Texto claro */
+
+        padding: 30px 10px;
+
+        margin: 30px auto;
+
+        max-width: 1330px;
+
+        border-radius: 10px;
+
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+
+        text-align: center;
+
+    }
+
+    .contact-map-section h2 {color:#00BFFF;margin-bottom:30px;font-size:2em;} /* Azul vibrante para títulos */
+
+    .content-wrapper {display:flex;flex-wrap:wrap;justify-content:center;align-items:stretch;gap:30px;}
+
+    .map-container-wrapper,.contact-info-wrapper {flex:1;min-width:320px;max-width:550px;display:flex;flex-direction:column;gap:10px;}
+
+    .map-container-wrapper {
+
+      background-color:#333; /* Fondo oscuro para los contenedores de mapa/contacto */
+
+      padding:35px;
+
+      border-radius:8px;
+
+      box-shadow:0 4px 8px rgba(0,0,0,0.2);
+
+      align-items:center;
+
+    }
+
+    .contact-info-wrapper {
+
+      background-color:#333; /* Fondo oscuro para los contenedores de mapa/contacto */
+
+      padding:35px;
+
+      border-radius:8px;
+
+      box-shadow:0 4px 8px rgba(0,0,0,0.2);
+
+      align-items:flex-start;
+
+    }
+
+    .map-container-wrapper h3,.contact-info-wrapper h3 {color:#00BFFF;font-size:1.8em;margin-bottom:10px;width:100%;text-align:center;} /* Azul vibrante para títulos */
+
+    .contact-info-wrapper h3 {color:#00BFFF;} /* Azul vibrante para títulos */
+
+    .map-container {height:300px;padding-bottom:0;position:relative;overflow:hidden;border-radius:8px;background-color:#444;box-shadow:0 2px 10px rgba(0,0,0,0.1);width:100%;} /* Fondo oscuro para el mapa */
+
+    .map-container iframe {position:absolute;top:0;left:0;width:100%;height:100%;border:0;}
+
+    .contact-item {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    color: #ccc;              /* Texto gris claro */
+
+    font-size: 1.1em;
+
+    margin-bottom: 5px;
+
 }
 
-.carousel-track {
-    display: flex;
-    transition: transform 0.5s ease-in-out;
-    height: 100%;
+.contact-item:last-child {
+
+    margin-bottom: 0;
+
 }
 
-.carousel-item {
-    flex-shrink: 0;
-    width: 100%;
-    height: 100%;
+
+
+/* Íconos */
+
+.contact-item i {
+
+    font-size: 1.3em;
+
+    min-width: 25px;
+
+    text-align: center;
+
 }
 
-.carousel-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    cursor: pointer;
-}
+.contact-item .fa-map-marker-alt { color: #DB4437; } /* Rojo Google Maps */
 
-.carousel-button {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    padding: 15px;
-    cursor: pointer;
-    z-index: 100;
-    font-size: 1.5em;
-    border-radius: 50%;
-    transition: background-color 0.3s;
-}
+.contact-item .fa-phone { color: #25d366; }          /* Verde WhatsApp */
 
-.carousel-button:hover {
-    background-color: rgba(0, 0, 0, 0.8);
-}
+.contact-item .fa-envelope { color: #1a73e8; }       /* Azul Google */
 
-.carousel-prev { left: 10px; }
-.carousel-next { right: 10px; }
-
-.carousel-dots {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 10px;
-    z-index: 100;
-}
-
-.dot {
-    width: 10px;
-    height: 10px;
-    background-color: rgba(255, 255, 255, 0.5);
-    border-radius: 50%;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.dot.active {
-    background-color: white;
-}
-
-/*
- * IMAGE MODAL
- */
-.image-modal {
-    display: none;
-    position: fixed;
-    z-index: 10000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.9);
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-}
-
-.image-modal.show {
-    display: flex;
-}
-
-.modal-content {
-    width: 90%;
-    max-width: 1200px;
-    height: auto;
-    max-height: 90vh;
-    object-fit: contain;
-    animation-name: zoom;
-    animation-duration: 0.6s;
-}
-
-@keyframes zoom {
-    from { transform: scale(0.1); }
-    to { transform: scale(1); }
-}
-
-.modal-close {
-    position: absolute;
-    top: 20px;
-    right: 35px;
-    color: #fff;
-    font-size: 40px;
-    font-weight: bold;
-    transition: 0.3s;
-    cursor: pointer;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-.modal-close:hover, .modal-close:focus {
-    color: #bbb;
-    text-decoration: none;
-}
-
-/*
- * THEME SECTION
- */
-.our-theme-section {
-    width: 100%;
-    max-width: 1330px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #222;
-    color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
-.our-theme-section p {
-    font-size: 1em;
-    margin-bottom: 15px;
-    line-height: 1.6;
-    color: white;
-}
-
-.theme-content-wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    margin-top: 20px;
-}
-
-.theme-image-column {
-    min-width: unset;
-    max-width: 100%;
-    text-align: center;
-}
-
-.theme-image-column img {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-}
-
-.theme-text-column {
-    min-width: unset;
-    max-width: 100%;
-    text-align: center;
-}
-
-.theme-text-column p {
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.preparation-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    margin-top: 10px;
-}
-
-.preparation-button {
-    background-color: transparent;
-    color: white;
-    padding: 8px 0;
-    border-radius: 0;
-    cursor: pointer;
-    font-weight: bold;
-    text-align: center;
-    box-shadow: none;
-    height: auto;
-    border: none;
-    border-bottom: 2px solid #666;
-    transition: border-bottom-color 0.3s, color 0.3s;
-    font-size: 0.9em;
-}
-
-.preparation-button:hover {
-    background-color: transparent;
-    border-bottom-color: #00BFFF;
-    color: #00BFFF;
-    transform: none;
-}
-
-.image-container {
-    display: none;
-}
-
-/*
- * HISTORY SECTION
- */
-.historia-section {
-    font-size: 18px;
-    margin: 40px auto;
-    padding: 40px;
-    max-width: 1330px;
-    color: #eee;
-    border-radius: 10px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    line-height: 1.6;
-    position: relative;
-    overflow: hidden;
-    background-image: url('484142437_1065174388986290_1824956558464000683_n.jpg');
-    background-size: cover;
-    background-position: center;
-    z-index: 1;
-}
-
-.historia-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7);
-    z-index: -1;
-}
-
-.historia-section p {
-    text-align: justify;
-    margin-bottom: 1em;
-    position: relative;
-    z-index: 2;
-    color: #eee;
-}
-
-.historia-section p:last-child {
-    margin-bottom: 0;
-}
-
-/*
- * CONTACT & MAP SECTION
- */
-.contact-map-section {
-    background-color: #222;
-    color: white;
-    padding: 30px 10px;
-    margin: 30px auto;
-    max-width: 1330px;
-    border-radius: 10px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
-.contact-map-section h2 { margin-bottom: 30px; font-size: 2em; }
-.content-wrapper { display: flex; flex-wrap: wrap; justify-content: center; align-items: stretch; gap: 30px; }
-.map-container-wrapper, .contact-info-wrapper { flex: 1; min-width: 320px; max-width: 550px; display: flex; flex-direction: column; gap: 10px; }
-
-.map-container-wrapper, .contact-info-wrapper {
-    background-color: #333;
-    padding: 35px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    align-items: center;
-}
-
-.map-container-wrapper h3, .contact-info-wrapper h3 {
-    color: #00BFFF;
-    font-size: 1.8em;
-    margin-bottom: 10px;
-    width: 100%;
-    text-align: center;
-}
-
-.map-container {
-    height: 300px;
-    padding-bottom: 0;
-    position: relative;
-    overflow: hidden;
-    border-radius: 8px;
-    background-color: #444;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    width: 100%;
-}
-
-.map-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
-
-.contact-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: #ccc;
-    font-size: 1.1em;
-    margin-bottom: 5px;
-}
-
-.contact-item:last-child { margin-bottom: 0; }
-.contact-item i { font-size: 1.3em; min-width: 25px; text-align: center; }
-.contact-item .fa-map-marker-alt { color: #DB4437; }
-.contact-item .fa-phone { color: #25d366; }
-.contact-item .fa-envelope { color: #1a73e8; }
 .contact-item .fa-clock { color: #1a73e8; }
 
+
+
+/* Enlaces (para que iPhone no los pinte azul/subrayado) */
+
 .contact-item a {
-    color: inherit;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+
+    color: inherit;          /* hereda el color del texto */
+
+    text-decoration: none;   /* sin subrayado */
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
 }
 
 .contact-item a:hover {
-    color: #25d366;
-    text-decoration: underline;
+
+    color: #25d366;          /* efecto hover (puedes cambiarlo) */
+
+    text-decoration: underline; /* opcional */
+
 }
+
+
+
+/* Textos dentro del enlace (bilingüe) */
 
 .contact-item a span {
-    word-break: break-all;
-    overflow-wrap: break-word;
+
+    word-break: break-all;
+
+    overflow-wrap: break-word;
+
 }
+
+
+
+/* Mensaje final en sección contacto */
 
 .contact-info-wrapper .visit-message {
-    margin-top: auto;
-    text-align: center;
-    font-style: italic;
-    color: #eee;
-    padding-top: 15px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    font-size: 1em;
-    line-height: 1.4;
-    text-shadow: none;
+
+    margin-top: auto;
+
+    text-align: center;
+
+    font-style: italic;
+
+    color: #eee; /* Texto gris muy claro */
+
+    padding-top: 15px;
+
+    border-top: 1px solid rgba(255,255,255,0.1); /* Borde claro */
+
+    font-size: 1em;
+
+    line-height: 1.4;
+
+    text-shadow: none; /* quitado el text-shadow para fondo claro */
+
 }
 
-.text { color: white; font-size: 1.6em; margin-top: 40px; margin-bottom: 20px; display: flex; justify-content: center; width: 100%; }
-.social-icons { display: flex; justify-content: center; gap: 30px; padding-bottom: 10px; }
-.social-icons a { color: white; font-size: 2em; transition: color 0.3s ease, transform 0.2s ease; text-decoration: none; }
-.social-icons a:hover { transform: translateY(-3px); }
-.social-icons .fa-facebook { color: #1877f2; }
-.social-icons .fa-instagram { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-.social-icons .fa-whatsapp { color: #25d366; }
-.social-icons .fa-map-marker-alt { color: #db4437; }
+    .text {color:white;font-size:1.6em;margin-top:40px;margin-bottom:20px;display:flex;justify-content:center;width:100%;} /* Texto blanco */
 
-/*
- * WHATSAPP BUTTON
- */
-.whatsapp-float {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: #25d366;
-    color: white;
-    padding: 12px 20px;
-    border-radius: 30px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 1.1em;
-    text-decoration: none;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    z-index: 9999;
-    cursor: grab;
-    transition: background-color 0.3s, transform 0.2s;
-}
+    .social-icons {display: flex;justify-content: center;gap: 30px;padding-bottom: 10px;}
 
-.whatsapp-float:active { cursor: grabbing; }
-.whatsapp-float:hover { background-color: #1da851; transform: translateY(-3px); }
-.whatsapp-float i { font-size: 1.5em; }
+    .social-icons a {color: white;font-size: 2em;transition: color 0.3s ease, transform 0.2s ease;text-decoration: none;}
 
-/*
- * FOOTER
- */
-.main-footer {
-    background-color: #111;
-    color: #ccc;
-    text-align: center;
-    padding: 20px;
-    font-size: 0.9em;
-    margin-top: 30px;
-}
+    .social-icons a:hover {transform: translateY(-3px);}
 
-.main-footer .footer-links a {
-    color: #007bff;
-    text-decoration: none;
-    margin: 0 10px;
-    transition: color 0.3s;
-}
+    .social-icons .fa-facebook {color: #1877f2;}
 
-.main-footer .footer-links a:hover { color: #00BFFF; }
+    .social-icons .fa-instagram {background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);-webkit-background-clip: text;-webkit-text-fill-color: transparent;}
 
-/*
- * RESERVATION MESSAGE
- */
-#reservation-message {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    padding: 25px 40px;
-    border-radius: 10px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-    z-index: 10000;
-    font-size: 2.2em;
-    font-weight: bold;
-    text-align: center;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
-    max-width: 90%;
-    box-sizing: border-box;
-}
+    .social-icons .fa-whatsapp {color: #25d366;}
 
-#reservation-message.show {
-    opacity: 1;
-    visibility: visible;
-}
+    .social-icons .fa-map-marker-alt {color: #db4437;}
 
-/*
- * RESPONSIVE DESIGN (MEDIA QUERIES)
- */
+
+
+/* Media Queries para Contacto y Redes Sociales */
+
 @media (max-width: 768px) {
-    /* Header & Navigation */
-    .main-header { flex-direction: row; justify-content: space-between; align-items: center; padding: 0.6rem 1rem; flex-wrap: wrap; }
-    .language-switcher { top: 5px; right: 5px; gap: 5px; }
-    .language-switcher button { padding: 3px 6px; font-size: 0.8em; }
-    .header-left-group { flex-direction: column; align-items: center; flex: 1; }
-    .logo-container { width: auto; height: auto; margin-right: 0; margin-bottom: 5px; }
-    .logo-container img { width: 100px; height: 70px; }
-    .header-content { flex: none; justify-content: center; text-align: center; margin: 0; }
-    .titulo h1 { font-size: 1em; }
-    .main-nav { margin-top: 0; padding-bottom: 5px; }
-    .main-nav ul { list-style: none; display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 8px; padding: 0 8px; margin: 0; }
-    .main-nav ul li a { font-size: 14px; padding: 5px 8px; } /* CORRECTED FONT SIZE */
-    .whatsapp-float .inline-flex-content { display: none; }
-    .whatsapp-float { width: auto; padding: 8px 10px; font-size: 0.6em; }
 
-    /* Carousel */
-    .carousel-container { height: 300px; }
+  .content-wrapper {
 
-    /* Theme Section */
-    .theme-content-wrapper { flex-direction: column; align-items: center; }
+    flex-direction: column;
 
-    /* Contact & Map */
-    .contact-map-section .content-wrapper { flex-direction: column; align-items: center; }
-    .map-container-wrapper, .contact-info-wrapper { width: 100%; max-width: 100%; }
-    .social-icons { gap: 5px; }
-    .social-icons a { font-size: 1em; }
+    align-items: center;
 
-    /* Reservation Message */
-    #reservation-message { font-size: 1.2em; padding: 15px 25px; }
+  }
+
+  .map-container-wrapper,
+
+  .contact-info-wrapper {
+
+    max-width: 100%;
+
+    min-width: unset;
+
+    width: 100%;
+
+  }
+
+  .map-container iframe {
+
+    height: 250px;
+
+  }
+
+  .contact-map-section h2 {
+
+    font-size: 1.2em;
+
+  }
+
+  .map-container-wrapper h3,
+
+  .contact-info-wrapper h3 {
+
+    font-size: 1.2em;
+
+  }
+
+  .social-icons {
+
+    /* Aquí es donde se ajusta el tamaño en pantallas pequeñas */
+
+    gap: 5px;
+
+  }
+
+  .social-icons a {
+
+    font-size: 1em; /* Nuevo tamaño del ícono */
+
+  }
+
 }
 
-@media (max-width: 480px) {
-    .logo-container img { width: 80px; height: 55px; }
-    .titulo h1 { font-size: 0.6em; }
-    h2 { font-size: 1.5em; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); }
-    .theme-content-wrapper { flex-direction: column; align-items: center; gap: 20px; }
-    .preparation-buttons { grid-template-columns: 1fr; }
+    
+
+    @media (max-width:480px){
+
+        .theme-content-wrapper{
+
+            flex-direction:column;
+
+            align-items:center;
+
+            gap:20px;
+
+        }
+
+        .preparation-buttons{
+
+            grid-template-columns: 1fr;
+
+        }
+
+    }
+
+    @media (max-width:375px){
+
+        .contact-map-section{padding:20px 10px;margin:20px auto;}
+
+        .social-icons{font-size:1.8em;gap:10px;}
+
+        .our-theme-section{padding:20px;margin:20px auto;}
+
+        .our-theme-section p{font-size:1em;}
+
+        .theme-image-column,.theme-text-column{min-width:unset;max-width:100%;}
+
+        .preparation-button{padding:10px 8px;font-size:1em;}
+
+    }
+
+
+
+    /* WhatsApp Float Button */
+
+    .whatsapp-float {
+
+            position: fixed;
+
+            bottom: 20px;
+
+            right: 20px;
+
+            background-color: #25d366;
+
+            color: white;
+
+            padding: 12px 20px;
+
+            border-radius: 30px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            font-size: 1.1em;
+
+            text-decoration: none;
+
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+
+            z-index: 1000;
+
+            transition: background-color 0.3s, transform 0.2s;
+
+            cursor: grab;
+
+        }
+
+        .whatsapp-float:active {
+
+            cursor: grabbing;
+
+        }
+
+        .whatsapp-float:hover {
+
+            background-color: #1da851;
+
+            transform: translateY(-3px);
+
+        }
+
+        .whatsapp-float i {font-size:1.5em;}
+
+        /* Opcional: Oculta los textos para un diseño más minimalista en móviles */
+
+        @media (max-width: 768px) {
+
+            .whatsapp-float .inline-flex-content {
+
+                display: none;
+
+            }
+
+          }
+
+    /* Footer */
+
+    .main-footer {
+
+        background-color: #111; /* Fondo muy oscuro para el footer */
+
+        color: #ccc; /* Texto gris claro */
+
+        text-align: center;
+
+        padding: 20px;
+
+        font-size: 0.9em;
+
+        margin-top: 30px;
+
+    }
+
+    .main-footer .footer-links a {
+
+        color: #007bff;
+
+        text-decoration: none;
+
+        margin: 0 10px;
+
+        transition: color 0.3s;
+
+    }
+
+    .main-footer .footer-links a:hover {color:#00BFFF;} /* Azul vibrante para hover del footer */
+
+
+
+ /* Mensaje de Reserva Flotante */
+
+    #reservation-message {
+
+        position: fixed;
+
+        top: 50%;
+
+        left: 50%;
+
+        transform: translate(-50%,-50%);
+
+        background-color: rgba(0,0,0,0.5);
+
+        color: white;
+
+        padding: 25px 40px;
+
+        border-radius: 10px;
+
+        box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+
+        z-index: 10000;
+
+        font-size: 2.2em;
+
+        font-weight: bold;
+
+        text-align: center;
+
+        opacity: 0;
+
+        visibility: hidden;
+
+        transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+
+        max-width: 90%;
+
+        box-sizing: border-box;
+
+    }
+
+    #reservation-message.show {opacity:1;visibility:visible;}
+
+    /* Estilos para PC (opcional, si quieres un tamaño de fuente diferente en pantallas grandes) */
+
+@media (min-width: 769px) {
+
+    #reservation-message {
+
+        font-size: 2.2em;
+
+    }
+
 }
 
-@media (max-width: 375px) {
-    .main-header { padding: 0.5rem 0.5rem; flex-direction: column; text-align: center; }
-    .language-switcher { position: static; justify-content: center; margin-top: 10px; }
-    .header-left-group { width: 100%; justify-content: center; }
-    .logo-container { margin-bottom: 10px; }
-    .contact-map-section { padding: 20px 10px; margin: 20px auto; }
-    .social-icons { font-size: 1.8em; gap: 10px; }
-    .our-theme-section { padding: 20px; margin: 20px auto; }
-    .our-theme-section p { font-size: 1em; }
-    .theme-image-column, .theme-text-column { min-width: unset; max-width: 100%; }
-    .preparation-button { padding: 10px 8px; font-size: 1em; }
+    @media (max-width: 768px) {
+
+        #reservation-message {
+
+            font-size: 1.2em;
+
+            padding: 15px 25px;
+
+        }
+
+    }
+
+          @media (min-width: 768px) { /* Se aplica a pantallas de 768px o más */
+
+  .mensaje-flotante {
+
+    width: 100%;
+
+    max-width: 1000px; /* Un ancho máximo para evitar que se vea muy largo */
+
+    margin: 0 auto; /* Centra el contenedor del mensaje */
+
+    text-align: center; /* Centra el texto dentro del contenedor */
+
+  }
+
 }
 
-@media (min-width: 768px) {
-    .our-theme-section {
-        margin: 40px auto;
-        padding: 40px;
-    }
-    .our-theme-section h2 {
-        font-size: 2.5em;
-        margin-bottom: 30px;
-    }
-    .our-theme-section p {
-        font-size: 1.2em;
-        line-height: 1.8;
-    }
-    .theme-content-wrapper {
-        flex-direction: row;
-        justify-content: center;
-        align-items: stretch;
-        gap: 30px;
-        margin-top: 30px;
-    }
-    .theme-image-column {
-        flex: 1;
-        min-width: 300px;
-        max-width: 500px;
-    }
-    .theme-image-column img {
-        max-width: 100%;
-        height: 100%;
-        object-fit: cover;
-        border-radius: 10px;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    }
-    .theme-text-column {
-        flex: 1;
-        min-width: 300px;
-        max-width: 700px;
-        text-align: left;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        height: 100%;
-    }
-    .theme-text-column p {
-        margin-bottom: 25px;
-        flex-shrink: 0;
-        text-align: left;
-    }
-    .preparation-buttons {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-        justify-content: center;
-        flex-grow: 1;
-        align-content: stretch;
-    }
-    .preparation-button { padding: 5px 0; }
-}
+  </style>
 </head>
 <body class="lang-active-es"> <!-- Añadido lang-active-es por defecto -->
   <div class="language-switcher">
@@ -1299,6 +2207,7 @@ body.lang-active-en .lang-en.inline-flex-content { display: inline-flex; }
         langEnBtn.addEventListener('click', () => setLanguage('en'));
     }
 });
+    </script>
 </body>
 </html>
 
