@@ -229,6 +229,12 @@
         box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         height: 600px; /* Altura fija para el carrusel en escritorio */
     }
+    /* Media Query para Dispositivos Móviles (ancho máximo de 768px) */
+@media (max-width: 768px) {
+  .carousel-container {
+    height: 300px; /* Nueva altura más pequeña para móviles */
+  }
+}
     .carousel-track {
       display: flex;
       transition: transform 0.5s ease-in-out;
