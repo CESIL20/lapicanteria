@@ -427,7 +427,7 @@ body.lang-active-en .lang-es {display: none;}
 /* CONTACT ITEM STYLES */
 .contact-item {
     display: flex; /* Contenedor principal para cada fila de contacto */
-    align-items: center; /* Centra verticalmente el contenido */
+    align-items: flex-start; 
     gap: 10px; /* Espacio entre el icono y el texto */
     color: #ccc;
     font-size: 1.1em;
@@ -456,7 +456,7 @@ transform: scaleX(-1);
     color: inherit; /* Hereda el color del padre (.contact-item) */
     text-decoration: none; /* Elimina el subrayado por defecto */
     display: flex; /* Hace del enlace un contenedor flexible */
-    align-items: center; /* Centra verticalmente el icono y el texto dentro del enlace */
+    align-items: flex-start; /* Centra verticalmente el icono y el texto dentro del enlace */
     gap: 10px; /* Espacio entre el icono y el texto dentro del enlace */
 }
 .contact-item a:hover {
@@ -466,6 +466,8 @@ transform: scaleX(-1);
 
 /* Estilo para el texto dentro del enlace, asegurando que se ajuste */
 .contact-item a span {
+    display:flex;
+    flex-direction:column;
     word-break: break-all;
     overflow-wrap: break-word;
 }
