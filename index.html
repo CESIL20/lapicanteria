@@ -947,11 +947,11 @@ body.lang-active-en .lang-es {display: none;}
     <a href="https://www.google.com/maps/place/La+Picanter%C3%ADa/@-12.1167718,-77.0263581,17z/data=!3m1!4b1!4m6!3m5!1s0x9105c81045eb8aff:0x9cce78ba3005d3f2!8m2!3d-12.1167718!4d-77.0237832!16s%2Fg%2F1pp2vk2y_?entry=ttu&g_ep=EgoyMDI1MDcyMC4wIKXMDSoASAFQAw%3D%3D" target="_blank" aria-label="Google Maps"><i class="fas fa-map-marker-alt"></i></a>
 </div>
 </section>
- <a id="whatsapp-draggable-button" class="whatsapp-float" href="https://wa.me/51953489892?text=Hola!%20Me%20gustaría%20realizar%20un%20pedido." target="_blank">
+<div id="whatsapp-draggable-button" class="whatsapp-float" draggable="true">
   <i class="fab fa-whatsapp"></i>
   <span class="lang-es inline-flex-content">¿Necesitas ayuda? ¡Contáctanos!</span>
   <span class="lang-en inline-flex-content">Need help? Contact us!</span>
-</a>
+</div>
 
  <footer class="main-footer">
     <p>
@@ -1133,82 +1133,75 @@ body.lang-active-en .lang-es {display: none;}
             }
         });
     });
+    // Get the draggable button element
+const whatsappBtn = document.getElementById('whatsapp-draggable-button');
 
-    // --- LÓGICA DEL BOTÓN FLOTANTE DE WHATSAPP ---
-    const whatsappButton = document.getElementById('whatsapp-draggable-button');
-    const whatsappLink = whatsappButton ? whatsappButton.querySelector('a') : null;
+// WhatsApp URL to redirect to on click
+const whatsappURL = "https://wa.me/51953489892?text=Hola!%20Me%20gustar%C3%ADa%20realizar%20un%20pedido.";
 
-    if (whatsappButton) {
-        let isDragging = false;
-        let startX, startY;
-        const dragThreshold = 5;
+// --- Handle Click/Touch Action ---
+// This is crucial to make the div act like a link
+whatsappBtn.addEventListener('click', () => {
+  window.open(whatsappURL, '_blank');
+});
 
-        whatsappButton.addEventListener('mousedown', (e) => {
-            isDragging = false;
-            startX = e.clientX;
-            startY = e.clientY;
-            e.preventDefault();
-        });
+// --- Handle Drag-and-Drop for Desktop & Mobile ---
+let isDragging = false;
+let startX, startY;
+let initialX, initialY;
 
-        document.addEventListener('mousemove', (e) => {
-            if (!whatsappButton.classList.contains('active')) return;
-            if (Math.abs(e.clientX - startX) > dragThreshold || Math.abs(e.clientY - startY) > dragThreshold) {
-                isDragging = true;
-            }
-            if (isDragging) {
-                const newX = e.clientX - (startX - whatsappButton.offsetLeft);
-                const newY = e.clientY - (startY - whatsappButton.offsetTop);
-                whatsappButton.style.left = newX + 'px';
-                whatsappButton.style.top = newY + 'px';
-                whatsappButton.style.right = 'auto';
-                whatsappButton.style.bottom = 'auto';
-            }
-        });
+// Desktop: Mouse Events
+whatsappBtn.addEventListener('mousedown', (e) => {
+  isDragging = true;
+  startX = e.clientX;
+  startY = e.clientY;
+  initialX = whatsappBtn.getBoundingClientRect().left;
+  initialY = whatsappBtn.getBoundingClientRect().top;
+});
 
-        document.addEventListener('mouseup', () => {
-            if (whatsappButton.classList.contains('active')) {
-                whatsappButton.classList.remove('active');
-                if (!isDragging && whatsappLink) {
-                    whatsappLink.click();
-                }
-            }
-        });
+document.addEventListener('mousemove', (e) => {
+  if (!isDragging) return;
+  
+  let newX = initialX + (e.clientX - startX);
+  let newY = initialY + (e.clientY - startY);
 
-        whatsappButton.addEventListener('touchstart', (e) => {
-            isDragging = false;
-            const touch = e.touches[0];
-            startX = touch.clientX;
-            startY = touch.clientY;
-            e.preventDefault();
-            whatsappButton.classList.add('active');
-        });
+  whatsappBtn.style.left = `${newX}px`;
+  whatsappBtn.style.top = `${newY}px`;
+  whatsappBtn.style.right = 'auto'; // Disable right/bottom to use left/top
+  whatsappBtn.style.bottom = 'auto';
+});
 
-        document.addEventListener('touchmove', (e) => {
-            if (!whatsappButton.classList.contains('active')) return;
-            const touch = e.touches[0];
-            if (Math.abs(touch.clientX - startX) > dragThreshold || Math.abs(touch.clientY - startY) > dragThreshold) {
-                isDragging = true;
-            }
-            if (isDragging) {
-                const newX = touch.clientX - (startX - whatsappButton.offsetLeft);
-                const newY = touch.clientY - (startY - whatsappButton.offsetTop);
-                whatsappButton.style.left = newX + 'px';
-                whatsappButton.style.top = newY + 'px';
-                whatsappButton.style.right = 'auto';
-                whatsappButton.style.bottom = 'auto';
-            }
-        });
+document.addEventListener('mouseup', () => {
+  isDragging = false;
+});
 
-        document.addEventListener('touchend', () => {
-            if (whatsappButton.classList.contains('active')) {
-                whatsappButton.classList.remove('active');
-                if (!isDragging && whatsappLink) {
-                    whatsappLink.click();
-                }
-            }
-        });
-    }
+// Mobile: Touch Events
+whatsappBtn.addEventListener('touchstart', (e) => {
+  isDragging = true;
+  startX = e.touches[0].clientX;
+  startY = e.touches[0].clientY;
+  initialX = whatsappBtn.getBoundingClientRect().left;
+  initialY = whatsappBtn.getBoundingClientRect().top;
+});
 
+document.addEventListener('touchmove', (e) => {
+  if (!isDragging) return;
+  e.preventDefault(); // Prevents the page from scrolling
+  
+  let newX = initialX + (e.touches[0].clientX - startX);
+  let newY = initialY + (e.touches[0].clientY - startY);
+
+  whatsappBtn.style.left = `${newX}px`;
+  whatsappBtn.style.top = `${newY}px`;
+  whatsappBtn.style.right = 'auto';
+  whatsappBtn.style.bottom = 'auto';
+});
+
+document.addEventListener('touchend', () => {
+  isDragging = false;
+});
+ 
+    
     // --- LÓGICA DEL MODAL DE PREPARACIÓN (NO RELACIONADO CON EL CARRUSEL) ---
     const modalPrep = document.getElementById('imageModal');
     const modalImagePrep = document.getElementById('modalImage');
