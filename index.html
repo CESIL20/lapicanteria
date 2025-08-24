@@ -524,25 +524,50 @@ transform: scaleX(-1);
 }
 
 /*
- * FOOTER
- */
 .main-footer {
-    background-color: #111;
+    background-color: #212121;
     color: #ccc;
-    text-align: center;
     padding: 20px;
     font-size: 0.9em;
-    margin-top: 30px;
+    text-align: center;
 }
-.main-footer .footer-links a {
-    color: #007bff;
+
+.footer-content {
+    display: flex;
+    flex-direction: column; /* Apila los elementos: título, íconos y copyright */
+    align-items: center; /* Centra los elementos horizontalmente */
+    gap: 20px; /* Espacio entre el título, los íconos y el texto */
+}
+
+.footer-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: white;
+}
+
+.social-icons {
+    display: flex; /* Contenedor para los íconos */
+    justify-content: center; /* Centra los íconos entre sí */
+    gap: 15px; /* Espacio entre íconos */
+}
+
+.social-icons a {
+    color: white; /* Color de los íconos */
+    font-size: 1.5em;
     text-decoration: none;
-    margin: 0 10px;
     transition: color 0.3s;
 }
-.main-footer .footer-links a:hover {color:#00BFFF;}
 
-/*
+.social-icons a:hover {
+    color: #25d366; /* Efecto al pasar el mouse */
+}
+
+.copyright {
+    background-color: #111;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
  * RESERVATION MESSAGE
  */
 #reservation-message {
@@ -948,29 +973,26 @@ transform: scaleX(-1);
         <span class="lang-en inline-content">We look forward to your visit so you can snack and laugh!</span>
     </p>
 </div>
-<div class="text">
-    <span class="lang-es inline-content">Encuéntranos en:</span>
-    <span class="lang-en inline-content">Find us on:</span>
-</div>
-<div class="social-icons">
-    <a href="https://www.facebook.com/share/1HTYw9wM1Q/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-    <a href="https://www.instagram.com/lapicanteriasurquillo?igsh=MWkwZXR5MDltbnJudQ==" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-    <a href="https://wa.me/51953489892?text=Hola!%20Me%20gustaría%20realizar%20un%20pedido." target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-    <a href="https://www.google.com/maps/place/La+Picanter%C3%ADa/@-12.1167718,-77.0263581,17z/data=!3m1!4b1!4m6!3m5!1s0x9105c81045eb8aff:0x9cce78ba3005d3f2!8m2!3d-12.1167718!4d-77.0237832!16s%2Fg%2F1pp2vk2y_?entry=ttu&g_ep=EgoyMDI1MDcyMC4wIKXMDSoASAFQAw%3D%3D" target="_blank" aria-label="Google Maps"><i class="fas fa-map-marker-alt"></i></a>
-</div>
-</section>
-<div id="whatsapp-draggable-button" class="whatsapp-float" draggable="true">
-  <i class="fab fa-whatsapp"></i>
-  <span class="lang-es inline-flex-content">¿Necesitas ayuda? ¡Contáctanos!</span>
-  <span class="lang-en inline-flex-content">Need help? Contact us!</span>
-</div>
-
- <footer class="main-footer">
-    <p>
-        <span class="lang-es inline-content">&copy; 2025 La Picantería. Todos los derechos reservados.</span>
-        <span class="lang-en inline-content">&copy; 2025 La Picantería. All rights reserved.</span>
-    </p>
-    <div class="footer-links">
+<footer class="main-footer">
+    <div class="footer-content">
+        <div class="footer-title">
+            <span class="lang-es inline-content">Encuéntranos en:</span>
+            <span class="lang-en inline-content">Find us on:</span>
+        </div>
+        
+        <div class="social-icons">
+            <a href="https://www.facebook.com/share/1HTYw9wM1Q/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+            <a href="https://www.instagram.com/lapicanteriasurquillo?igsh=MWkwZXR5MDltbnJudQ==" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://wa.me/51953489892?text=Hola!%20Me%20gustaría%20realizar%20un%20pedido." target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.google.com/maps/place/La+Picanter%C3%ADa/@-12.1167718,-77.0263581,17z/data=!3m1!4b1!4m6!3m5!1s0x9105c81045eb8aff:0x9cce78ba3005d3f2!8m2!3d-12.1167718!4d-77.0237832!16s%2Fg%2F1pp2vk2y_?entry=ttu&g_ep=EgoyMDI1MDcyMC4wIKXMDSoASAFQAw%3D%3D" target="_blank" aria-label="Google Maps"><i class="fas fa-map-marker-alt"></i></a>
+        </div>
+        
+        <div class="copyright">
+            <p>
+                <span class="lang-es inline-content">© 2025 La Picantería. Todos los derechos reservados.</span>
+                <span class="lang-en inline-content">© 2025 La Picantería. All rights reserved.</span>
+            </p>
+        </div>
     </div>
 </footer>
     <script>
