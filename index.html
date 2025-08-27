@@ -825,25 +825,26 @@ Inside the media query, you'll use Flexbox to arrange the content horizontally.
       </ul>
     </nav>
   </div>
-  <!-- Nuevo Carrusel de Fotos -->
   <section class="carousel-section" id="carrusel-section">
-      <div class="carousel-container">
-          <div class="carousel-track">
-              <!-- Las imágenes se insertarán aquí por JavaScript -->
-          </div>
-          <button class="carousel-button carousel-prev">&lt;</button>
-          <button class="carousel-button carousel-next">&gt;</button>
-          <div class="carousel-dots">
-              <!-- Los puntos del carrusel se insertarán aquí por JavaScript -->
-          </div>
-      </div>
-  </section>
+    <div class="carousel-container">
+        <div class="carousel-track">
+            </div>
+        <button class="carousel-button carousel-prev">&lt;</button>
+        <button class="carousel-button carousel-next">&gt;</button>
+        <div class="carousel-dots">
+            </div>
+    </div>
+</section>
 
-  <!-- Modal para mostrar la imagen grande -->
-  <div id="image-modal" class="image-modal">
-      <span id="modal-close-btn" class="modal-close">&times;</span>
-      <img class="modal-content" id="modal-image">
-  </div>
+<div id="image-modal-carousel" class="image-modal">
+    <span id="modal-close-carousel" class="modal-close">&times;</span>
+    <img class="modal-content" id="modal-image-carousel">
+</div>
+
+<div id="image-modal-prep" class="image-modal">
+    <span id="modal-close-prep" class="modal-close">&times;</span>
+    <img class="modal-content" id="modal-image-prep">
+</div>
 
  <!-- Tu código HTML existente -->
     <div class="our-theme-section">
@@ -1074,35 +1075,40 @@ Inside the media query, you'll use Flexbox to arrange the content horizontally.
   
 </footer>
     <script>
-   document.addEventListener('DOMContentLoaded', () => {
-
+   /*
+ * ESTE ES EL CÓDIGO JavaScript COMPLETO Y CORREGIDO
+ * POR FAVOR, REEMPLAZA TU ARCHIVO SCRIPT.JS CON ESTO
+ */
+document.addEventListener('DOMContentLoaded', () => {
     // --- LÓGICA DE IDIOMA Y MENSAJE DE RESERVA ---
-    let reservationMessage;
     let currentLanguage = localStorage.getItem('language') || 'es';
 
     function setLanguage(lang) {
         currentLanguage = lang;
         localStorage.setItem('language', lang);
-
         document.body.classList.remove('lang-active-es', 'lang-active-en');
         document.body.classList.add(`lang-active-${lang}`);
-
         document.querySelectorAll('.language-switcher button').forEach(button => {
             button.classList.remove('active');
         });
         document.getElementById(`lang-${lang}-btn`)?.classList.add('active');
         document.documentElement.lang = lang;
     }
-    
+
     setLanguage(currentLanguage);
 
-    reservationMessage = document.getElementById('reservation-message');
-    if (reservationMessage) {
-        reservationMessage.classList.add('show');
-        reservationMessage.hideTimeout = setTimeout(() => {
-            reservationMessage.classList.remove('show');
-        }, 5000); // desaparece tras 5s
+    function showReservationMessage() {
+        const message = document.getElementById('reservation-message');
+        if (message) {
+            clearTimeout(message.hideTimeout);
+            message.classList.add('show');
+            message.hideTimeout = setTimeout(() => {
+                message.classList.remove('show');
+            }, 5000);
+        }
     }
+
+    showReservationMessage();
 
     // --- LÓGICA DEL CARRUSEL ---
     const carouselTrack = document.querySelector('.carousel-track');
@@ -1121,7 +1127,7 @@ Inside the media query, you'll use Flexbox to arrange the content horizontally.
         const item = document.createElement('div');
         item.className = 'carousel-item';
         const img = document.createElement('img');
-        img.src = image; // Verifica que esta ruta sea correcta
+        img.src = image;
         img.alt = `Plato Estrella ${index + 1}`;
         img.setAttribute('loading', 'lazy');
         img.setAttribute('onerror', 'this.onerror=null;this.src="https://placehold.co/800x500/A0A0A0/FFFFFF?text=Error";');
@@ -1147,7 +1153,7 @@ Inside the media query, you'll use Flexbox to arrange the content horizontally.
     const carouselContainer = document.querySelector('.carousel-container');
 
     function updateCarousel() {
-        if (items.length === 0) return; // Evita errores si no hay imágenes
+        if (items.length === 0) return;
         const itemWidth = items[0].offsetWidth;
         carouselTrack.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
         dots.forEach((dot, index) => {
@@ -1174,7 +1180,7 @@ Inside the media query, you'll use Flexbox to arrange the content horizontally.
         clearInterval(autoSlideInterval);
     }
 
-    if (prevButton && nextButton) { // Verificación para evitar errores
+    if (prevButton && nextButton) {
         prevButton.addEventListener('click', () => {
             prevSlide();
             stopAutoSlide();
@@ -1188,47 +1194,83 @@ Inside the media query, you'll use Flexbox to arrange the content horizontally.
         });
     }
 
-    if (carouselContainer) { // Verificación para evitar errores
+    if (carouselContainer) {
         carouselContainer.addEventListener('mouseenter', stopAutoSlide);
         carouselContainer.addEventListener('mouseleave', startAutoSlide);
     }
 
-    // --- LÓGICA DEL MODAL DE IMAGENES DEL CARRUSEL ---
-    const modal = document.getElementById('image-modal');
-    const modalImage = document.getElementById('modal-image');
-    const modalCloseBtn = document.getElementById('modal-close-btn');
+    window.addEventListener('resize', updateCarousel);
+    updateCarousel();
+    startAutoSlide();
+    
+    // --- LÓGICA DEL MODAL DEL CARRUSEL ---
+    const carouselModal = document.getElementById('image-modal-carousel');
+    const carouselModalImage = document.getElementById('modal-image-carousel');
+    const carouselCloseBtn = document.getElementById('modal-close-carousel');
 
     items.forEach(item => {
         item.addEventListener('click', (e) => {
-            const clickedImageSrc = e.target.src;
-            modalImage.src = clickedImageSrc;
-            modal.classList.add('show');
+            carouselModalImage.src = e.target.src;
+            carouselModal.classList.add('show');
         });
     });
 
-    if (modalCloseBtn) {
-        modalCloseBtn.addEventListener('click', () => {
-            modal.classList.remove('show');
+    if (carouselCloseBtn) {
+        carouselCloseBtn.addEventListener('click', () => {
+            carouselModal.classList.remove('show');
         });
     }
 
-    if (modal) {
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.classList.remove('show');
+    if (carouselModal) {
+        carouselModal.addEventListener('click', (e) => {
+            if (e.target === carouselModal) {
+                carouselModal.classList.remove('show');
             }
         });
     }
 
+    // --- LÓGICA DEL MODAL DE BOTONES DE PREPARACIÓN ---
+    const prepModal = document.getElementById('image-modal-prep');
+    const prepModalImage = document.getElementById('modal-image-prep');
+    const prepCloseBtn = document.getElementById('modal-close-prep');
+    const preparationButtons = document.querySelectorAll('.preparation-button');
+
+    if (preparationButtons.length > 0) {
+        preparationButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const mealData = button.getAttribute('data-meal');
+                const selectedImage = document.querySelector(`.preparation-image[data-image="${mealData}"]`);
+                if (selectedImage) {
+                    prepModalImage.src = selectedImage.src;
+                    prepModal.classList.add('show');
+                } else {
+                    console.error(`No se encontró la imagen para: ${mealData}`);
+                }
+            });
+        });
+    }
+
+    if (prepCloseBtn) {
+        prepCloseBtn.addEventListener('click', () => {
+            prepModal.classList.remove('show');
+        });
+    }
+
+    if (prepModal) {
+        prepModal.addEventListener('click', (event) => {
+            if (event.target === prepModal) {
+                prepModal.classList.remove('show');
+            }
+        });
+    }
+
+    // --- LÓGICA GENERAL DEL TECLADO ---
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
-            modal.classList.remove('show');
+            carouselModal.classList.remove('show');
+            prepModal.classList.remove('show');
         }
     });
-
-    window.addEventListener('resize', updateCarousel);
-    updateCarousel(); // Llama a la función al inicio para mostrar la primera imagen
-    startAutoSlide();
 
     // --- LÓGICA DE SCROLL SUAVE ---
     document.querySelectorAll('nav.main-nav a').forEach(anchor => {
@@ -1245,117 +1287,96 @@ Inside the media query, you'll use Flexbox to arrange the content horizontally.
             }
         });
     });
-    // Get the draggable button element
-const whatsappBtn = document.getElementById('whatsapp-draggable-button');
 
-// WhatsApp URL to redirect to on click
-const whatsappURL = "https://wa.me/51953489892?text=Hola!%20Me%20gustar%C3%ADa%20realizar%20un%20pedido.";
+    // --- LÓGICA DEL BOTÓN DRAGGABLE DE WHATSAPP ---
+    const whatsappBtn = document.getElementById('whatsapp-draggable-button');
+    const whatsappURL = "https://wa.me/51953489892?text=Hola!%20Me%20gustar%C3%ADa%20realizar%20un%20pedido.";
+    let isDragging = false;
+    let startX, startY;
+    let initialX, initialY;
 
-// --- Handle Click/Touch Action ---
-// This is crucial to make the div act like a link
-whatsappBtn.addEventListener('click', () => {
-  window.open(whatsappURL, '_blank');
-});
+    whatsappBtn.addEventListener('click', (e) => {
+        if (isDragging) {
+            e.preventDefault();
+        } else {
+            window.open(whatsappURL, '_blank');
+        }
+    });
 
-// --- Handle Drag-and-Drop for Desktop & Mobile ---
-let isDragging = false;
-let startX, startY;
-let initialX, initialY;
+    whatsappBtn.addEventListener('mousedown', (e) => {
+        isDragging = false;
+        startX = e.clientX;
+        startY = e.clientY;
+        initialX = whatsappBtn.getBoundingClientRect().left;
+        initialY = whatsappBtn.getBoundingClientRect().top;
+        whatsappBtn.style.transition = 'none';
+    });
 
-// Desktop: Mouse Events
-whatsappBtn.addEventListener('mousedown', (e) => {
-  isDragging = true;
-  startX = e.clientX;
-  startY = e.clientY;
-  initialX = whatsappBtn.getBoundingClientRect().left;
-  initialY = whatsappBtn.getBoundingClientRect().top;
-});
+    document.addEventListener('mousemove', (e) => {
+        if (e.buttons !== 1) {
+            isDragging = false;
+            return;
+        }
+        
+        const deltaX = e.clientX - startX;
+        const deltaY = e.clientY - startY;
 
-document.addEventListener('mousemove', (e) => {
-  if (!isDragging) return;
-  
-  let newX = initialX + (e.clientX - startX);
-  let newY = initialY + (e.clientY - startY);
-
-  whatsappBtn.style.left = `${newX}px`;
-  whatsappBtn.style.top = `${newY}px`;
-  whatsappBtn.style.right = 'auto'; // Disable right/bottom to use left/top
-  whatsappBtn.style.bottom = 'auto';
-});
-
-document.addEventListener('mouseup', () => {
-  isDragging = false;
-});
-
-// Mobile: Touch Events
-whatsappBtn.addEventListener('touchstart', (e) => {
-  isDragging = true;
-  startX = e.touches[0].clientX;
-  startY = e.touches[0].clientY;
-  initialX = whatsappBtn.getBoundingClientRect().left;
-  initialY = whatsappBtn.getBoundingClientRect().top;
-});
-
-document.addEventListener('touchmove', (e) => {
-  if (!isDragging) return;
-  e.preventDefault(); // Prevents the page from scrolling
-  
-  let newX = initialX + (e.touches[0].clientX - startX);
-  let newY = initialY + (e.touches[0].clientY - startY);
-
-  whatsappBtn.style.left = `${newX}px`;
-  whatsappBtn.style.top = `${newY}px`;
-  whatsappBtn.style.right = 'auto';
-  whatsappBtn.style.bottom = 'auto';
-});
-
-document.addEventListener('touchend', () => {
-  isDragging = false;
-});
- 
-    
-    // --- LÓGICA DEL MODAL DE PREPARACIÓN (NO RELACIONADO CON EL CARRUSEL) ---
-    const modalPrep = document.getElementById('imageModal');
-    const modalImagePrep = document.getElementById('modalImage');
-    const closeBtnPrep = document.querySelector('.modal-close');
-    const preparationButtons = document.querySelectorAll('.preparation-button');
-
-    if (preparationButtons.length > 0) {
-        preparationButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const mealData = button.getAttribute('data-meal');
-                const selectedImage = document.querySelector(`.preparation-image[data-image="${mealData}"]`);
-                if (selectedImage) {
-                    modalImagePrep.src = selectedImage.src;
-                    modalPrep.style.display = 'flex';
-                } else {
-                    console.error(`No se encontró la imagen para: ${mealData}`);
-                }
-            });
-        });
-
-        if (closeBtnPrep) {
-            closeBtnPrep.addEventListener('click', () => {
-                modalPrep.style.display = 'none';
-            });
+        if (Math.abs(deltaX) > 5 || Math.abs(deltaY) > 5) {
+            isDragging = true;
         }
 
-        window.addEventListener('click', (event) => {
-            if (event.target === modalPrep) {
-                modalPrep.style.display = 'none';
-            }
-        });
-    }
+        if (isDragging) {
+            let newX = initialX + deltaX;
+            let newY = initialY + deltaY;
+            newX = Math.max(0, Math.min(newX, window.innerWidth - whatsappBtn.offsetWidth));
+            newY = Math.max(0, Math.min(newY, window.innerHeight - whatsappBtn.offsetHeight));
+            whatsappBtn.style.left = `${newX}px`;
+            whatsappBtn.style.top = `${newY}px`;
+            whatsappBtn.style.right = 'auto';
+            whatsappBtn.style.bottom = 'auto';
+        }
+    });
 
-    // --- LÓGICA DEL CAMBIO DE IDIOMA (BOTONES) ---
-    const langEsBtn = document.getElementById('lang-es-btn');
-    const langEnBtn = document.getElementById('lang-en-btn');
+    document.addEventListener('mouseup', () => {
+        isDragging = false;
+        whatsappBtn.style.transition = 'transform 0.2s, background-color 0.3s';
+    });
 
-    if (langEsBtn && langEnBtn) {
-        langEsBtn.addEventListener('click', () => setLanguage('es'));
-        langEnBtn.addEventListener('click', () => setLanguage('en'));
-    }
+    whatsappBtn.addEventListener('touchstart', (e) => {
+        isDragging = false;
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+        initialX = whatsappBtn.getBoundingClientRect().left;
+        initialY = whatsappBtn.getBoundingClientRect().top;
+        whatsappBtn.style.transition = 'none';
+    });
+
+    document.addEventListener('touchmove', (e) => {
+        const deltaX = e.touches[0].clientX - startX;
+        const deltaY = e.touches[0].clientY - startY;
+
+        if (Math.abs(deltaX) > 5 || Math.abs(deltaY) > 5) {
+            isDragging = true;
+            e.preventDefault();
+        }
+
+        if (isDragging) {
+            let newX = initialX + deltaX;
+            let newY = initialY + deltaY;
+            newX = Math.max(0, Math.min(newX, window.innerWidth - whatsappBtn.offsetWidth));
+            newY = Math.max(0, Math.min(newY, window.innerHeight - whatsappBtn.offsetHeight));
+            whatsappBtn.style.left = `${newX}px`;
+            whatsappBtn.style.top = `${newY}px`;
+            whatsappBtn.style.right = 'auto';
+            whatsappBtn.style.bottom = 'auto';
+        }
+    });
+
+    document.addEventListener('touchend', () => {
+        isDragging = false;
+        whatsappBtn.style.transition = 'transform 0.2s, background-color 0.3s';
+    });
 });
-    </script>
+        </script>
 </body>
 </html>
