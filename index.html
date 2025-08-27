@@ -628,7 +628,7 @@ Inside the media query, you'll use Flexbox to arrange the content horizontally.
 
     /* Adjust the text alignment to the left on PC */
     .main-footer p {
-        text-align: left;
+        text-align: center;
     }
 
  */ RESERVATION MESSAGE*/
@@ -1111,22 +1111,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setLanguage(currentLanguage);
 
-   function showReservationMessage() {
-    const message = document.getElementById('reservation-message');
-    if (message) {
-        // Limpia cualquier temporizador anterior para evitar conflictos
-        clearTimeout(message.hideTimeout); 
-        // Muestra el mensaje
-        message.classList.add('show');
-        // Temporizador para ocultarlo después de 5 segundos
-        message.hideTimeout = setTimeout(() => {
-            message.classList.remove('show');
-        }, 5000); // 5000 milisegundos = 5 segundos
+    function showReservationMessage() {
+        const message = document.getElementById('reservation-message');
+        if (message) {
+            clearTimeout(message.hideTimeout);
+            message.classList.add('show');
+            message.hideTimeout = setTimeout(() => {
+                message.classList.remove('show');
+            }, 5000);
+        }
     }
-}
 
-// Llama a la función cuando la página se carga
-showReservationMessage();
+    showReservationMessage();
 
     // --- LÓGICA DEL CARRUSEL ---
     const carouselTrack = document.querySelector('.carousel-track');
@@ -1220,11 +1216,11 @@ showReservationMessage();
 
     let resizeTimeout;
     window.addEventListener('resize', () => {
-        carouselTrack.style.transition = 'none'; // Deshabilita la transición
+        carouselTrack.style.transition = 'none';
         clearTimeout(resizeTimeout);
         resizeTimeout = setTimeout(() => {
             updateCarousel();
-            carouselTrack.style.transition = 'transform 0.5s ease-in-out'; // Restaura la transición
+            carouselTrack.style.transition = 'transform 0.5s ease-in-out';
         }, 200);
     });
 
@@ -1323,7 +1319,6 @@ showReservationMessage();
     let startX, startY;
     let initialX, initialY;
 
-    // Función para inicializar la posición del botón
     function initializeWhatsappPosition() {
         const rect = whatsappBtn.getBoundingClientRect();
         whatsappBtn.style.top = `${rect.top}px`;
@@ -1332,12 +1327,8 @@ showReservationMessage();
         whatsappBtn.style.bottom = 'auto';
     }
 
-    // Llamar a la función para inicializar la posición al cargar la página
     initializeWhatsappPosition();
-
-    // También re-inicializar al redimensionar la ventana para mantener la posición
     window.addEventListener('resize', initializeWhatsappPosition);
-
 
     whatsappBtn.addEventListener('click', (e) => {
         if (isDragging) {
@@ -1381,7 +1372,6 @@ showReservationMessage();
 
     document.addEventListener('mouseup', () => {
         isDragging = false;
-        // Vuelve a habilitar la transición para los efectos de hover
         whatsappBtn.style.transition = 'transform 0.2s, background-color 0.3s';
     });
 
@@ -1415,7 +1405,6 @@ showReservationMessage();
 
     document.addEventListener('touchend', () => {
         isDragging = false;
-        // Vuelve a habilitar la transición para los efectos de hover
         whatsappBtn.style.transition = 'transform 0.2s, background-color 0.3s';
     });
 });
