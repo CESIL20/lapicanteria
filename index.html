@@ -303,8 +303,8 @@ body.lang-active-en .lang-es {display: none;}
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 8px;
-    margin-top: 8px;
+    gap: 20px;
+    margin-top: 20px;
 }
 
 .theme-image-column {
@@ -317,7 +317,7 @@ body.lang-active-en .lang-es {display: none;}
     width: 100%;
     height: auto;
     object-fit: contain;
-    border-radius: 10px;
+    border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
@@ -335,7 +335,7 @@ body.lang-active-en .lang-es {display: none;}
 .preparation-buttons {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 5px;
     margin-top: 10px;
 }
 
@@ -366,6 +366,15 @@ body.lang-active-en .lang-es {display: none;}
     display: none;
 }
 
+/* --- */
+
+## Responsive Design for PC
+
+The key to adapting your design for larger screens is using a media query. The following code uses `@media (min-width: 768px)` to apply new styles when the screen is at least **768 pixels** wide. This is a common breakpoint for tablets and desktops.
+
+Inside this media query, you'll modify the layout of the `.theme-content-wrapper` to use `flex-direction: row`, arranging the image and text side-by-side. You'll also adjust the width of the columns to give them an equal or balanced share of the space.
+
+```css
 @media (min-width: 768px) {
     .theme-content-wrapper {
         flex-direction: row;
