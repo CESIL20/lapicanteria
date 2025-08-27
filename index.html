@@ -278,9 +278,7 @@ body.lang-active-en .lang-es {display: none;}
     text-decoration: none;
 }
 
-/*
- * THEME SECTION
- */
+/* THEME SECTION */
 .our-theme-section {
     width: 100%;
     max-width: 1330px;
@@ -292,12 +290,14 @@ body.lang-active-en .lang-es {display: none;}
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
+
 .our-theme-section p {
     font-size: 1em;
     margin-bottom: 15px;
     line-height: 1.6;
     color: white;
 }
+
 .theme-content-wrapper {
     display: flex;
     flex-direction: column;
@@ -306,11 +306,13 @@ body.lang-active-en .lang-es {display: none;}
     gap: 20px;
     margin-top: 20px;
 }
+
 .theme-image-column {
     min-width: unset;
     max-width: 100%;
     text-align: center;
 }
+
 .theme-image-column img {
     width: 100%;
     height: auto;
@@ -318,21 +320,25 @@ body.lang-active-en .lang-es {display: none;}
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
+
 .theme-text-column {
     min-width: unset;
     max-width: 100%;
     text-align: center;
 }
+
 .theme-text-column p {
     margin-bottom: 20px;
     text-align: center;
 }
+
 .preparation-buttons {
     display: flex;
     flex-direction: column;
     gap: 5px;
     margin-top: 10px;
 }
+
 .preparation-button {
     background-color: transparent;
     color: white;
@@ -348,16 +354,65 @@ body.lang-active-en .lang-es {display: none;}
     transition: border-bottom-color 0.3s, color 0.3s;
     font-size: 0.9em;
 }
+
 .preparation-button:hover {
     background-color: transparent;
     border-bottom-color: #00BFFF;
     color: #00BFFF;
     transform: none;
 }
+
 .image-container {
     display: none;
 }
 
+/* --- */
+
+## Responsive Design for PC
+
+The key to adapting your design for larger screens is using a media query. The following code uses `@media (min-width: 768px)` to apply new styles when the screen is at least **768 pixels** wide. This is a common breakpoint for tablets and desktops.
+
+Inside this media query, you'll modify the layout of the `.theme-content-wrapper` to use `flex-direction: row`, arranging the image and text side-by-side. You'll also adjust the width of the columns to give them an equal or balanced share of the space.
+
+```css
+@media (min-width: 768px) {
+    .theme-content-wrapper {
+        flex-direction: row;
+        align-items: flex-start; /* Align items to the top for a cleaner look */
+        text-align: left;
+    }
+
+    .theme-image-column,
+    .theme-text-column {
+        min-width: 45%;
+        max-width: 50%;
+    }
+
+    .theme-text-column {
+        text-align: left; /* Adjust text alignment for a better PC layout */
+    }
+
+    .theme-text-column p {
+        text-align: left; /* Ensure paragraphs also align left */
+    }
+    
+    .preparation-buttons {
+        flex-direction: row; /* Arrange buttons horizontally on PC */
+        justify-content: flex-start;
+    }
+    
+    .preparation-button {
+        padding: 8px 15px; /* Add some padding for better spacing */
+        border-bottom: none;
+        border-right: 2px solid #666; /* Use a right border instead of bottom */
+        transition: border-right-color 0.3s, color 0.3s;
+    }
+    
+    .preparation-button:hover {
+        border-right-color: #00BFFF;
+        border-bottom-color: transparent;
+    }
+}
 /*
  * HISTORY SECTION
  */
