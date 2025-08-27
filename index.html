@@ -1098,40 +1098,9 @@ document.addEventListener('DOMContentLoaded', () => {
         document.documentElement.lang = lang;
     }
 
-    // ESTE ES EL ÚNICO LUGAR DONDE DEBE IR ESTE BLOQUE
     if (langEsBtn && langEnBtn) {
-        langEsBtn.addEventListener('click', () => {
-            setLanguage('es');
-        });
-        langEnBtn.addEventListener('click', () => {
-            setLanguage('en');
-        });
-    }
-
-    setLanguage(currentLanguage);
-
-    function showReservationMessage() {
-        const message = document.getElementById('reservation-message');
-        if (message) {
-            clearTimeout(message.hideTimeout);
-            message.classList.add('show');
-            message.hideTimeout = setTimeout(() => {
-                message.classList.remove('show');
-            }, 5000);
-        }
-    }
-
-    showReservationMessage();
-
-
-    // AÑADE ESTA SECCIÓN PARA ACTIVAR EL CAMBIO DE IDIOMA
-    if (langEsBtn && langEnBtn) {
-        langEsBtn.addEventListener('click', () => {
-            setLanguage('es');
-        });
-        langEnBtn.addEventListener('click', () => {
-            setLanguage('en');
-        });
+        langEsBtn.addEventListener('click', () => setLanguage('es'));
+        langEnBtn.addEventListener('click', () => setLanguage('en'));
     }
 
     setLanguage(currentLanguage);
@@ -1238,7 +1207,16 @@ document.addEventListener('DOMContentLoaded', () => {
         carouselContainer.addEventListener('mouseleave', startAutoSlide);
     }
 
-    window.addEventListener('resize', updateCarousel);
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+        carouselTrack.style.transition = 'none'; // Deshabilita la transición
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            updateCarousel();
+            carouselTrack.style.transition = 'transform 0.5s ease-in-out'; // Restaura la transición
+        }, 200);
+    });
+
     updateCarousel();
     startAutoSlide();
     
@@ -1327,107 +1305,108 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-   // --- LÓGICA DEL BOTÓN DRAGGABLE DE WHATSAPP ---
-const whatsappBtn = document.getElementById('whatsapp-draggable-button');
-const whatsappURL = "https://wa.me/51953489892?text=Hola!%20Me%20gustar%C3%ADa%20realizar%20un%20pedido.";
-let isDragging = false;
-let startX, startY;
-let initialX, initialY;
+    // --- LÓGICA DEL BOTÓN DRAGGABLE DE WHATSAPP ---
+    const whatsappBtn = document.getElementById('whatsapp-draggable-button');
+    const whatsappURL = "https://wa.me/51953489892?text=Hola!%20Me%20gustar%C3%ADa%20realizar%20un%20pedido.";
+    let isDragging = false;
+    let startX, startY;
+    let initialX, initialY;
 
-// Función para inicializar la posición del botón
-function initializeWhatsappPosition() {
-    const rect = whatsappBtn.getBoundingClientRect();
-    whatsappBtn.style.top = `${rect.top}px`;
-    whatsappBtn.style.left = `${rect.left}px`;
-    whatsappBtn.style.right = 'auto';
-    whatsappBtn.style.bottom = 'auto';
-}
-
-// Llamar a la función para inicializar la posición al cargar la página
-initializeWhatsappPosition();
-
-// También re-inicializar al redimensionar la ventana para mantener la posición
-window.addEventListener('resize', initializeWhatsappPosition);
-
-
-whatsappBtn.addEventListener('click', (e) => {
-    if (isDragging) {
-        e.preventDefault();
-    } else {
-        window.open(whatsappURL, '_blank');
+    // Función para inicializar la posición del botón
+    function initializeWhatsappPosition() {
+        const rect = whatsappBtn.getBoundingClientRect();
+        whatsappBtn.style.top = `${rect.top}px`;
+        whatsappBtn.style.left = `${rect.left}px`;
+        whatsappBtn.style.right = 'auto';
+        whatsappBtn.style.bottom = 'auto';
     }
-});
 
-whatsappBtn.addEventListener('mousedown', (e) => {
-    isDragging = false;
-    startX = e.clientX;
-    startY = e.clientY;
-    initialX = whatsappBtn.getBoundingClientRect().left;
-    initialY = whatsappBtn.getBoundingClientRect().top;
-    whatsappBtn.style.transition = 'none';
-});
+    // Llamar a la función para inicializar la posición al cargar la página
+    initializeWhatsappPosition();
 
-document.addEventListener('mousemove', (e) => {
-    if (e.buttons !== 1) {
+    // También re-inicializar al redimensionar la ventana para mantener la posición
+    window.addEventListener('resize', initializeWhatsappPosition);
+
+
+    whatsappBtn.addEventListener('click', (e) => {
+        if (isDragging) {
+            e.preventDefault();
+        } else {
+            window.open(whatsappURL, '_blank');
+        }
+    });
+
+    whatsappBtn.addEventListener('mousedown', (e) => {
         isDragging = false;
-        return;
-    }
-    
-    const deltaX = e.clientX - startX;
-    const deltaY = e.clientY - startY;
+        startX = e.clientX;
+        startY = e.clientY;
+        initialX = whatsappBtn.getBoundingClientRect().left;
+        initialY = whatsappBtn.getBoundingClientRect().top;
+        whatsappBtn.style.transition = 'none';
+    });
 
-    if (Math.abs(deltaX) > 5 || Math.abs(deltaY) > 5) {
-        isDragging = true;
-    }
+    document.addEventListener('mousemove', (e) => {
+        if (e.buttons !== 1) {
+            isDragging = false;
+            return;
+        }
+        
+        const deltaX = e.clientX - startX;
+        const deltaY = e.clientY - startY;
 
-    if (isDragging) {
-        let newX = initialX + deltaX;
-        let newY = initialY + deltaY;
-        newX = Math.max(0, Math.min(newX, window.innerWidth - whatsappBtn.offsetWidth));
-        newY = Math.max(0, Math.min(newY, window.innerHeight - whatsappBtn.offsetHeight));
-        whatsappBtn.style.left = `${newX}px`;
-        whatsappBtn.style.top = `${newY}px`;
-    }
-});
+        if (Math.abs(deltaX) > 5 || Math.abs(deltaY) > 5) {
+            isDragging = true;
+        }
 
-document.addEventListener('mouseup', () => {
-    isDragging = false;
-    // Vuelve a habilitar la transición para los efectos de hover
-    whatsappBtn.style.transition = 'transform 0.2s, background-color 0.3s';
-});
+        if (isDragging) {
+            let newX = initialX + deltaX;
+            let newY = initialY + deltaY;
+            newX = Math.max(0, Math.min(newX, window.innerWidth - whatsappBtn.offsetWidth));
+            newY = Math.max(0, Math.min(newY, window.innerHeight - whatsappBtn.offsetHeight));
+            whatsappBtn.style.left = `${newX}px`;
+            whatsappBtn.style.top = `${newY}px`;
+        }
+    });
 
-whatsappBtn.addEventListener('touchstart', (e) => {
-    isDragging = false;
-    startX = e.touches[0].clientX;
-    startY = e.touches[0].clientY;
-    initialX = whatsappBtn.getBoundingClientRect().left;
-    initialY = whatsappBtn.getBoundingClientRect().top;
-    whatsappBtn.style.transition = 'none';
-});
+    document.addEventListener('mouseup', () => {
+        isDragging = false;
+        // Vuelve a habilitar la transición para los efectos de hover
+        whatsappBtn.style.transition = 'transform 0.2s, background-color 0.3s';
+    });
 
-document.addEventListener('touchmove', (e) => {
-    const deltaX = e.touches[0].clientX - startX;
-    const deltaY = e.touches[0].clientY - startY;
+    whatsappBtn.addEventListener('touchstart', (e) => {
+        isDragging = false;
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+        initialX = whatsappBtn.getBoundingClientRect().left;
+        initialY = whatsappBtn.getBoundingClientRect().top;
+        whatsappBtn.style.transition = 'none';
+    });
 
-    if (Math.abs(deltaX) > 5 || Math.abs(deltaY) > 5) {
-        isDragging = true;
-        e.preventDefault();
-    }
+    document.addEventListener('touchmove', (e) => {
+        const deltaX = e.touches[0].clientX - startX;
+        const deltaY = e.touches[0].clientY - startY;
 
-    if (isDragging) {
-        let newX = initialX + deltaX;
-        let newY = initialY + deltaY;
-        newX = Math.max(0, Math.min(newX, window.innerWidth - whatsappBtn.offsetWidth));
-        newY = Math.max(0, Math.min(newY, window.innerHeight - whatsappBtn.offsetHeight));
-        whatsappBtn.style.left = `${newX}px`;
-        whatsappBtn.style.top = `${newY}px`;
-    }
-});
+        if (Math.abs(deltaX) > 5 || Math.abs(deltaY) > 5) {
+            isDragging = true;
+            e.preventDefault();
+        }
 
-document.addEventListener('touchend', () => {
-    isDragging = false;
-    // Vuelve a habilitar la transición para los efectos de hover
-    whatsappBtn.style.transition = 'transform 0.2s, background-color 0.3s';
+        if (isDragging) {
+            let newX = initialX + deltaX;
+            let newY = initialY + deltaY;
+            newX = Math.max(0, Math.min(newX, window.innerWidth - whatsappBtn.offsetWidth));
+            newY = Math.max(0, Math.min(newY, window.innerHeight - whatsappBtn.offsetHeight));
+            whatsappBtn.style.left = `${newX}px`;
+            whatsappBtn.style.top = `${newY}px`;
+        }
+    });
+
+    document.addEventListener('touchend', () => {
+        isDragging = false;
+        // Vuelve a habilitar la transición para los efectos de hover
+        whatsappBtn.style.transition = 'transform 0.2s, background-color 0.3s';
+    });
 });
         </script>
 </body>
