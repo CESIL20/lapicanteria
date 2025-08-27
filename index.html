@@ -292,7 +292,7 @@ body.lang-active-en .lang-es {display: none;}
 }
 
 .our-theme-section p {
-    font-size: 1.5em;
+    font-size: 1em;
     margin-bottom: 15px;
     line-height: 1.6;
     color: white;
@@ -352,7 +352,7 @@ body.lang-active-en .lang-es {display: none;}
     border: none;
     border-bottom: 2px solid #666;
     transition: border-bottom-color 0.3s, color 0.3s;
-    font-size: 1.3em;
+    font-size: 0.9em;
 }
 
 .preparation-button:hover {
@@ -368,9 +368,9 @@ body.lang-active-en .lang-es {display: none;}
 
 /* --- */
 
-Responsive Design for PC
+## Responsive Design for PC
 
-The key to adapting your design for larger screens is using a media query. The following code uses @media (min-width: 768px)to apply new styles when the screen is at least **768 pixels** wide. This is a common breakpoint for tablets and desktops.
+The key to adapting your design for larger screens is using a media query. The following code uses `@media (min-width: 768px)` to apply new styles when the screen is at least **768 pixels** wide. This is a common breakpoint for tablets and desktops.
 
 Inside this media query, you'll modify the layout of the `.theme-content-wrapper` to use `flex-direction: row`, arranging the image and text side-by-side. You'll also adjust the width of the columns to give them an equal or balanced share of the space.
 
@@ -378,9 +378,10 @@ Inside this media query, you'll modify the layout of the `.theme-content-wrapper
 @media (min-width: 768px) {
     .theme-content-wrapper {
         flex-direction: row;
-        align-items:flex-start;
-        text-align:left ; }
-}
+        align-items: flex-start; /* Align items to the top for a cleaner look */
+        text-align: left;
+    }
+
     .theme-image-column,
     .theme-text-column {
         min-width: 45%;
@@ -411,7 +412,7 @@ Inside this media query, you'll modify the layout of the `.theme-content-wrapper
         border-right-color: #00BFFF;
         border-bottom-color: transparent;
     }
-
+}
 /*
  * HISTORY SECTION
  */
