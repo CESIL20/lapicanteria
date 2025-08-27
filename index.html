@@ -368,9 +368,9 @@ body.lang-active-en .lang-es {display: none;}
 
 /* --- */
 
-## Responsive Design for PC
+Responsive Design for PC
 
-The key to adapting your design for larger screens is using a media query. The following code uses `@media (min-width: 768px)` to apply new styles when the screen is at least **768 pixels** wide. This is a common breakpoint for tablets and desktops.
+The key to adapting your design for larger screens is using a media query. The following code uses @media (min-width: 768px)to apply new styles when the screen is at least **768 pixels** wide. This is a common breakpoint for tablets and desktops.
 
 Inside this media query, you'll modify the layout of the `.theme-content-wrapper` to use `flex-direction: row`, arranging the image and text side-by-side. You'll also adjust the width of the columns to give them an equal or balanced share of the space.
 
@@ -378,11 +378,9 @@ Inside this media query, you'll modify the layout of the `.theme-content-wrapper
 @media (min-width: 768px) {
     .theme-content-wrapper {
         flex-direction: row;
-        align-items: flex-start; /* Align items to the top for a cleaner look */
-        text-align: left;
-    }
+        align-items:flex-start;
+        text-align:left ; }
 }
-
     .theme-image-column,
     .theme-text-column {
         min-width: 45%;
@@ -413,7 +411,7 @@ Inside this media query, you'll modify the layout of the `.theme-content-wrapper
         border-right-color: #00BFFF;
         border-bottom-color: transparent;
     }
-}
+
 /*
  * HISTORY SECTION
  */
@@ -606,21 +604,21 @@ transform: scaleX(-1);
 
 /* --- */
 
-### **Responsive Design for PC**
+Responsive Design for PC
 
 To make the footer look professional on a PC, you'll use a media query that applies styles only when the screen width is above a certain size (e.g., **768px**). This common breakpoint is a good choice for targeting tablets and desktops.
 
-Inside the media query, you'll use **Flexbox** to arrange the content horizontally.
+Inside the media query, you'll use Flexbox to arrange the content horizontally.
 
 ```css
 @media (min-width: 768px) {
     .main-footer {
         display: flex;
-        justify-content: space-between;
-        align-items: center;
+        justify-content:space-between;
+        align-items:center;
         text-align: left;
     }
-
+}
     /* Change link container to a horizontal layout */
     .main-footer .footer-links {
         margin-top: 0;
@@ -630,7 +628,7 @@ Inside the media query, you'll use **Flexbox** to arrange the content horizontal
     .main-footer p {
         text-align: left;
     }
-}
+
  * RESERVATION MESSAGE
  */
 #reservation-message {
@@ -1360,4 +1358,3 @@ document.addEventListener('touchend', () => {
     </script>
 </body>
 </html>
-
