@@ -1327,94 +1327,107 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- LÓGICA DEL BOTÓN DRAGGABLE DE WHATSAPP ---
-    const whatsappBtn = document.getElementById('whatsapp-draggable-button');
-    const whatsappURL = "https://wa.me/51953489892?text=Hola!%20Me%20gustar%C3%ADa%20realizar%20un%20pedido.";
-    let isDragging = false;
-    let startX, startY;
-    let initialX, initialY;
+   // --- LÓGICA DEL BOTÓN DRAGGABLE DE WHATSAPP ---
+const whatsappBtn = document.getElementById('whatsapp-draggable-button');
+const whatsappURL = "https://wa.me/51953489892?text=Hola!%20Me%20gustar%C3%ADa%20realizar%20un%20pedido.";
+let isDragging = false;
+let startX, startY;
+let initialX, initialY;
 
-    whatsappBtn.addEventListener('click', (e) => {
-        if (isDragging) {
-            e.preventDefault();
-        } else {
-            window.open(whatsappURL, '_blank');
-        }
-    });
+// Función para inicializar la posición del botón
+function initializeWhatsappPosition() {
+    const rect = whatsappBtn.getBoundingClientRect();
+    whatsappBtn.style.top = `${rect.top}px`;
+    whatsappBtn.style.left = `${rect.left}px`;
+    whatsappBtn.style.right = 'auto';
+    whatsappBtn.style.bottom = 'auto';
+}
 
-    whatsappBtn.addEventListener('mousedown', (e) => {
+// Llamar a la función para inicializar la posición al cargar la página
+initializeWhatsappPosition();
+
+// También re-inicializar al redimensionar la ventana para mantener la posición
+window.addEventListener('resize', initializeWhatsappPosition);
+
+
+whatsappBtn.addEventListener('click', (e) => {
+    if (isDragging) {
+        e.preventDefault();
+    } else {
+        window.open(whatsappURL, '_blank');
+    }
+});
+
+whatsappBtn.addEventListener('mousedown', (e) => {
+    isDragging = false;
+    startX = e.clientX;
+    startY = e.clientY;
+    initialX = whatsappBtn.getBoundingClientRect().left;
+    initialY = whatsappBtn.getBoundingClientRect().top;
+    whatsappBtn.style.transition = 'none';
+});
+
+document.addEventListener('mousemove', (e) => {
+    if (e.buttons !== 1) {
         isDragging = false;
-        startX = e.clientX;
-        startY = e.clientY;
-        initialX = whatsappBtn.getBoundingClientRect().left;
-        initialY = whatsappBtn.getBoundingClientRect().top;
-        whatsappBtn.style.transition = 'none';
-    });
+        return;
+    }
+    
+    const deltaX = e.clientX - startX;
+    const deltaY = e.clientY - startY;
 
-    document.addEventListener('mousemove', (e) => {
-        if (e.buttons !== 1) {
-            isDragging = false;
-            return;
-        }
-        
-        const deltaX = e.clientX - startX;
-        const deltaY = e.clientY - startY;
+    if (Math.abs(deltaX) > 5 || Math.abs(deltaY) > 5) {
+        isDragging = true;
+    }
 
-        if (Math.abs(deltaX) > 5 || Math.abs(deltaY) > 5) {
-            isDragging = true;
-        }
+    if (isDragging) {
+        let newX = initialX + deltaX;
+        let newY = initialY + deltaY;
+        newX = Math.max(0, Math.min(newX, window.innerWidth - whatsappBtn.offsetWidth));
+        newY = Math.max(0, Math.min(newY, window.innerHeight - whatsappBtn.offsetHeight));
+        whatsappBtn.style.left = `${newX}px`;
+        whatsappBtn.style.top = `${newY}px`;
+    }
+});
 
-        if (isDragging) {
-            let newX = initialX + deltaX;
-            let newY = initialY + deltaY;
-            newX = Math.max(0, Math.min(newX, window.innerWidth - whatsappBtn.offsetWidth));
-            newY = Math.max(0, Math.min(newY, window.innerHeight - whatsappBtn.offsetHeight));
-            whatsappBtn.style.left = `${newX}px`;
-            whatsappBtn.style.top = `${newY}px`;
-            whatsappBtn.style.right = 'auto';
-            whatsappBtn.style.bottom = 'auto';
-        }
-    });
+document.addEventListener('mouseup', () => {
+    isDragging = false;
+    // Vuelve a habilitar la transición para los efectos de hover
+    whatsappBtn.style.transition = 'transform 0.2s, background-color 0.3s';
+});
 
-    document.addEventListener('mouseup', () => {
-        isDragging = false;
-        whatsappBtn.style.transition = 'transform 0.2s, background-color 0.3s';
-    });
+whatsappBtn.addEventListener('touchstart', (e) => {
+    isDragging = false;
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+    initialX = whatsappBtn.getBoundingClientRect().left;
+    initialY = whatsappBtn.getBoundingClientRect().top;
+    whatsappBtn.style.transition = 'none';
+});
 
-    whatsappBtn.addEventListener('touchstart', (e) => {
-        isDragging = false;
-        startX = e.touches[0].clientX;
-        startY = e.touches[0].clientY;
-        initialX = whatsappBtn.getBoundingClientRect().left;
-        initialY = whatsappBtn.getBoundingClientRect().top;
-        whatsappBtn.style.transition = 'none';
-    });
+document.addEventListener('touchmove', (e) => {
+    const deltaX = e.touches[0].clientX - startX;
+    const deltaY = e.touches[0].clientY - startY;
 
-    document.addEventListener('touchmove', (e) => {
-        const deltaX = e.touches[0].clientX - startX;
-        const deltaY = e.touches[0].clientY - startY;
+    if (Math.abs(deltaX) > 5 || Math.abs(deltaY) > 5) {
+        isDragging = true;
+        e.preventDefault();
+    }
 
-        if (Math.abs(deltaX) > 5 || Math.abs(deltaY) > 5) {
-            isDragging = true;
-            e.preventDefault();
-        }
+    if (isDragging) {
+        let newX = initialX + deltaX;
+        let newY = initialY + deltaY;
+        newX = Math.max(0, Math.min(newX, window.innerWidth - whatsappBtn.offsetWidth));
+        newY = Math.max(0, Math.min(newY, window.innerHeight - whatsappBtn.offsetHeight));
+        whatsappBtn.style.left = `${newX}px`;
+        whatsappBtn.style.top = `${newY}px`;
+    }
+});
 
-        if (isDragging) {
-            let newX = initialX + deltaX;
-            let newY = initialY + deltaY;
-            newX = Math.max(0, Math.min(newX, window.innerWidth - whatsappBtn.offsetWidth));
-            newY = Math.max(0, Math.min(newY, window.innerHeight - whatsappBtn.offsetHeight));
-            whatsappBtn.style.left = `${newX}px`;
-            whatsappBtn.style.top = `${newY}px`;
-            whatsappBtn.style.right = 'auto';
-            whatsappBtn.style.bottom = 'auto';
-        }
-    });
-
-    document.addEventListener('touchend', () => {
-        isDragging = false;
-        whatsappBtn.style.transition = 'transform 0.2s, background-color 0.3s';
-    });
+document.addEventListener('touchend', () => {
+    isDragging = false;
+    // Vuelve a habilitar la transición para los efectos de hover
+    whatsappBtn.style.transition = 'transform 0.2s, background-color 0.3s';
 });
         </script>
 </body>
