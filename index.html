@@ -645,7 +645,7 @@ Inside the media query, you'll use Flexbox to arrange the content horizontally.
     transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
 
     /* Estilos de presentación que ya podrías tener */
-    background-color: #f0f0f0;
+    background-color: rgba(0, 0, 0, 0.5);
     padding: 15px 30px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -1080,12 +1080,14 @@ Inside the media query, you'll use Flexbox to arrange the content horizontally.
   
 </footer>
     <script>
-   /*
+ /*
  * ESTE ES EL CÓDIGO JavaScript COMPLETO Y CORREGIDO
  * POR FAVOR, REEMPLAZA TU ARCHIVO SCRIPT.JS CON ESTO
  */
 document.addEventListener('DOMContentLoaded', () => {
     // --- LÓGICA DE IDIOMA Y MENSAJE DE RESERVA ---
+    const langEsBtn = document.getElementById('lang-es-btn');
+    const langEnBtn = document.getElementById('lang-en-btn');
     let currentLanguage = localStorage.getItem('language') || 'es';
 
     function setLanguage(lang) {
@@ -1098,6 +1100,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         document.getElementById(`lang-${lang}-btn`)?.classList.add('active');
         document.documentElement.lang = lang;
+    }
+
+    // AÑADE ESTA SECCIÓN PARA ACTIVAR EL CAMBIO DE IDIOMA
+    if (langEsBtn && langEnBtn) {
+        langEsBtn.addEventListener('click', () => {
+            setLanguage('es');
+        });
+        langEnBtn.addEventListener('click', () => {
+            setLanguage('en');
+        });
     }
 
     setLanguage(currentLanguage);
