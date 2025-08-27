@@ -631,29 +631,34 @@ Inside the media query, you'll use Flexbox to arrange the content horizontally.
         text-align: left;
     }
 
- * RESERVATION MESSAGE
- */
+ */ RESERVATION MESSAGE*/
 #reservation-message {
+    /* Estilos de posición para que flote sobre el contenido */
     position: fixed;
-    top: 50%;
+    bottom: 20px; /* Ajusta la distancia desde la parte inferior */
     left: 50%;
-    transform: translate(-50%,-50%);
-    background-color: rgba(0,0,0,0.5);
-    color: white;
-    padding: 25px 40px;
-    border-radius: 10px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-    z-index: 9999;
-    font-size: 2.2em;
-    font-weight: bold;
-    text-align: center;
+    transform: translateX(-50%); /* Centra horizontalmente el elemento */
+    z-index: 1000; /* Asegura que esté por encima de otros elementos */
+    
+    /* Estilos de visibilidad para la animación */
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
-    max-width: 90%;
-    box-sizing: border-box;
+    
+    /* Estilos de presentación que ya podrías tener */
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 15px 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    color: white; /* Cambia a blanco para que se vea en fondo oscuro */
+    text-align: center;
 }
-#reservation-message.show {opacity:1;visibility:visible;}
+
+/* Esta clase se activa con JavaScript */
+#reservation-message.show {
+    opacity: 1;
+    visibility: visible;
+}
 /*
  * RESPONSIVE DESIGN (MEDIA QUERIES)
  */
@@ -1106,18 +1111,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setLanguage(currentLanguage);
 
-    function showReservationMessage() {
-        const message = document.getElementById('reservation-message');
-        if (message) {
-            clearTimeout(message.hideTimeout);
-            message.classList.add('show');
-            message.hideTimeout = setTimeout(() => {
-                message.classList.remove('show');
-            }, 5000);
-        }
+   function showReservationMessage() {
+    const message = document.getElementById('reservation-message');
+    if (message) {
+        // Limpia cualquier temporizador anterior para evitar conflictos
+        clearTimeout(message.hideTimeout); 
+        // Muestra el mensaje
+        message.classList.add('show');
+        // Temporizador para ocultarlo después de 5 segundos
+        message.hideTimeout = setTimeout(() => {
+            message.classList.remove('show');
+        }, 5000); // 5000 milisegundos = 5 segundos
     }
+}
 
-    showReservationMessage();
+// Llama a la función cuando la página se carga
+showReservationMessage();
 
     // --- LÓGICA DEL CARRUSEL ---
     const carouselTrack = document.querySelector('.carousel-track');
