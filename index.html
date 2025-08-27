@@ -578,8 +578,7 @@ transform: scaleX(-1);
     }
 }
 
-* FOOTER
- */
+/* FOOTER */
 .main-footer {
     background-color: #111;
     color: #ccc;
@@ -588,15 +587,49 @@ transform: scaleX(-1);
     font-size: 0.9em;
     margin-top: 30px;
 }
+
+.main-footer .footer-links {
+    margin-top: 10px; /* Adds space between copyright and links on mobile */
+}
+
 .main-footer .footer-links a {
     color: #007bff;
     text-decoration: none;
     margin: 0 10px;
     transition: color 0.3s;
 }
-.main-footer .footer-links a:hover {color:#00BFFF;}
 
-/*
+.main-footer .footer-links a:hover {
+    color: #00BFFF;
+}
+
+/* --- */
+
+### **Responsive Design for PC**
+
+To make the footer look professional on a PC, you'll use a media query that applies styles only when the screen width is above a certain size (e.g., **768px**). This common breakpoint is a good choice for targeting tablets and desktops.
+
+Inside the media query, you'll use **Flexbox** to arrange the content horizontally.
+
+```css
+@media (min-width: 768px) {
+    .main-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-align: left;
+    }
+
+    /* Change link container to a horizontal layout */
+    .main-footer .footer-links {
+        margin-top: 0;
+    }
+
+    /* Adjust the text alignment to the left on PC */
+    .main-footer p {
+        text-align: left;
+    }
+}
  * RESERVATION MESSAGE
  */
 #reservation-message {
