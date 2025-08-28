@@ -366,15 +366,7 @@ body.lang-active-en .lang-es {display: none;}
     display: none;
 }
 
-/* --- */
 
-## Responsive Design for PC
-
-The key to adapting your design for larger screens is using a media query. The following code uses `@media (min-width: 768px)` to apply new styles when the screen is at least **768 pixels** wide. This is a common breakpoint for tablets and desktops.
-
-Inside this media query, you'll modify the layout of the `.theme-content-wrapper` to use `flex-direction: row`, arranging the image and text side-by-side. You'll also adjust the width of the columns to give them an equal or balanced share of the space.
-
-```css
 @media (min-width: 768px) {
     .theme-content-wrapper {
         flex-direction: row;
@@ -604,15 +596,6 @@ transform: scaleX(-1);
     color: #00BFFF;
 }
 
-/* --- */
-
-Responsive Design for PC
-
-To make the footer look professional on a PC, you'll use a media query that applies styles only when the screen width is above a certain size (e.g., **768px**). This common breakpoint is a good choice for targeting tablets and desktops.
-
-Inside the media query, you'll use Flexbox to arrange the content horizontally.
-
-```css
 @media (min-width: 768px) {
     .main-footer {
         display: flex;
@@ -630,29 +613,34 @@ Inside the media query, you'll use Flexbox to arrange the content horizontally.
     .main-footer p {
         text-align: center;
     }
-
- */ RESERVATION MESSAGE*/
+/* --- ALERTA FLOTANTE DE RESERVA --- */
 #reservation-message {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%,-50%);
-        background-color: rgba(0,0,0,0.5);
-        color: white;
-        padding: 25px 40px;
-        border-radius: 10px;
-        box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-        z-index: 10000;
-        font-size: 2.2em;
-        font-weight: bold;
-        text-align: center;
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
-        max-width: 90%;
-        box-sizing: border-box;
-    }
-    #reservation-message.show {opacity:1;visibility:visible;}
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  background-color: rgba(0,0,0,0.5);
+  color: white;
+  padding: 25px 40px;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+  z-index: 10000;
+  font-size: 1.8em;
+  font-weight: bold;
+  text-align: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out, visibility 0.5s;
+  max-width: 90%;
+  box-sizing: border-box;
+}
+
+#reservation-message.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, -50%) scale(1);
+}
+
 /*
  * RESPONSIVE DESIGN (MEDIA QUERIES)
  */
