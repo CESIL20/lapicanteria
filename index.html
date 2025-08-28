@@ -637,20 +637,20 @@ Inside the media query, you'll use Flexbox to arrange the content horizontally.
   position: fixed;
   top: 20px;
   left: 50%;
-  transform: translateX(-50%) translateY(-20px);
+  transform: translateX(-50%) translateY(-100px); /* Posición inicial fuera de la vista */
   background: #333;
   color: #fff;
   padding: 12px 20px;
   border-radius: 6px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
   opacity: 0;
-  transition: all 1s ease;
+  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.8s ease;
   z-index: 9999;
 }
 
 .flash-message.show {
   opacity: 1;
-  transform: translateX(-50%) translateY(0);
+  transform: translateX(-50%) translateY(0); /* Posición final visible */
 }
 /*
  * RESPONSIVE DESIGN (MEDIA QUERIES)
@@ -1090,27 +1090,32 @@ document.addEventListener("DOMContentLoaded", () => {
         languageButtons.forEach(button => button.classList.remove('active'));
         document.getElementById(`lang-${lang}-btn`).classList.add('active');
         document.documentElement.lang = lang;
+        showReservationMessage(); // Muestra el mensaje al cambiar de idioma
     }
 
     function showReservationMessage() {
         if (!reservationMessage) return;
-        reservationMessage.classList.add('show');
+        reservationMessage.style.display = 'block';
+        setTimeout(() => {
+            reservationMessage.classList.add('show');
+        }, 10); // Un pequeño retraso para asegurar que la transición funcione
+        
         clearTimeout(reservationMessage.hideTimeout);
         reservationMessage.hideTimeout = setTimeout(() => {
             reservationMessage.classList.remove('show');
             setTimeout(() => {
-                // Elimina el elemento del DOM después de la transición
-                reservationMessage.remove();
-            }, 1000);
-        }, 5000);
+                reservationMessage.style.display = 'none';
+            }, 1000); // El tiempo de la animación de salida
+        }, 5000); // 5 segundos de visibilidad
     }
-    
+
     // Configura el idioma inicial al cargar
     setLanguage(currentLanguage);
-    showReservationMessage();
+    showReservationMessage(); // Muestra el mensaje al cargar la página
 
     langEsBtn.addEventListener('click', () => setLanguage('es'));
     langEnBtn.addEventListener('click', () => setLanguage('en'));
+    
 
     // --- LÓGICA DEL CARRUSEL ---
     const carouselTrack = document.querySelector('.carousel-track');
