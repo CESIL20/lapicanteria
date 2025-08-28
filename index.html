@@ -632,25 +632,41 @@ Inside the media query, you'll use Flexbox to arrange the content horizontally.
     }
 
  */ RESERVATION MESSAGE*/
-.reservation-message {
+.flash-message {
   position: fixed;
-  top: 20px; /* puedes poner 50% para centro vertical */
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(0,0,0,0.85);
+  top: 50%;             /* Centro vertical */
+  left: 50%;            /* Centro horizontal */
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.85); /* Fondo oscuro */
   color: #fff;
-  padding: 12px 20px;
-  border-radius: 8px;
+  padding: 20px 30px;
+  border-radius: 12px;
   font-size: 1.1em;
   text-align: center;
+  max-width: 90%;
+  box-shadow: 0 5px 25px rgba(0,0,0,0.3);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.5s ease;
-  z-index: 9999;
+  z-index: 10000;       /* por encima de todo */
 }
 
-.reservation-message.show {
+/* Cuando JS añade la clase show */
+.flash-message.show {
   opacity: 1;
+}
+
+/* Variantes opcionales */
+.flash-message.info {
+  background: rgba(0, 123, 255, 0.95); /* azul info */
+}
+
+.flash-message.error {
+  background: rgba(220, 53, 69, 0.95); /* rojo error */
+}
+
+.flash-message.success {
+  background: rgba(40, 167, 69, 0.95); /* verde éxito */
 }
 
 /*
@@ -1106,14 +1122,14 @@ document.addEventListener('DOMContentLoaded', () => {
     setLanguage(currentLanguage);
 
     function showReservationMessage() {
-    const message = document.getElementById('reservation-message');
-    if (message) {
-        clearTimeout(message.hideTimeout);
-        message.classList.add('show');
-        message.hideTimeout = setTimeout(() => {
-            message.classList.remove('show');
-        }, 5000); // desaparece a los 5s
-    }
+  const message = document.getElementById('reservation-message');
+  if (message) {
+    clearTimeout(message.hideTimeout);
+    message.classList.add('show');
+    message.hideTimeout = setTimeout(() => {
+      message.classList.remove('show');
+    }, 5000); // desaparece después de 5s
+  }
 }
 
 
