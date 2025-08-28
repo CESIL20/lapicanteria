@@ -632,45 +632,21 @@ Inside the media query, you'll use Flexbox to arrange the content horizontally.
     }
 
  */ RESERVATION MESSAGE*/
-/* RESERVATION MESSAGE */
-.flash-message {
+/* Mensaje flotante de reserva */
+#reservation-message {
   position: fixed;
-  top: 50%;             /* centro vertical */
-  left: 50%;            /* centro horizontal */
-  transform: translate(-50%, -50%);
-  background: rgba(0, 0, 0, 0.85); /* fondo oscuro */
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-20px);
+  background: #333;
   color: #fff;
-  padding: 15px 25px;
-  border-radius: 10px;
-  font-size: 1.1em;
-  text-align: center;
-  opacity: 0;           /* empieza invisible */
-  pointer-events: none; /* no bloquea clicks en la página */
-  visibility: hidden;
-  transition: opacity 0.5s ease, visibility 0.5s ease;
-  z-index: 10000;       /* encima de todo */
+  padding: 12px 20px;
+  border-radius: 6px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  opacity: 0;
+  transition: all 1s ease;
+  z-index: 9999;
 }
-
-/* cuando JS activa .show */
-.flash-message.show {
-  opacity: 1;
-  visibility: visible;
-}
-
-/* Responsive message */
-@media (max-width:768px){
-  .flash-message { 
-    font-size: 1em; 
-    padding: 12px 18px; 
-  }
-}
-@media (max-width:480px){
-  .flash-message { 
-    font-size: 0.9em; 
-    padding: 10px 15px; 
-  }
-}
-
 
 /*
  * RESPONSIVE DESIGN (MEDIA QUERIES)
@@ -1122,16 +1098,26 @@ let reservationMessage;
         }
     }
 
-    document.addEventListener('DOMContentLoaded',()=>{
-        reservationMessage = document.getElementById('reservation-message');
-        // Muestra el mensaje inicial por 5 segundos al cargar la página
-        if (reservationMessage) {
-            reservationMessage.classList.add('show');
-            reservationMessage.hideTimeout = setTimeout(()=>{
-                reservationMessage.classList.remove('show');
-            },5000);
-        }
-        
+    document.addEventListener("DOMContentLoaded", () => {
+  const msg = document.getElementById("reservation-message");
+  if (msg) {
+    // Mostrar con animación
+    msg.style.opacity = "1";
+    msg.style.transform = "translateY(0)";
+    
+    // Desaparecer después de 5 segundos
+    setTimeout(() => {
+      msg.style.opacity = "0";
+      msg.style.transform = "translateY(-20px)";
+      
+      // Quitar del DOM después de la animación
+      setTimeout(() => {
+        msg.remove();
+      }, 1000);
+    }, 5000);
+  }
+});
+
         document.querySelectorAll('nav.main-nav a').forEach(anchor=>{
             anchor.addEventListener('click',function(e){
                 const targetId=this.getAttribute('href');
