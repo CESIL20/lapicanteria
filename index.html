@@ -1084,25 +1084,13 @@ Inside the media query, you'll use Flexbox to arrange the content horizontally.
 </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
-/* Pega este código en tu archivo JS */
-document.addEventListener("DOMContentLoaded", () => {
-    // --- LÓGICA DE TRADUCCIÓN E IDIOMA ---
+document.addEventListener('DOMContentLoaded', () => {
+    // --- LÓGICA DE TRADUCCIÓN Y MENSAJE DE RESERVA ---
+    const reservationMessage = document.getElementById('reservation-message');
     const languageButtons = document.querySelectorAll('.language-switcher button');
     const langEsBtn = document.getElementById('lang-es-btn');
     const langEnBtn = document.getElementById('lang-en-btn');
-    const reservationMessage = document.getElementById('reservation-message');
     let currentLanguage = localStorage.getItem('language') || 'es';
-
-    function setLanguage(lang) {
-        currentLanguage = lang;
-        localStorage.setItem('language', lang);
-        document.body.classList.remove('lang-active-es', 'lang-active-en');
-        document.body.classList.add(`lang-active-${lang}`);
-        languageButtons.forEach(button => button.classList.remove('active'));
-        document.getElementById(`lang-${lang}-btn`).classList.add('active');
-        document.documentElement.lang = lang;
-        showReservationMessage();
-    }
 
     function showReservationMessage() {
         if (!reservationMessage) return;
@@ -1110,7 +1098,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Limpia cualquier temporizador anterior para evitar duplicaciones
         clearTimeout(reservationMessage.hideTimeout);
 
-        // Muestra el mensaje con la clase 'show'
+        // Muestra el mensaje
         reservationMessage.classList.add('show');
 
         // Configura el temporizador para ocultar el mensaje después de 5 segundos
@@ -1119,23 +1107,44 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 5000); // 5 segundos
     }
 
-    // Llama a la función al cargar la página para mostrar el mensaje inicial
-    setLanguage(currentLanguage);
+    function setLanguage(lang) {
+        currentLanguage = lang;
+        localStorage.setItem('language', lang);
 
-    langEsBtn.addEventListener('click', () => setLanguage('es'));
-    langEnBtn.addEventListener('click', () => setLanguage('en'));
+        document.body.classList.remove('lang-active-es', 'lang-active-en');
+        document.body.classList.add(`lang-active-${lang}`);
 
-    // ... (El resto de tu código JS: carrusel, modales, etc.)
-});
-    
+        languageButtons.forEach(button => {
+            button.classList.remove('active');
+        });
+        document.getElementById(`lang-${lang}-btn`).classList.add('active');
+        document.documentElement.lang = lang;
 
-    // --- LÓGICA DEL CARRUSEL ---
+        // Muestra el mensaje de reserva cada vez que cambia el idioma
+        showReservationMessage();
+    }
+
+    // --- LÓGICA DE NAVEGACIÓN (Smooth Scroll) ---
+    document.querySelectorAll('nav.main-nav a').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('href');
+            if (targetId.startsWith('#')) {
+                e.preventDefault();
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        });
+    });
+
+    // --- LÓGICA DEL CARRUSEL Y MODAL ---
     const carouselTrack = document.querySelector('.carousel-track');
     const prevButton = document.querySelector('.carousel-prev');
     const nextButton = document.querySelector('.carousel-next');
     const dotsContainer = document.querySelector('.carousel-dots');
-    const carouselContainer = document.querySelector('.carousel-container');
-
     const images = [
         'LP 1 (1).jpg', 'LP 2.jpg', '44pimentel1.jpg', 'LP 5.jpg', 'LP 17.jpg',
         'LP 10.jpg', 'LP 28.jpg', 'LP 29.jpg', 'LP 32.jpg', 'LP 42.jpg', 'solis_0016.jpg',
@@ -1145,7 +1154,6 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentIndex = 0;
     let autoSlideInterval;
 
-    // Genera dinámicamente el HTML del carrusel y los puntos
     images.forEach((image, index) => {
         const item = document.createElement('div');
         item.className = 'carousel-item';
@@ -1170,6 +1178,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const dots = document.querySelectorAll('.dot');
     const items = document.querySelectorAll('.carousel-item');
+    const carouselContainer = document.querySelector('.carousel-container');
 
     function updateCarousel() {
         if (items.length === 0) return;
@@ -1202,26 +1211,29 @@ document.addEventListener("DOMContentLoaded", () => {
         startAutoSlide();
     }
     
-    // Event listeners del carrusel
     prevButton?.addEventListener('click', () => { prevSlide(); stopAndRestartAutoSlide(); });
     nextButton?.addEventListener('click', () => { nextSlide(); stopAndRestartAutoSlide(); });
     carouselContainer?.addEventListener('mouseenter', stopAutoSlide);
     carouselContainer?.addEventListener('mouseleave', startAutoSlide);
 
-    // Debounce para el evento de redimensionamiento
     let resizeTimeout;
     window.addEventListener('resize', () => {
-        carouselTrack.style.transition = 'none';
+        if (carouselTrack) {
+            carouselTrack.style.transition = 'none';
+        }
         clearTimeout(resizeTimeout);
         resizeTimeout = setTimeout(() => {
-            updateCarousel();
-            carouselTrack.style.transition = 'transform 0.5s ease-in-out';
+            if (carouselTrack) {
+                updateCarousel();
+                carouselTrack.style.transition = 'transform 0.5s ease-in-out';
+            }
         }, 200);
     });
 
-    // Inicializa el carrusel
-    updateCarousel();
-    startAutoSlide();
+    window.addEventListener('load', () => {
+        updateCarousel();
+        startAutoSlide();
+    });
 
     // --- LÓGICA DE MODALES (CENTRALIZADA) ---
     function setupModal(modalId, closeBtnId, triggerElements) {
@@ -1231,49 +1243,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
         triggerElements.forEach(element => {
             element.addEventListener('click', (e) => {
-                const imageUrl = e.target.closest('.carousel-item')?.querySelector('img')?.src ||
-                                 e.target.closest('.preparation-button')?.getAttribute('data-image') &&
-                                 document.querySelector(`.preparation-image[data-image="${e.target.closest('.preparation-button').getAttribute('data-image')}"]`)?.src;
-                                 
-                if (imageUrl) {
-                    modal.querySelector('.modal-content').src = imageUrl;
-                    modal.classList.add('show');
-                }
-            });
-        });
-
-        closeBtn.addEventListener('click', () => modal.classList.remove('show'));
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) modal.classList.remove('show');
-        });
-    }
-
-    // --- LÓGICA DE MODALES (CENTRALIZADA) ---
-    function setupModal(modalId, closeBtnId, triggerElements) {
-        const modal = document.getElementById(modalId);
-        const closeBtn = document.getElementById(closeBtnId);
-        if (!modal || !closeBtn || !triggerElements) return;
-
-        triggerElements.forEach(element => {
-            element.addEventListener('click', (e) => {
-                let imageUrl;
-                
-                // Si el clic es en un botón de preparación
-                if (element.classList.contains('preparation-button')) {
-                    const mealData = element.getAttribute('data-meal');
-                    const selectedImage = document.querySelector(`.preparation-image[data-image="${mealData}"]`);
-                    if (selectedImage) {
-                        imageUrl = selectedImage.src;
-                    }
-                } 
-                // Si el clic es en una imagen del carrusel
-                else if (element.tagName === 'IMG') {
+                let imageUrl = '';
+                if (element.tagName === 'IMG') {
                     imageUrl = element.src;
+                } else if (element.classList.contains('preparation-button')) {
+                    const imgElement = element.querySelector('img');
+                    if (imgElement) {
+                        imageUrl = imgElement.src;
+                    }
                 }
-
+                
                 if (imageUrl) {
-                    modal.querySelector('img').src = imageUrl;
-                    modal.classList.add('show');
+                    const modalImage = modal.querySelector('.modal-content') || modal.querySelector('img');
+                    if (modalImage) {
+                        modalImage.src = imageUrl;
+                        modal.classList.add('show');
+                    }
                 }
             });
         });
@@ -1282,8 +1267,6 @@ document.addEventListener("DOMContentLoaded", () => {
         modal.addEventListener('click', (e) => {
             if (e.target === modal) modal.classList.remove('show');
         });
-
-        // Cierra el modal con la tecla ESC
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 modal.classList.remove('show');
@@ -1291,11 +1274,11 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Configura los dos modales
+    // --- LÓGICA DE MODALES (CENTRALIZADA) ---
     const carouselItems = document.querySelectorAll('.carousel-track img');
     const preparationButtons = document.querySelectorAll('.preparation-button');
-    setupModal('image-modal-carousel', 'modal-close-carousel', carouselItems);
-    setupModal('image-modal-prep', 'modal-close-prep', preparationButtons);
+    setupModal('image-modal', 'modal-close-btn', carouselItems);
+    setupModal('image-modal', 'modal-close-btn', preparationButtons);
 
     // --- LÓGICA DE SCROLL SUAVE ---
     document.querySelectorAll('nav.main-nav a[href^="#"]').forEach(anchor => {
@@ -1308,104 +1291,86 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // --- LÓGICA DEL BOTÓN FLOTANTE DE WHATSAPP ---
-    const whatsappBtn = document.getElementById('whatsapp-draggable-button');
-    const whatsappURL = "https://wa.me/51953489892?text=Hola!%20Me%20gustar%C3%ADa%20realizar%20un%20pedido.";
-    let isDragging = false;
-    let startX, startY;
-    let initialX, initialY;
+    const whatsappBtn = document.querySelector('.whatsapp-float');
+    if (whatsappBtn) {
+        const whatsappURL = "https://wa.me/51953489892?text=Hola!%20Me%20gustar%C3%ADa%20realizar%20un%20pedido.";
+        let isDragging = false;
+        let startX, startY, initialX, initialY;
 
-    function initializeWhatsappPosition() {
-        const rect = whatsappBtn.getBoundingClientRect();
-        whatsappBtn.style.position = 'fixed';
-        whatsappBtn.style.top = `${rect.top}px`;
-        whatsappBtn.style.left = `${rect.left}px`;
-        whatsappBtn.style.right = 'auto';
-        whatsappBtn.style.bottom = 'auto';
-    }
-
-    // Inicializa la posición del botón
-    initializeWhatsappPosition();
-    window.addEventListener('resize', initializeWhatsappPosition);
-
-    // Evento de clic en el botón de WhatsApp
-    whatsappBtn.addEventListener('click', (e) => {
-        // Previene la acción por defecto del enlace si isDragging es true.
-        // Esto es para los clics que el usuario percibe como arrastres fallidos.
-        if (isDragging) {
-            e.preventDefault();
-        } else {
-            // Si no fue un arrastre, abre el enlace.
-            window.open(whatsappURL, '_blank');
-        }
-    });
-
-    // Inicia el arrastre
-    whatsappBtn.addEventListener('mousedown', (e) => {
-        isDragging = false; // Reinicia el estado de arrastre
-        whatsappBtn.style.transition = 'none';
-        startX = e.clientX;
-        startY = e.clientY;
-        const rect = whatsappBtn.getBoundingClientRect();
-        initialX = rect.left;
-        initialY = rect.top;
-
-        // Añade los event listeners para el movimiento y el fin del arrastre
-        document.addEventListener('mousemove', doDrag);
-        document.addEventListener('mouseup', endDrag);
-    });
-    
-    // Inicia el arrastre en dispositivos táctiles
-    whatsappBtn.addEventListener('touchstart', (e) => {
-        isDragging = false;
-        whatsappBtn.style.transition = 'none';
-        const touch = e.touches[0];
-        startX = touch.clientX;
-        startY = touch.clientY;
-        const rect = whatsappBtn.getBoundingClientRect();
-        initialX = rect.left;
-        initialY = rect.top;
-
-        // Añade los event listeners para el movimiento y el fin del arrastre
-        document.addEventListener('touchmove', doDrag, { passive: false });
-        document.addEventListener('touchend', endDrag);
-    });
-
-    // Realiza el arrastre
-    function doDrag(e) {
-        // Si no hay un arrastre en curso, sale de la función
-        if (e.type.includes('mouse') && e.buttons !== 1) {
-            return;
+        function initializeWhatsappPosition() {
+            const rect = whatsappBtn.getBoundingClientRect();
+            whatsappBtn.style.position = 'fixed';
+            whatsappBtn.style.top = `${rect.top}px`;
+            whatsappBtn.style.left = `${rect.left}px`;
+            whatsappBtn.style.right = 'auto';
+            whatsappBtn.style.bottom = 'auto';
         }
 
-        const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
-        const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
-        const deltaX = clientX - startX;
-        const deltaY = clientY - startY;
+        initializeWhatsappPosition();
+        window.addEventListener('resize', initializeWhatsappPosition);
 
-        if (Math.abs(deltaX) > 5 || Math.abs(deltaY) > 5) {
-            isDragging = true;
-            e.preventDefault(); // Previene el desplazamiento de la página en móviles
+        whatsappBtn.addEventListener('click', (e) => {
+            if (isDragging) {
+                e.preventDefault();
+            } else {
+                window.open(whatsappURL, '_blank');
+            }
+        });
+
+        whatsappBtn.addEventListener('mousedown', (e) => {
+            isDragging = false;
+            whatsappBtn.style.transition = 'none';
+            startX = e.clientX;
+            startY = e.clientY;
+            const rect = whatsappBtn.getBoundingClientRect();
+            initialX = rect.left;
+            initialY = rect.top;
+            document.addEventListener('mousemove', doDrag);
+            document.addEventListener('mouseup', endDrag);
+        });
+
+        whatsappBtn.addEventListener('touchstart', (e) => {
+            isDragging = false;
+            whatsappBtn.style.transition = 'none';
+            const touch = e.touches[0];
+            startX = touch.clientX;
+            startY = touch.clientY;
+            const rect = whatsappBtn.getBoundingClientRect();
+            initialX = rect.left;
+            initialY = rect.top;
+            document.addEventListener('touchmove', doDrag, { passive: false });
+            document.addEventListener('touchend', endDrag);
+        });
+
+        function doDrag(e) {
+            if (e.type.includes('mouse') && e.buttons !== 1) return;
+            const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+            const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+            const deltaX = clientX - startX;
+            const deltaY = clientY - startY;
+
+            if (Math.abs(deltaX) > 5 || Math.abs(deltaY) > 5) {
+                isDragging = true;
+                e.preventDefault();
+            }
+
+            if (isDragging) {
+                let newX = initialX + deltaX;
+                let newY = initialY + deltaY;
+                newX = Math.max(0, Math.min(newX, window.innerWidth - whatsappBtn.offsetWidth));
+                newY = Math.max(0, Math.min(newY, window.innerHeight - whatsappBtn.offsetHeight));
+                whatsappBtn.style.left = `${newX}px`;
+                whatsappBtn.style.top = `${newY}px`;
+            }
         }
 
-        if (isDragging) {
-            let newX = initialX + deltaX;
-            let newY = initialY + deltaY;
-            newX = Math.max(0, Math.min(newX, window.innerWidth - whatsappBtn.offsetWidth));
-            newY = Math.max(0, Math.min(newY, window.innerHeight - whatsappBtn.offsetHeight));
-            whatsappBtn.style.left = `${newX}px`;
-            whatsappBtn.style.top = `${newY}px`;
+        function endDrag() {
+            whatsappBtn.style.transition = 'transform 0.2s, background-color 0.3s';
+            document.removeEventListener('mousemove', doDrag);
+            document.removeEventListener('mouseup', endDrag);
+            document.removeEventListener('touchmove', doDrag);
+            document.removeEventListener('touchend', endDrag);
         }
-    }
-
-    // Finaliza el arrastre
-    function endDrag() {
-        whatsappBtn.style.transition = 'transform 0.2s, background-color 0.3s';
-
-        // Elimina los event listeners de movimiento para no consumir recursos
-        document.removeEventListener('mousemove', doDrag);
-        document.removeEventListener('mouseup', endDrag);
-        document.removeEventListener('touchmove', doDrag);
-        document.removeEventListener('touchend', endDrag);
     }
 });
         </script>
