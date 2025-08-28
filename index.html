@@ -632,36 +632,27 @@ Inside the media query, you'll use Flexbox to arrange the content horizontally.
     }
 
  */ RESERVATION MESSAGE*/
-/* Mensaje flotante de reserva */
-/* Mensaje de Reserva Flotante */
 #reservation-message {
-    /* Posicionamiento y Estilos */
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* Centra el elemento en la pantalla */
-    background-color: rgba(0,0,0,0.5);
-    color: white;
-    padding: 25px 40px;
-    border-radius: 10px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-    z-index: 10000;
-    font-size: 2.2em;
-    font-weight: bold;
-    text-align: center;
-    max-width: 90%;
-    box-sizing: border-box;
-
-    /* Propiedades para la animación */
-    opacity: 0; /* Lo hace invisible */
-    visibility: hidden; /* Lo esconde del flujo del documento */
-    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
-}
-
-#reservation-message.show {
-    opacity: 1;
-    visibility: visible;
-}
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        background-color: rgba(0,0,0,0.5);
+        color: white;
+        padding: 25px 40px;
+        border-radius: 10px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+        z-index: 10000;
+        font-size: 2.2em;
+        font-weight: bold;
+        text-align: center;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+        max-width: 90%;
+        box-sizing: border-box;
+    }
+    #reservation-message.show {opacity:1;visibility:visible;}
 /*
  * RESPONSIVE DESIGN (MEDIA QUERIES)
  */
@@ -1084,43 +1075,64 @@ Inside the media query, you'll use Flexbox to arrange the content horizontally.
 </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
-document.addEventListener("DOMContentLoaded", () => {
-    // --- LÓGICA DE TRADUCCIÓN E IDIOMA ---
-    const languageButtons = document.querySelectorAll('.language-switcher button');
-    const langEsBtn = document.getElementById('lang-es-btn');
-    const langEnBtn = document.getElementById('lang-en-btn');
-    const reservationMessage = document.getElementById('reservation-message');
+let reservationMessage;
     let currentLanguage = localStorage.getItem('language') || 'es';
 
-    function setLanguage(lang) {
+    function setLanguage(lang){
         currentLanguage = lang;
-        localStorage.setItem('language', lang);
+        localStorage.setItem('language',lang);
+
+        // Elimina las clases de idioma existentes del body
         document.body.classList.remove('lang-active-es', 'lang-active-en');
+        // Añade la clase del idioma activo al body
         document.body.classList.add(`lang-active-${lang}`);
-        languageButtons.forEach(button => button.classList.remove('active'));
+
+        document.querySelectorAll('.language-switcher button').forEach(button=>{
+            button.classList.remove('active');
+        });
         document.getElementById(`lang-${lang}-btn`).classList.add('active');
         document.documentElement.lang = lang;
+
+        // Asegura que el mensaje de reserva se muestre brevemente al cambiar de idioma
+        if (reservationMessage) {
+            reservationMessage.classList.add('show');
+            clearTimeout(reservationMessage.hideTimeout); // Limpia cualquier temporizador de ocultación existente
+            reservationMessage.hideTimeout = setTimeout(()=>{
+                reservationMessage.classList.remove('show');
+            },5000); // Muestra por 5 segundos
+        }
     }
 
-    function showReservationMessage() {
-        if (!reservationMessage) return;
-        reservationMessage.classList.add('show');
-        clearTimeout(reservationMessage.hideTimeout);
-        reservationMessage.hideTimeout = setTimeout(() => {
-            reservationMessage.classList.remove('show');
-            setTimeout(() => {
-                // Elimina el elemento del DOM después de la transición
-                reservationMessage.remove();
-            }, 1000);
-        }, 5000);
-    }
-    
-    // Configura el idioma inicial al cargar
-    setLanguage(currentLanguage);
-    showReservationMessage();
+    document.addEventListener('DOMContentLoaded',()=>{
+        reservationMessage = document.getElementById('reservation-message');
+        // Muestra el mensaje inicial por 5 segundos al cargar la página
+        if (reservationMessage) {
+            reservationMessage.classList.add('show');
+            reservationMessage.hideTimeout = setTimeout(()=>{
+                reservationMessage.classList.remove('show');
+            },5000);
+        }
+        
+        document.querySelectorAll('nav.main-nav a').forEach(anchor=>{
+            anchor.addEventListener('click',function(e){
+                const targetId=this.getAttribute('href');
+                if(targetId.startsWith('#')){
+                    e.preventDefault();
+                    const targetElement=document.querySelector(targetId);
+                    if(targetElement){
+                        targetElement.scrollIntoView({
+                            behavior:'smooth'
+                        });
+                    }
+                }
+            });
+        });
 
-    langEsBtn.addEventListener('click', () => setLanguage('es'));
-    langEnBtn.addEventListener('click', () => setLanguage('en'));
+        document.getElementById('lang-es-btn').addEventListener('click',()=>setLanguage('es'));
+        document.getElementById('lang-en-btn').addEventListener('click',()=>setLanguage('en'));
+        
+        // Establece el idioma inicial al cargar la página
+        setLanguage(currentLanguage);
 
     // --- LÓGICA DEL CARRUSEL ---
     const carouselTrack = document.querySelector('.carousel-track');
