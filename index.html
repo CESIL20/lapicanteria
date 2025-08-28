@@ -1257,11 +1257,12 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // --- LÓGICA DEL BOTÓN FLOTANTE DE WHATSAPP ---
+   // --- LÓGICA DEL BOTÓN FLOTANTE DE WHATSAPP ---
     const whatsappBtn = document.getElementById('whatsapp-draggable-button');
     const whatsappURL = "https://wa.me/51953489892?text=Hola!%20Me%20gustar%C3%ADa%20realizar%20un%20pedido.";
     let isDragging = false;
-    let startX, startY, initialX, initialY;
+    let startX, startY;
+    let initialX, initialY;
 
     function initializeWhatsappPosition() {
         const rect = whatsappBtn.getBoundingClientRect();
@@ -1272,23 +1273,60 @@ document.addEventListener("DOMContentLoaded", () => {
         whatsappBtn.style.bottom = 'auto';
     }
 
+    // Inicializa la posición del botón
     initializeWhatsappPosition();
     window.addEventListener('resize', initializeWhatsappPosition);
 
-    function startDrag(e) {
-        isDragging = false;
+    // Evento de clic en el botón de WhatsApp
+    whatsappBtn.addEventListener('click', (e) => {
+        // Previene la acción por defecto del enlace si isDragging es true.
+        // Esto es para los clics que el usuario percibe como arrastres fallidos.
+        if (isDragging) {
+            e.preventDefault();
+        } else {
+            // Si no fue un arrastre, abre el enlace.
+            window.open(whatsappURL, '_blank');
+        }
+    });
+
+    // Inicia el arrastre
+    whatsappBtn.addEventListener('mousedown', (e) => {
+        isDragging = false; // Reinicia el estado de arrastre
         whatsappBtn.style.transition = 'none';
-        const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
-        const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
-        startX = clientX;
-        startY = clientY;
+        startX = e.clientX;
+        startY = e.clientY;
         const rect = whatsappBtn.getBoundingClientRect();
         initialX = rect.left;
         initialY = rect.top;
-    }
 
+        // Añade los event listeners para el movimiento y el fin del arrastre
+        document.addEventListener('mousemove', doDrag);
+        document.addEventListener('mouseup', endDrag);
+    });
+    
+    // Inicia el arrastre en dispositivos táctiles
+    whatsappBtn.addEventListener('touchstart', (e) => {
+        isDragging = false;
+        whatsappBtn.style.transition = 'none';
+        const touch = e.touches[0];
+        startX = touch.clientX;
+        startY = touch.clientY;
+        const rect = whatsappBtn.getBoundingClientRect();
+        initialX = rect.left;
+        initialY = rect.top;
+
+        // Añade los event listeners para el movimiento y el fin del arrastre
+        document.addEventListener('touchmove', doDrag, { passive: false });
+        document.addEventListener('touchend', endDrag);
+    });
+
+    // Realiza el arrastre
     function doDrag(e) {
-        if (!startX) return;
+        // Si no hay un arrastre en curso, sale de la función
+        if (e.type.includes('mouse') && e.buttons !== 1) {
+            return;
+        }
+
         const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
         const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
         const deltaX = clientX - startX;
@@ -1296,7 +1334,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (Math.abs(deltaX) > 5 || Math.abs(deltaY) > 5) {
             isDragging = true;
-            e.preventDefault();
+            e.preventDefault(); // Previene el desplazamiento de la página en móviles
         }
 
         if (isDragging) {
@@ -1309,22 +1347,16 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    // Finaliza el arrastre
     function endDrag() {
-        startX = null;
-        startY = null;
         whatsappBtn.style.transition = 'transform 0.2s, background-color 0.3s';
-        if (!isDragging) {
-            window.open(whatsappURL, '_blank');
-        }
+
+        // Elimina los event listeners de movimiento para no consumir recursos
+        document.removeEventListener('mousemove', doDrag);
+        document.removeEventListener('mouseup', endDrag);
+        document.removeEventListener('touchmove', doDrag);
+        document.removeEventListener('touchend', endDrag);
     }
-    
-    // Event listeners del botón de WhatsApp
-    whatsappBtn?.addEventListener('mousedown', startDrag);
-    whatsappBtn?.addEventListener('touchstart', startDrag);
-    document.addEventListener('mousemove', doDrag);
-    document.addEventListener('touchmove', doDrag, { passive: false });
-    document.addEventListener('mouseup', endDrag);
-    document.addEventListener('touchend', endDrag);
 });
         </script>
 </body>
