@@ -634,40 +634,26 @@ Inside the media query, you'll use Flexbox to arrange the content horizontally.
  */ RESERVATION MESSAGE*/
 .flash-message {
   position: fixed;
-  top: 50%;             /* Centro vertical */
-  left: 50%;            /* Centro horizontal */
+  top: 50%;             /* centro vertical */
+  left: 50%;            /* centro horizontal */
   transform: translate(-50%, -50%);
-  background: rgba(0, 0, 0, 0.85); /* Fondo oscuro */
+  background: rgba(0, 0, 0, 0.85); /* fondo oscuro */
   color: #fff;
-  padding: 20px 30px;
-  border-radius: 12px;
+  padding: 15px 25px;
+  border-radius: 10px;
   font-size: 1.1em;
   text-align: center;
-  max-width: 90%;
-  box-shadow: 0 5px 25px rgba(0,0,0,0.3);
-  opacity: 0;
-  pointer-events: none;
+  opacity: 0;           /* empieza invisible */
+  pointer-events: none; /* no bloquea clicks en la página */
   transition: opacity 0.5s ease;
-  z-index: 10000;       /* por encima de todo */
+  z-index: 10000;       /* encima de todo */
 }
 
-/* Cuando JS añade la clase show */
+/* cuando JS activa .show */
 .flash-message.show {
   opacity: 1;
 }
 
-/* Variantes opcionales */
-.flash-message.info {
-  background: rgba(0, 123, 255, 0.95); /* azul info */
-}
-
-.flash-message.error {
-  background: rgba(220, 53, 69, 0.95); /* rojo error */
-}
-
-.flash-message.success {
-  background: rgba(40, 167, 69, 0.95); /* verde éxito */
-}
 
 /*
  * RESPONSIVE DESIGN (MEDIA QUERIES)
