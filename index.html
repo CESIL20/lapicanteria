@@ -645,13 +645,15 @@ Inside the media query, you'll use Flexbox to arrange the content horizontally.
   text-align: center;
   opacity: 0;           /* empieza invisible */
   pointer-events: none; /* no bloquea clicks en la página */
-  transition: opacity 0.5s ease;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
   z-index: 10000;       /* encima de todo */
 }
 
 /* cuando JS activa .show */
 .flash-message.show {
   opacity: 1;
+  visibility: visible;
 }
 
 
