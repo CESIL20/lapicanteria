@@ -633,24 +633,34 @@ Inside the media query, you'll use Flexbox to arrange the content horizontally.
 
  */ RESERVATION MESSAGE*/
 /* Mensaje flotante de reserva */
-.flash-message {
-  position: fixed;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%) translateY(-100px); /* Posición inicial fuera de la vista */
-  background: #333;
-  color: #fff;
-  padding: 12px 20px;
-  border-radius: 6px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  opacity: 0;
-  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.8s ease;
-  z-index: 9999;
+/* Mensaje de Reserva Flotante */
+#reservation-message {
+    /* Posicionamiento y Estilos */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centra el elemento en la pantalla */
+    background-color: rgba(0,0,0,0.5);
+    color: white;
+    padding: 25px 40px;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    z-index: 10000;
+    font-size: 2.2em;
+    font-weight: bold;
+    text-align: center;
+    max-width: 90%;
+    box-sizing: border-box;
+
+    /* Propiedades para la animación */
+    opacity: 0; /* Lo hace invisible */
+    visibility: hidden; /* Lo esconde del flujo del documento */
+    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
 }
 
-.flash-message.show {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0); /* Posición final visible */
+#reservation-message.show {
+    opacity: 1;
+    visibility: visible;
 }
 /*
  * RESPONSIVE DESIGN (MEDIA QUERIES)
@@ -1074,6 +1084,7 @@ Inside the media query, you'll use Flexbox to arrange the content horizontally.
 </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
+/* Pega este código en tu archivo JS */
 document.addEventListener("DOMContentLoaded", () => {
     // --- LÓGICA DE TRADUCCIÓN E IDIOMA ---
     const languageButtons = document.querySelectorAll('.language-switcher button');
@@ -1090,31 +1101,32 @@ document.addEventListener("DOMContentLoaded", () => {
         languageButtons.forEach(button => button.classList.remove('active'));
         document.getElementById(`lang-${lang}-btn`).classList.add('active');
         document.documentElement.lang = lang;
-        showReservationMessage(); // Muestra el mensaje al cambiar de idioma
+        showReservationMessage();
     }
 
     function showReservationMessage() {
         if (!reservationMessage) return;
-        reservationMessage.style.display = 'block';
-        setTimeout(() => {
-            reservationMessage.classList.add('show');
-        }, 10); // Un pequeño retraso para asegurar que la transición funcione
-        
+
+        // Limpia cualquier temporizador anterior para evitar duplicaciones
         clearTimeout(reservationMessage.hideTimeout);
+
+        // Muestra el mensaje con la clase 'show'
+        reservationMessage.classList.add('show');
+
+        // Configura el temporizador para ocultar el mensaje después de 5 segundos
         reservationMessage.hideTimeout = setTimeout(() => {
             reservationMessage.classList.remove('show');
-            setTimeout(() => {
-                reservationMessage.style.display = 'none';
-            }, 1000); // El tiempo de la animación de salida
-        }, 5000); // 5 segundos de visibilidad
+        }, 5000); // 5 segundos
     }
 
-    // Configura el idioma inicial al cargar
+    // Llama a la función al cargar la página para mostrar el mensaje inicial
     setLanguage(currentLanguage);
-    showReservationMessage(); // Muestra el mensaje al cargar la página
 
     langEsBtn.addEventListener('click', () => setLanguage('es'));
     langEnBtn.addEventListener('click', () => setLanguage('en'));
+
+    // ... (El resto de tu código JS: carrusel, modales, etc.)
+});
     
 
     // --- LÓGICA DEL CARRUSEL ---
