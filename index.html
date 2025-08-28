@@ -1224,12 +1224,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
         triggerElements.forEach(element => {
             element.addEventListener('click', (e) => {
-                const imageUrl = e.target.closest('.carousel-item')?.querySelector('img')?.src ||
-                                 e.target.closest('.preparation-button')?.getAttribute('data-image') &&
-                                 document.querySelector(`.preparation-image[data-image="${e.target.closest('.preparation-button').getAttribute('data-image')}"]`)?.src;
-                                 
+                let imageUrl;
+                
+                // Si el clic es en un botón de preparación
+                if (element.classList.contains('preparation-button')) {
+                    const mealData = element.getAttribute('data-meal');
+                    const selectedImage = document.querySelector(`.preparation-image[data-image="${mealData}"]`);
+                    if (selectedImage) {
+                        imageUrl = selectedImage.src;
+                    }
+                } 
+                // Si el clic es en una imagen del carrusel
+                else if (element.tagName === 'IMG') {
+                    imageUrl = element.src;
+                }
+
                 if (imageUrl) {
-                    modal.querySelector('.modal-content').src = imageUrl;
+                    modal.querySelector('img').src = imageUrl;
                     modal.classList.add('show');
                 }
             });
@@ -1239,10 +1250,17 @@ document.addEventListener("DOMContentLoaded", () => {
         modal.addEventListener('click', (e) => {
             if (e.target === modal) modal.classList.remove('show');
         });
+
+        // Cierra el modal con la tecla ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                modal.classList.remove('show');
+            }
+        });
     }
 
     // Configura los dos modales
-    const carouselItems = document.querySelectorAll('.carousel-item img');
+    const carouselItems = document.querySelectorAll('.carousel-track img');
     const preparationButtons = document.querySelectorAll('.preparation-button');
     setupModal('image-modal-carousel', 'modal-close-carousel', carouselItems);
     setupModal('image-modal-prep', 'modal-close-prep', preparationButtons);
