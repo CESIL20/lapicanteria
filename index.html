@@ -599,20 +599,16 @@ transform: scaleX(-1);
 @media (min-width: 768px) {
     .main-footer {
         display: flex;
-        justify-content:space-between;
-        align-items:center;
+        flex-direction: column; /* apila en columna */
+        justify-content: center;
+        align-items: center;   /* centra horizontalmente */
         text-align: center;
+    }
+    .main-footer .footer-links {
+        margin-top: 10px;
     }
 }
-    /* Change link container to a horizontal layout */
-    .main-footer .footer-links {
-        margin-top: 0;
-    }
 
-    /* Adjust the text alignment to the left on PC */
-    .main-footer p {
-        text-align: center;
-    }
 /* --- ALERTA FLOTANTE DE RESERVA --- */
 #reservation-message {
   position: fixed;
