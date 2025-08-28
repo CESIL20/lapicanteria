@@ -1080,45 +1080,64 @@ Inside the media query, you'll use Flexbox to arrange the content horizontally.
 </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
- /*
- * ESTE ES EL CÓDIGO JavaScript COMPLETO Y CORREGIDO
- * POR FAVOR, REEMPLAZA TU ARCHIVO SCRIPT.JS CON ESTO
- */
-document.addEventListener('DOMContentLoaded', () => {
-    // --- LÓGICA DE IDIOMA Y MENSAJE DE RESERVA ---
-    const langEsBtn = document.getElementById('lang-es-btn');
-    const langEnBtn = document.getElementById('lang-en-btn');
+let reservationMessage;
     let currentLanguage = localStorage.getItem('language') || 'es';
 
-    function setLanguage(lang) {
+    function setLanguage(lang){
         currentLanguage = lang;
-        localStorage.setItem('language', lang);
+        localStorage.setItem('language',lang);
+
+        // Elimina las clases de idioma existentes del body
         document.body.classList.remove('lang-active-es', 'lang-active-en');
+        // Añade la clase del idioma activo al body
         document.body.classList.add(`lang-active-${lang}`);
-        document.querySelectorAll('.language-switcher button').forEach(button => {
+
+        document.querySelectorAll('.language-switcher button').forEach(button=>{
             button.classList.remove('active');
         });
-        document.getElementById(`lang-${lang}-btn`)?.classList.add('active');
+        document.getElementById(`lang-${lang}-btn`).classList.add('active');
         document.documentElement.lang = lang;
+
+        // Asegura que el mensaje de reserva se muestre brevemente al cambiar de idioma
+        if (reservationMessage) {
+            reservationMessage.classList.add('show');
+            clearTimeout(reservationMessage.hideTimeout); // Limpia cualquier temporizador de ocultación existente
+            reservationMessage.hideTimeout = setTimeout(()=>{
+                reservationMessage.classList.remove('show');
+            },5000); // Muestra por 5 segundos
+        }
     }
 
-    if (langEsBtn && langEnBtn) {
-        langEsBtn.addEventListener('click', () => setLanguage('es'));
-        langEnBtn.addEventListener('click', () => setLanguage('en'));
-    }
+    document.addEventListener('DOMContentLoaded',()=>{
+        reservationMessage = document.getElementById('reservation-message');
+        // Muestra el mensaje inicial por 5 segundos al cargar la página
+        if (reservationMessage) {
+            reservationMessage.classList.add('show');
+            reservationMessage.hideTimeout = setTimeout(()=>{
+                reservationMessage.classList.remove('show');
+            },5000);
+        }
+        
+        document.querySelectorAll('nav.main-nav a').forEach(anchor=>{
+            anchor.addEventListener('click',function(e){
+                const targetId=this.getAttribute('href');
+                if(targetId.startsWith('#')){
+                    e.preventDefault();
+                    const targetElement=document.querySelector(targetId);
+                    if(targetElement){
+                        targetElement.scrollIntoView({
+                            behavior:'smooth'
+                        });
+                    }
+                }
+            });
+        });
 
-    setLanguage(currentLanguage);
-
-    function showReservationMessage() {
-  const message = document.getElementById('reservation-message');
-  if (message) {
-    clearTimeout(message.hideTimeout);
-    message.classList.add('show');
-    message.hideTimeout = setTimeout(() => {
-      message.classList.remove('show');
-    }, 5000); // desaparece después de 5s
-  }
-}
+        document.getElementById('lang-es-btn').addEventListener('click',()=>setLanguage('es'));
+        document.getElementById('lang-en-btn').addEventListener('click',()=>setLanguage('en'));
+        
+        // Establece el idioma inicial al cargar la página
+        setLanguage(currentLanguage);
 
 
     // --- LÓGICA DEL CARRUSEL ---
