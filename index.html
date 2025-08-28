@@ -1084,67 +1084,51 @@ Inside the media query, you'll use Flexbox to arrange the content horizontally.
 </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
-document.addEventListener('DOMContentLoaded', () => {
-    // --- LÓGICA DE TRADUCCIÓN Y MENSAJE DE RESERVA ---
-    const reservationMessage = document.getElementById('reservation-message');
+document.addEventListener("DOMContentLoaded", () => {
+    // --- LÓGICA DE TRADUCCIÓN E IDIOMA ---
     const languageButtons = document.querySelectorAll('.language-switcher button');
     const langEsBtn = document.getElementById('lang-es-btn');
     const langEnBtn = document.getElementById('lang-en-btn');
+    const reservationMessage = document.getElementById('reservation-message');
     let currentLanguage = localStorage.getItem('language') || 'es';
-
-    function showReservationMessage() {
-        if (!reservationMessage) return;
-
-        // Limpia cualquier temporizador anterior para evitar duplicaciones
-        clearTimeout(reservationMessage.hideTimeout);
-
-        // Muestra el mensaje
-        reservationMessage.classList.add('show');
-
-        // Configura el temporizador para ocultar el mensaje después de 5 segundos
-        reservationMessage.hideTimeout = setTimeout(() => {
-            reservationMessage.classList.remove('show');
-        }, 5000); // 5 segundos
-    }
 
     function setLanguage(lang) {
         currentLanguage = lang;
         localStorage.setItem('language', lang);
-
         document.body.classList.remove('lang-active-es', 'lang-active-en');
         document.body.classList.add(`lang-active-${lang}`);
-
-        languageButtons.forEach(button => {
-            button.classList.remove('active');
-        });
+        languageButtons.forEach(button => button.classList.remove('active'));
         document.getElementById(`lang-${lang}-btn`).classList.add('active');
         document.documentElement.lang = lang;
-
-        // Muestra el mensaje de reserva cada vez que cambia el idioma
-        showReservationMessage();
     }
 
-    // --- LÓGICA DE NAVEGACIÓN (Smooth Scroll) ---
-    document.querySelectorAll('nav.main-nav a').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            const targetId = this.getAttribute('href');
-            if (targetId.startsWith('#')) {
-                e.preventDefault();
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    targetElement.scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                }
-            }
-        });
-    });
+    function showReservationMessage() {
+        if (!reservationMessage) return;
+        reservationMessage.classList.add('show');
+        clearTimeout(reservationMessage.hideTimeout);
+        reservationMessage.hideTimeout = setTimeout(() => {
+            reservationMessage.classList.remove('show');
+            setTimeout(() => {
+                // Elimina el elemento del DOM después de la transición
+                reservationMessage.remove();
+            }, 1000);
+        }, 5000);
+    }
+    
+    // Configura el idioma inicial al cargar
+    setLanguage(currentLanguage);
+    showReservationMessage();
 
-    // --- LÓGICA DEL CARRUSEL Y MODAL ---
+    langEsBtn.addEventListener('click', () => setLanguage('es'));
+    langEnBtn.addEventListener('click', () => setLanguage('en'));
+
+    // --- LÓGICA DEL CARRUSEL ---
     const carouselTrack = document.querySelector('.carousel-track');
     const prevButton = document.querySelector('.carousel-prev');
     const nextButton = document.querySelector('.carousel-next');
     const dotsContainer = document.querySelector('.carousel-dots');
+    const carouselContainer = document.querySelector('.carousel-container');
+
     const images = [
         'LP 1 (1).jpg', 'LP 2.jpg', '44pimentel1.jpg', 'LP 5.jpg', 'LP 17.jpg',
         'LP 10.jpg', 'LP 28.jpg', 'LP 29.jpg', 'LP 32.jpg', 'LP 42.jpg', 'solis_0016.jpg',
@@ -1154,6 +1138,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentIndex = 0;
     let autoSlideInterval;
 
+    // Genera dinámicamente el HTML del carrusel y los puntos
     images.forEach((image, index) => {
         const item = document.createElement('div');
         item.className = 'carousel-item';
@@ -1178,7 +1163,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const dots = document.querySelectorAll('.dot');
     const items = document.querySelectorAll('.carousel-item');
-    const carouselContainer = document.querySelector('.carousel-container');
 
     function updateCarousel() {
         if (items.length === 0) return;
@@ -1211,29 +1195,26 @@ document.addEventListener('DOMContentLoaded', () => {
         startAutoSlide();
     }
     
+    // Event listeners del carrusel
     prevButton?.addEventListener('click', () => { prevSlide(); stopAndRestartAutoSlide(); });
     nextButton?.addEventListener('click', () => { nextSlide(); stopAndRestartAutoSlide(); });
     carouselContainer?.addEventListener('mouseenter', stopAutoSlide);
     carouselContainer?.addEventListener('mouseleave', startAutoSlide);
 
+    // Debounce para el evento de redimensionamiento
     let resizeTimeout;
     window.addEventListener('resize', () => {
-        if (carouselTrack) {
-            carouselTrack.style.transition = 'none';
-        }
+        carouselTrack.style.transition = 'none';
         clearTimeout(resizeTimeout);
         resizeTimeout = setTimeout(() => {
-            if (carouselTrack) {
-                updateCarousel();
-                carouselTrack.style.transition = 'transform 0.5s ease-in-out';
-            }
+            updateCarousel();
+            carouselTrack.style.transition = 'transform 0.5s ease-in-out';
         }, 200);
     });
 
-    window.addEventListener('load', () => {
-        updateCarousel();
-        startAutoSlide();
-    });
+    // Inicializa el carrusel
+    updateCarousel();
+    startAutoSlide();
 
     // --- LÓGICA DE MODALES (CENTRALIZADA) ---
     function setupModal(modalId, closeBtnId, triggerElements) {
@@ -1243,22 +1224,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         triggerElements.forEach(element => {
             element.addEventListener('click', (e) => {
-                let imageUrl = '';
-                if (element.tagName === 'IMG') {
-                    imageUrl = element.src;
-                } else if (element.classList.contains('preparation-button')) {
-                    const imgElement = element.querySelector('img');
-                    if (imgElement) {
-                        imageUrl = imgElement.src;
-                    }
-                }
-                
+                const imageUrl = e.target.closest('.carousel-item')?.querySelector('img')?.src ||
+                                 e.target.closest('.preparation-button')?.getAttribute('data-image') &&
+                                 document.querySelector(`.preparation-image[data-image="${e.target.closest('.preparation-button').getAttribute('data-image')}"]`)?.src;
+                                 
                 if (imageUrl) {
-                    const modalImage = modal.querySelector('.modal-content') || modal.querySelector('img');
-                    if (modalImage) {
-                        modalImage.src = imageUrl;
-                        modal.classList.add('show');
-                    }
+                    modal.querySelector('.modal-content').src = imageUrl;
+                    modal.classList.add('show');
                 }
             });
         });
@@ -1267,18 +1239,13 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.addEventListener('click', (e) => {
             if (e.target === modal) modal.classList.remove('show');
         });
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                modal.classList.remove('show');
-            }
-        });
     }
 
-    // --- LÓGICA DE MODALES (CENTRALIZADA) ---
-    const carouselItems = document.querySelectorAll('.carousel-track img');
+    // Configura los dos modales
+    const carouselItems = document.querySelectorAll('.carousel-item img');
     const preparationButtons = document.querySelectorAll('.preparation-button');
-    setupModal('image-modal', 'modal-close-btn', carouselItems);
-    setupModal('image-modal', 'modal-close-btn', preparationButtons);
+    setupModal('image-modal-carousel', 'modal-close-carousel', carouselItems);
+    setupModal('image-modal-prep', 'modal-close-prep', preparationButtons);
 
     // --- LÓGICA DE SCROLL SUAVE ---
     document.querySelectorAll('nav.main-nav a[href^="#"]').forEach(anchor => {
@@ -1291,87 +1258,73 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // --- LÓGICA DEL BOTÓN FLOTANTE DE WHATSAPP ---
-    const whatsappBtn = document.querySelector('.whatsapp-float');
-    if (whatsappBtn) {
-        const whatsappURL = "https://wa.me/51953489892?text=Hola!%20Me%20gustar%C3%ADa%20realizar%20un%20pedido.";
-        let isDragging = false;
-        let startX, startY, initialX, initialY;
+    const whatsappBtn = document.getElementById('whatsapp-draggable-button');
+    const whatsappURL = "https://wa.me/51953489892?text=Hola!%20Me%20gustar%C3%ADa%20realizar%20un%20pedido.";
+    let isDragging = false;
+    let startX, startY, initialX, initialY;
 
-        function initializeWhatsappPosition() {
-            const rect = whatsappBtn.getBoundingClientRect();
-            whatsappBtn.style.position = 'fixed';
-            whatsappBtn.style.top = `${rect.top}px`;
-            whatsappBtn.style.left = `${rect.left}px`;
-            whatsappBtn.style.right = 'auto';
-            whatsappBtn.style.bottom = 'auto';
+    function initializeWhatsappPosition() {
+        const rect = whatsappBtn.getBoundingClientRect();
+        whatsappBtn.style.position = 'fixed';
+        whatsappBtn.style.top = `${rect.top}px`;
+        whatsappBtn.style.left = `${rect.left}px`;
+        whatsappBtn.style.right = 'auto';
+        whatsappBtn.style.bottom = 'auto';
+    }
+
+    initializeWhatsappPosition();
+    window.addEventListener('resize', initializeWhatsappPosition);
+
+    function startDrag(e) {
+        isDragging = false;
+        whatsappBtn.style.transition = 'none';
+        const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+        const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+        startX = clientX;
+        startY = clientY;
+        const rect = whatsappBtn.getBoundingClientRect();
+        initialX = rect.left;
+        initialY = rect.top;
+    }
+
+    function doDrag(e) {
+        if (!startX) return;
+        const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+        const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+        const deltaX = clientX - startX;
+        const deltaY = clientY - startY;
+
+        if (Math.abs(deltaX) > 5 || Math.abs(deltaY) > 5) {
+            isDragging = true;
+            e.preventDefault();
         }
 
-        initializeWhatsappPosition();
-        window.addEventListener('resize', initializeWhatsappPosition);
-
-        whatsappBtn.addEventListener('click', (e) => {
-            if (isDragging) {
-                e.preventDefault();
-            } else {
-                window.open(whatsappURL, '_blank');
-            }
-        });
-
-        whatsappBtn.addEventListener('mousedown', (e) => {
-            isDragging = false;
-            whatsappBtn.style.transition = 'none';
-            startX = e.clientX;
-            startY = e.clientY;
-            const rect = whatsappBtn.getBoundingClientRect();
-            initialX = rect.left;
-            initialY = rect.top;
-            document.addEventListener('mousemove', doDrag);
-            document.addEventListener('mouseup', endDrag);
-        });
-
-        whatsappBtn.addEventListener('touchstart', (e) => {
-            isDragging = false;
-            whatsappBtn.style.transition = 'none';
-            const touch = e.touches[0];
-            startX = touch.clientX;
-            startY = touch.clientY;
-            const rect = whatsappBtn.getBoundingClientRect();
-            initialX = rect.left;
-            initialY = rect.top;
-            document.addEventListener('touchmove', doDrag, { passive: false });
-            document.addEventListener('touchend', endDrag);
-        });
-
-        function doDrag(e) {
-            if (e.type.includes('mouse') && e.buttons !== 1) return;
-            const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
-            const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
-            const deltaX = clientX - startX;
-            const deltaY = clientY - startY;
-
-            if (Math.abs(deltaX) > 5 || Math.abs(deltaY) > 5) {
-                isDragging = true;
-                e.preventDefault();
-            }
-
-            if (isDragging) {
-                let newX = initialX + deltaX;
-                let newY = initialY + deltaY;
-                newX = Math.max(0, Math.min(newX, window.innerWidth - whatsappBtn.offsetWidth));
-                newY = Math.max(0, Math.min(newY, window.innerHeight - whatsappBtn.offsetHeight));
-                whatsappBtn.style.left = `${newX}px`;
-                whatsappBtn.style.top = `${newY}px`;
-            }
-        }
-
-        function endDrag() {
-            whatsappBtn.style.transition = 'transform 0.2s, background-color 0.3s';
-            document.removeEventListener('mousemove', doDrag);
-            document.removeEventListener('mouseup', endDrag);
-            document.removeEventListener('touchmove', doDrag);
-            document.removeEventListener('touchend', endDrag);
+        if (isDragging) {
+            let newX = initialX + deltaX;
+            let newY = initialY + deltaY;
+            newX = Math.max(0, Math.min(newX, window.innerWidth - whatsappBtn.offsetWidth));
+            newY = Math.max(0, Math.min(newY, window.innerHeight - whatsappBtn.offsetHeight));
+            whatsappBtn.style.left = `${newX}px`;
+            whatsappBtn.style.top = `${newY}px`;
         }
     }
+
+    function endDrag() {
+        startX = null;
+        startY = null;
+        whatsappBtn.style.transition = 'transform 0.2s, background-color 0.3s';
+        if (!isDragging) {
+            window.open(whatsappURL, '_blank');
+        }
+    }
+    
+    // Event listeners del botón de WhatsApp
+    whatsappBtn?.addEventListener('mousedown', startDrag);
+    whatsappBtn?.addEventListener('touchstart', startDrag);
+    document.addEventListener('mousemove', doDrag);
+    document.addEventListener('touchmove', doDrag, { passive: false });
+    document.addEventListener('mouseup', endDrag);
+    document.addEventListener('touchend', endDrag);
 });
         </script>
 </body>
