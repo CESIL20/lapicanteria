@@ -279,133 +279,155 @@ body.lang-active-en .lang-es {display: none;}
     text-decoration: none;
 }
 
-/* THEME SECTION */
-.our-theme-section {
-    width: 100%;
-    max-width: 1330px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #222;
-    color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
+/* Estilos de la sección principal del menú */
+        .our-theme-section {
+            width: 100%;
+            max-width: 1330px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #222;
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
 
-.our-theme-section p {
-    font-size: 0.9em;
-    margin-bottom: 15px;
-    line-height: 1.6;
-    color: white;
-}
+        .our-theme-section p {
+            font-size: 0.9em;
+            margin-bottom: 15px;
+            line-height: 1.6;
+            color: white;
+        }
 
-.theme-content-wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    margin-top: 20px;
-}
+        .theme-content-wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
 
-.theme-image-column {
-    min-width: unset;
-    max-width: 100%;
-    text-align: center;
-}
+        .theme-image-column {
+            min-width: unset;
+            max-width: 100%;
+            text-align: center;
+        }
 
-.theme-image-column img {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-}
+        .theme-image-column img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
 
-.theme-text-column {
-    min-width: unset;
-    max-width: 100%;
-    text-align: center;
-}
+        .theme-text-column {
+            min-width: unset;
+            max-width: 100%;
+            text-align: center;
+        }
 
-.theme-text-column p {
-    margin-bottom: 20px;
-    text-align: center;
-}
+        .theme-text-column p {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        /* Estilos para los botones de preparación */
+        .preparation-buttons {
+            display: flex;
+            flex-direction: flex-start; /* Apila los botones verticalmente */
+            gap: 5px;
+            margin-top: 10px;
+        }
 
-.preparation-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    margin-top: 10px;
-}
+        .preparation-button {
+            background-color: transparent;
+            color: white;
+            padding: 8px 0;
+            border-radius: 0;
+            cursor: pointer;
+            font-weight: bold;
+            text-align: center;
+            box-shadow: none;
+            height: auto;
+            border: none;
+            border-bottom: 2px solid #666; /* Línea horizontal por defecto */
+            transition: border-bottom-color 0.3s, color 0.3s;
+            font-size: 1.3em;
+        }
 
-.preparation-button {
-    background-color: transparent;
-    color: white;
-    padding: 8px 0;
-    border-radius: 0;
-    cursor: pointer;
-    font-weight: bold;
-    text-align: center;
-    box-shadow: none;
-    height: auto;
-    border: none;
-    border-bottom: 2px solid #666;
-    transition: border-bottom-color 0.3s, color 0.3s;
-    font-size: 1.3em;
-}
+        .preparation-button:hover,
+        .preparation-button.active-meal {
+            background-color: transparent;
+            border-bottom-color: #00BFFF;
+            color: #00BFFF;
+            transform: none;
+        }
 
-.preparation-button:hover {
-    background-color: transparent;
-    border-bottom-color: #00BFFF;
-    color: #00BFFF;
-    transform: none;
-}
+        /* Estilos para el contenedor de imágenes */
+        .image-container {
+            display: block; /* Asegura que el contenedor de imágenes se muestre */
+        }
+        
+        .preparation-image {
+            width: 100%;
+            height: auto;
+            max-width: 500px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            margin-top: 2rem;
+            display: none; /* Oculta todas las imágenes por defecto */
+        }
 
-.image-container {
-    display: none;
-}
+        .preparation-image.active {
+            display: block; /* Muestra solo la imagen activa */
+        }
+        
+        /* Media query para PC: Habilita el diseño de 2 columnas */
+        @media (min-width: 768px) {
+            .main-header {
+                justify-content: space-between;
+            }
+            .theme-content-wrapper {
+                flex-direction: row; /* Habilita el diseño de dos columnas */
+                justify-content: center;
+                gap: 40px;
+                align-items: flex-start; /* Alinea los elementos en la parte superior para un aspecto más limpio */
+                text-align: left;
+            }
 
+            .theme-image-column,
+            .theme-text-column {
+                min-width: 45%;
+                max-width: 50%;
+            }
 
-@media (min-width: 768px) {
-    .theme-content-wrapper {
-        flex-direction: row;
-        align-items: flex-start; /* Align items to the top for a cleaner look */
-        text-align: left;
-    }
+            .theme-text-column {
+                text-align: left; /* Ajusta la alineación del texto para una mejor disposición en PC */
+            }
 
-    .theme-image-column,
-    .theme-text-column {
-        min-width: 45%;
-        max-width: 50%;
-    }
+            .theme-text-column p {
+                text-align: left; /* Asegura que los párrafos también se alineen a la izquierda */
+            }
 
-    .theme-text-column {
-        text-align: left; /* Adjust text alignment for a better PC layout */
-    }
-
-    .theme-text-column p {
-        text-align: left; /* Ensure paragraphs also align left */
-    }
-    
-    .preparation-buttons {
-        flex-direction: row; /* Arrange buttons horizontally on PC */
-        justify-content: flex-start;
-    }
-    
-    .preparation-button {
-        padding: 8px 15px; /* Add some padding for better spacing */
-        border-bottom: none;
-        border-right: 2px solid #666; /* Use a right border instead of bottom */
-        transition: border-right-color 0.3s, color 0.3s;
-    }
-    
-    .preparation-button:hover {
-        border-right-color: #00BFFF;
-        border-bottom-color: transparent;
-    }
-}
+            /* Los estilos de los botones se mantienen con líneas horizontales */
+            .preparation-buttons {
+                flex-direction: column; /* Los botones se apilan verticalmente */
+                justify-content: center;
+            }
+            
+            .preparation-button {
+                padding: 8px 0;
+                border-bottom: 2px solid #666; /* Usa un borde inferior */
+                border-right: none;
+            }
+            
+            .preparation-button:hover {
+                border-bottom-color: #00BFFF;
+                border-right-color: transparent;
+            }
+        }
 /*
  * HISTORY SECTION
  */
@@ -759,7 +781,7 @@ transform: scaleX(-1);
     .preparation-buttons {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
+        gap: 20px;
         justify-content: center;
         flex-grow: 1;
         align-content: stretch;
