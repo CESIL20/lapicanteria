@@ -633,7 +633,7 @@ Inside the media query, you'll use Flexbox to arrange the content horizontally.
 
  */ RESERVATION MESSAGE*/
 /* Mensaje flotante de reserva */
-#reservation-message {
+.flash-message {
   position: fixed;
   top: 20px;
   left: 50%;
@@ -648,6 +648,10 @@ Inside the media query, you'll use Flexbox to arrange the content horizontally.
   z-index: 9999;
 }
 
+.flash-message.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
 /*
  * RESPONSIVE DESIGN (MEDIA QUERIES)
  */
@@ -1070,81 +1074,51 @@ Inside the media query, you'll use Flexbox to arrange the content horizontally.
 </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
-let reservationMessage;
+document.addEventListener("DOMContentLoaded", () => {
+    // --- LÓGICA DE TRADUCCIÓN E IDIOMA ---
+    const languageButtons = document.querySelectorAll('.language-switcher button');
+    const langEsBtn = document.getElementById('lang-es-btn');
+    const langEnBtn = document.getElementById('lang-en-btn');
+    const reservationMessage = document.getElementById('reservation-message');
     let currentLanguage = localStorage.getItem('language') || 'es';
 
-    function setLanguage(lang){
+    function setLanguage(lang) {
         currentLanguage = lang;
-        localStorage.setItem('language',lang);
-
-        // Elimina las clases de idioma existentes del body
+        localStorage.setItem('language', lang);
         document.body.classList.remove('lang-active-es', 'lang-active-en');
-        // Añade la clase del idioma activo al body
         document.body.classList.add(`lang-active-${lang}`);
-
-        document.querySelectorAll('.language-switcher button').forEach(button=>{
-            button.classList.remove('active');
-        });
+        languageButtons.forEach(button => button.classList.remove('active'));
         document.getElementById(`lang-${lang}-btn`).classList.add('active');
         document.documentElement.lang = lang;
-
-        // Asegura que el mensaje de reserva se muestre brevemente al cambiar de idioma
-        if (reservationMessage) {
-            reservationMessage.classList.add('show');
-            clearTimeout(reservationMessage.hideTimeout); // Limpia cualquier temporizador de ocultación existente
-            reservationMessage.hideTimeout = setTimeout(()=>{
-                reservationMessage.classList.remove('show');
-            },5000); // Muestra por 5 segundos
-        }
     }
 
-    document.addEventListener("DOMContentLoaded", () => {
-  const msg = document.getElementById("reservation-message");
-  if (msg) {
-    // Mostrar con animación
-    msg.style.opacity = "1";
-    msg.style.transform = "translateY(0)";
+    function showReservationMessage() {
+        if (!reservationMessage) return;
+        reservationMessage.classList.add('show');
+        clearTimeout(reservationMessage.hideTimeout);
+        reservationMessage.hideTimeout = setTimeout(() => {
+            reservationMessage.classList.remove('show');
+            setTimeout(() => {
+                // Elimina el elemento del DOM después de la transición
+                reservationMessage.remove();
+            }, 1000);
+        }, 5000);
+    }
     
-    // Desaparecer después de 5 segundos
-    setTimeout(() => {
-      msg.style.opacity = "0";
-      msg.style.transform = "translateY(-20px)";
-      
-      // Quitar del DOM después de la animación
-      setTimeout(() => {
-        msg.remove();
-      }, 1000);
-    }, 5000);
-  }
-});
+    // Configura el idioma inicial al cargar
+    setLanguage(currentLanguage);
+    showReservationMessage();
 
-        document.querySelectorAll('nav.main-nav a').forEach(anchor=>{
-            anchor.addEventListener('click',function(e){
-                const targetId=this.getAttribute('href');
-                if(targetId.startsWith('#')){
-                    e.preventDefault();
-                    const targetElement=document.querySelector(targetId);
-                    if(targetElement){
-                        targetElement.scrollIntoView({
-                            behavior:'smooth'
-                        });
-                    }
-                }
-            });
-        });
-
-        document.getElementById('lang-es-btn').addEventListener('click',()=>setLanguage('es'));
-        document.getElementById('lang-en-btn').addEventListener('click',()=>setLanguage('en'));
-        
-        // Establece el idioma inicial al cargar la página
-        setLanguage(currentLanguage);
-
+    langEsBtn.addEventListener('click', () => setLanguage('es'));
+    langEnBtn.addEventListener('click', () => setLanguage('en'));
 
     // --- LÓGICA DEL CARRUSEL ---
     const carouselTrack = document.querySelector('.carousel-track');
     const prevButton = document.querySelector('.carousel-prev');
     const nextButton = document.querySelector('.carousel-next');
     const dotsContainer = document.querySelector('.carousel-dots');
+    const carouselContainer = document.querySelector('.carousel-container');
+
     const images = [
         'LP 1 (1).jpg', 'LP 2.jpg', '44pimentel1.jpg', 'LP 5.jpg', 'LP 17.jpg',
         'LP 10.jpg', 'LP 28.jpg', 'LP 29.jpg', 'LP 32.jpg', 'LP 42.jpg', 'solis_0016.jpg',
@@ -1154,6 +1128,7 @@ let reservationMessage;
     let currentIndex = 0;
     let autoSlideInterval;
 
+    // Genera dinámicamente el HTML del carrusel y los puntos
     images.forEach((image, index) => {
         const item = document.createElement('div');
         item.className = 'carousel-item';
@@ -1167,41 +1142,35 @@ let reservationMessage;
 
         const dot = document.createElement('div');
         dot.className = 'dot';
-        if (index === 0) {
-            dot.classList.add('active');
-        }
+        if (index === 0) dot.classList.add('active');
         dot.addEventListener('click', () => {
             currentIndex = index;
             updateCarousel();
-            stopAutoSlide();
-            startAutoSlide();
+            stopAndRestartAutoSlide();
         });
         dotsContainer.appendChild(dot);
     });
 
     const dots = document.querySelectorAll('.dot');
     const items = document.querySelectorAll('.carousel-item');
-    const carouselContainer = document.querySelector('.carousel-container');
 
     function updateCarousel() {
         if (items.length === 0) return;
         const itemWidth = items[0].offsetWidth;
         carouselTrack.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
-        dots.forEach((dot, index) => {
-            dot.classList.toggle('active', index === currentIndex);
-        });
+        dots.forEach((dot, index) => dot.classList.toggle('active', index === currentIndex));
     }
 
     function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
+        currentIndex = (currentIndex < items.length - 1) ? currentIndex + 1 : 0;
         updateCarousel();
     }
 
     function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
+        currentIndex = (currentIndex > 0) ? currentIndex - 1 : items.length - 1;
         updateCarousel();
     }
-    
+
     function startAutoSlide() {
         stopAutoSlide();
         autoSlideInterval = setInterval(nextSlide, 3000);
@@ -1210,26 +1179,19 @@ let reservationMessage;
     function stopAutoSlide() {
         clearInterval(autoSlideInterval);
     }
-
-    if (prevButton && nextButton) {
-        prevButton.addEventListener('click', () => {
-            prevSlide();
-            stopAutoSlide();
-            startAutoSlide();
-        });
-
-        nextButton.addEventListener('click', () => {
-            nextSlide();
-            stopAutoSlide();
-            startAutoSlide();
-        });
+    
+    function stopAndRestartAutoSlide() {
+        stopAutoSlide();
+        startAutoSlide();
     }
+    
+    // Event listeners del carrusel
+    prevButton?.addEventListener('click', () => { prevSlide(); stopAndRestartAutoSlide(); });
+    nextButton?.addEventListener('click', () => { nextSlide(); stopAndRestartAutoSlide(); });
+    carouselContainer?.addEventListener('mouseenter', stopAutoSlide);
+    carouselContainer?.addEventListener('mouseleave', startAutoSlide);
 
-    if (carouselContainer) {
-        carouselContainer.addEventListener('mouseenter', stopAutoSlide);
-        carouselContainer.addEventListener('mouseleave', startAutoSlide);
-    }
-
+    // Debounce para el evento de redimensionamiento
     let resizeTimeout;
     window.addEventListener('resize', () => {
         carouselTrack.style.transition = 'none';
@@ -1240,103 +1202,60 @@ let reservationMessage;
         }, 200);
     });
 
+    // Inicializa el carrusel
     updateCarousel();
     startAutoSlide();
-    
-    // --- LÓGICA DEL MODAL DEL CARRUSEL ---
-    const carouselModal = document.getElementById('image-modal-carousel');
-    const carouselModalImage = document.getElementById('modal-image-carousel');
-    const carouselCloseBtn = document.getElementById('modal-close-carousel');
 
-    items.forEach(item => {
-        item.addEventListener('click', (e) => {
-            carouselModalImage.src = e.target.src;
-            carouselModal.classList.add('show');
-        });
-    });
+    // --- LÓGICA DE MODALES (CENTRALIZADA) ---
+    function setupModal(modalId, closeBtnId, triggerElements) {
+        const modal = document.getElementById(modalId);
+        const closeBtn = document.getElementById(closeBtnId);
+        if (!modal || !closeBtn || !triggerElements) return;
 
-    if (carouselCloseBtn) {
-        carouselCloseBtn.addEventListener('click', () => {
-            carouselModal.classList.remove('show');
-        });
-    }
-
-    if (carouselModal) {
-        carouselModal.addEventListener('click', (e) => {
-            if (e.target === carouselModal) {
-                carouselModal.classList.remove('show');
-            }
-        });
-    }
-
-    // --- LÓGICA DEL MODAL DE BOTONES DE PREPARACIÓN ---
-    const prepModal = document.getElementById('image-modal-prep');
-    const prepModalImage = document.getElementById('modal-image-prep');
-    const prepCloseBtn = document.getElementById('modal-close-prep');
-    const preparationButtons = document.querySelectorAll('.preparation-button');
-
-    if (preparationButtons.length > 0) {
-        preparationButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const mealData = button.getAttribute('data-meal');
-                const selectedImage = document.querySelector(`.preparation-image[data-image="${mealData}"]`);
-                if (selectedImage) {
-                    prepModalImage.src = selectedImage.src;
-                    prepModal.classList.add('show');
-                } else {
-                    console.error(`No se encontró la imagen para: ${mealData}`);
+        triggerElements.forEach(element => {
+            element.addEventListener('click', (e) => {
+                const imageUrl = e.target.closest('.carousel-item')?.querySelector('img')?.src ||
+                                 e.target.closest('.preparation-button')?.getAttribute('data-image') &&
+                                 document.querySelector(`.preparation-image[data-image="${e.target.closest('.preparation-button').getAttribute('data-image')}"]`)?.src;
+                                 
+                if (imageUrl) {
+                    modal.querySelector('.modal-content').src = imageUrl;
+                    modal.classList.add('show');
                 }
             });
         });
-    }
 
-    if (prepCloseBtn) {
-        prepCloseBtn.addEventListener('click', () => {
-            prepModal.classList.remove('show');
+        closeBtn.addEventListener('click', () => modal.classList.remove('show'));
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) modal.classList.remove('show');
         });
     }
 
-    if (prepModal) {
-        prepModal.addEventListener('click', (event) => {
-            if (event.target === prepModal) {
-                prepModal.classList.remove('show');
-            }
-        });
-    }
-
-    // --- LÓGICA GENERAL DEL TECLADO ---
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            carouselModal.classList.remove('show');
-            prepModal.classList.remove('show');
-        }
-    });
+    // Configura los dos modales
+    const carouselItems = document.querySelectorAll('.carousel-item img');
+    const preparationButtons = document.querySelectorAll('.preparation-button');
+    setupModal('image-modal-carousel', 'modal-close-carousel', carouselItems);
+    setupModal('image-modal-prep', 'modal-close-prep', preparationButtons);
 
     // --- LÓGICA DE SCROLL SUAVE ---
-    document.querySelectorAll('nav.main-nav a').forEach(anchor => {
+    document.querySelectorAll('nav.main-nav a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
+            e.preventDefault();
             const targetId = this.getAttribute('href');
-            if (targetId.startsWith('#')) {
-                e.preventDefault();
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    targetElement.scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                }
-            }
+            const targetElement = document.querySelector(targetId);
+            targetElement?.scrollIntoView({ behavior: 'smooth' });
         });
     });
 
-    // --- LÓGICA DEL BOTÓN DRAGGABLE DE WHATSAPP ---
+    // --- LÓGICA DEL BOTÓN FLOTANTE DE WHATSAPP ---
     const whatsappBtn = document.getElementById('whatsapp-draggable-button');
     const whatsappURL = "https://wa.me/51953489892?text=Hola!%20Me%20gustar%C3%ADa%20realizar%20un%20pedido.";
     let isDragging = false;
-    let startX, startY;
-    let initialX, initialY;
+    let startX, startY, initialX, initialY;
 
     function initializeWhatsappPosition() {
         const rect = whatsappBtn.getBoundingClientRect();
+        whatsappBtn.style.position = 'fixed';
         whatsappBtn.style.top = `${rect.top}px`;
         whatsappBtn.style.left = `${rect.left}px`;
         whatsappBtn.style.right = 'auto';
@@ -1346,83 +1265,56 @@ let reservationMessage;
     initializeWhatsappPosition();
     window.addEventListener('resize', initializeWhatsappPosition);
 
-    whatsappBtn.addEventListener('click', (e) => {
-        if (isDragging) {
+    function startDrag(e) {
+        isDragging = false;
+        whatsappBtn.style.transition = 'none';
+        const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+        const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+        startX = clientX;
+        startY = clientY;
+        const rect = whatsappBtn.getBoundingClientRect();
+        initialX = rect.left;
+        initialY = rect.top;
+    }
+
+    function doDrag(e) {
+        if (!startX) return;
+        const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+        const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+        const deltaX = clientX - startX;
+        const deltaY = clientY - startY;
+
+        if (Math.abs(deltaX) > 5 || Math.abs(deltaY) > 5) {
+            isDragging = true;
             e.preventDefault();
-        } else {
+        }
+
+        if (isDragging) {
+            let newX = initialX + deltaX;
+            let newY = initialY + deltaY;
+            newX = Math.max(0, Math.min(newX, window.innerWidth - whatsappBtn.offsetWidth));
+            newY = Math.max(0, Math.min(newY, window.innerHeight - whatsappBtn.offsetHeight));
+            whatsappBtn.style.left = `${newX}px`;
+            whatsappBtn.style.top = `${newY}px`;
+        }
+    }
+
+    function endDrag() {
+        startX = null;
+        startY = null;
+        whatsappBtn.style.transition = 'transform 0.2s, background-color 0.3s';
+        if (!isDragging) {
             window.open(whatsappURL, '_blank');
         }
-    });
-
-    whatsappBtn.addEventListener('mousedown', (e) => {
-        isDragging = false;
-        startX = e.clientX;
-        startY = e.clientY;
-        initialX = whatsappBtn.getBoundingClientRect().left;
-        initialY = whatsappBtn.getBoundingClientRect().top;
-        whatsappBtn.style.transition = 'none';
-    });
-
-    document.addEventListener('mousemove', (e) => {
-        if (e.buttons !== 1) {
-            isDragging = false;
-            return;
-        }
-        
-        const deltaX = e.clientX - startX;
-        const deltaY = e.clientY - startY;
-
-        if (Math.abs(deltaX) > 5 || Math.abs(deltaY) > 5) {
-            isDragging = true;
-        }
-
-        if (isDragging) {
-            let newX = initialX + deltaX;
-            let newY = initialY + deltaY;
-            newX = Math.max(0, Math.min(newX, window.innerWidth - whatsappBtn.offsetWidth));
-            newY = Math.max(0, Math.min(newY, window.innerHeight - whatsappBtn.offsetHeight));
-            whatsappBtn.style.left = `${newX}px`;
-            whatsappBtn.style.top = `${newY}px`;
-        }
-    });
-
-    document.addEventListener('mouseup', () => {
-        isDragging = false;
-        whatsappBtn.style.transition = 'transform 0.2s, background-color 0.3s';
-    });
-
-    whatsappBtn.addEventListener('touchstart', (e) => {
-        isDragging = false;
-        startX = e.touches[0].clientX;
-        startY = e.touches[0].clientY;
-        initialX = whatsappBtn.getBoundingClientRect().left;
-        initialY = whatsappBtn.getBoundingClientRect().top;
-        whatsappBtn.style.transition = 'none';
-    });
-
-    document.addEventListener('touchmove', (e) => {
-        const deltaX = e.touches[0].clientX - startX;
-        const deltaY = e.touches[0].clientY - startY;
-
-        if (Math.abs(deltaX) > 5 || Math.abs(deltaY) > 5) {
-            isDragging = true;
-            e.preventDefault();
-        }
-
-        if (isDragging) {
-            let newX = initialX + deltaX;
-            let newY = initialY + deltaY;
-            newX = Math.max(0, Math.min(newX, window.innerWidth - whatsappBtn.offsetWidth));
-            newY = Math.max(0, Math.min(newY, window.innerHeight - whatsappBtn.offsetHeight));
-            whatsappBtn.style.left = `${newX}px`;
-            whatsappBtn.style.top = `${newY}px`;
-        }
-    });
-
-    document.addEventListener('touchend', () => {
-        isDragging = false;
-        whatsappBtn.style.transition = 'transform 0.2s, background-color 0.3s';
-    });
+    }
+    
+    // Event listeners del botón de WhatsApp
+    whatsappBtn?.addEventListener('mousedown', startDrag);
+    whatsappBtn?.addEventListener('touchstart', startDrag);
+    document.addEventListener('mousemove', doDrag);
+    document.addEventListener('touchmove', doDrag, { passive: false });
+    document.addEventListener('mouseup', endDrag);
+    document.addEventListener('touchend', endDrag);
 });
         </script>
 </body>
