@@ -333,37 +333,63 @@ body.lang-active-en .lang-es {display: none;}
             text-align: center;
         }
         
-        /* Estilos para los botones de preparación */
-        .preparation-buttons {
-            display: flex;
-            flex-direction: column; /* Apila los botones verticalmente */
-            gap: 5px;
-            margin-top: 10px;
-        }
+       .preparation-buttons {
 
-        .preparation-button {
-            background-color: transparent;
-            color: white;
-            padding: 8px 0;
-            border-radius: 0;
-            cursor: pointer;
-            font-weight: bold;
-            text-align: center;
-            box-shadow: none;
-            height: auto;
-            border: none;
-            border-bottom: 2px solid #666; /* Línea horizontal por defecto */
-            transition: border-bottom-color 0.3s, color 0.3s;
-            font-size: 1.3em;
-        }
+    display: flex;
 
-        .preparation-button:hover,
-        .preparation-button.active-meal {
-            background-color: transparent;
-            border-bottom-color: #00BFFF;
-            color: #00BFFF;
-            transform: none;
-        }
+    flex-direction: column;
+
+    gap: 5px;
+
+    margin-top: 10px;
+
+}
+
+
+
+.preparation-button {
+
+    background-color: transparent;
+
+    color: white;
+
+    padding: 8px 0;
+
+    border-radius: 0;
+
+    cursor: pointer;
+
+    font-weight: bold;
+
+    text-align: center;
+
+    box-shadow: none;
+
+    height: auto;
+
+    border: none;
+
+    border-bottom: 2px solid #666;
+
+    transition: border-bottom-color 0.3s, color 0.3s;
+
+    font-size: 1.3em;
+
+}
+
+
+
+.preparation-button:hover {
+
+    background-color: transparent;
+
+    border-bottom-color: #00BFFF;
+
+    color: #00BFFF;
+
+    transform: none;
+
+}
 
         /* Estilos para el contenedor de imágenes */
         .image-container {
