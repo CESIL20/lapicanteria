@@ -327,17 +327,25 @@ body.lang-active-en .lang-es {display: none;}
   width: 100%;
 }
 
+.preparation-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* SIEMPRE 2 columnas */
+  gap: 15px;
+  width: 100%;
+  margin: 0 auto; /* centrar dentro del contenedor */
+}
+
 .preparation-button {
-  width: 100%; /* que ocupe toda la celda */
-  padding: 12px 8px;
-  font-size: 0.95em;
+  width: 100%;
+  padding: 12px 10px;
+  font-size: 1em;
   text-align: center;
   border-radius: 6px;
   border: 1px solid #666;
   background-color: #2c2c2c;
   color: #fff;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background-color 0.2s;
 }
 
 .preparation-button:hover {
