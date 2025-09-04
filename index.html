@@ -321,36 +321,27 @@ body.lang-active-en .lang-es {display: none;}
     text-align: center;
 }
 .preparation-buttons {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* siempre 2 columnas */
-  gap: 12px; /* separación entre botones */
-  width: 100%;
-}
-
-.preparation-buttons {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* SIEMPRE 2 columnas */
-  gap: 15px;
-  width: 100%;
-  margin: 0 auto; /* centrar dentro del contenedor */
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Por defecto, 2 columnas */
+    gap: 15px;
+    justify-content: center;
+    align-content: stretch;
+    margin-top: 0;
 }
 
 .preparation-button {
-  width: 100%;
-  padding: 12px 10px;
-  font-size: 1em;
-  text-align: center;
-  border-radius: 6px;
-  border: 1px solid #666;
-  background-color: #2c2c2c;
-  color: #fff;
-  cursor: pointer;
-  transition: background-color 0.2s;
+    font-size: 1em;
+    padding: 14px 10px;
+    word-break: break-word; /* Para evitar que se descuadre el texto largo */
 }
 
-.preparation-button:hover {
-  background-color: #444;
+/* ✅ Ajuste SOLO para móviles pequeños */
+@media (max-width: 480px) {
+    .preparation-buttons {
+        grid-template-columns: 1fr; /* En pantallas muy chicas vuelve a 1 columna */
+    }
 }
+
 
 
 
