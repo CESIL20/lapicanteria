@@ -278,7 +278,11 @@ body.lang-active-en .lang-es {display: none;}
     text-decoration: none;
 }
 
-/* Estilos de la sección principal del menú */
+/* =================================================================== */
+/* ESTILOS BASE (MOBILE-FIRST)                                         */
+/* Estos estilos se aplican a todas las pantallas, empezando por móvil.*/
+/* =================================================================== */
+
 .our-theme-section {
     width: 100%;
     max-width: 1330px;
@@ -295,36 +299,21 @@ body.lang-active-en .lang-es {display: none;}
     font-size: 1.4em;
     margin-bottom: 15px;
     line-height: 1.6;
-    color: white;
 }
 
 .theme-content-wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
+    /* En móvil, los elementos se apilan naturalmente. No se necesita flex. */
     margin-top: 20px;
-}
-
-.theme-image-column {
-    min-width: unset;
-    max-width: 100%;
-    text-align: center;
 }
 
 .theme-image-column img {
     width: 100%;
+    /* Añadimos un max-width para que la imagen no sea excesivamente grande en tablets */
+    max-width: 550px; 
     height: auto;
-    object-fit: contain;
+    object-fit: contain; /* <-- AJUSTE 1: Evita que la imagen principal se recorte. */
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-}
-
-.theme-text-column {
-    min-width: unset;
-    max-width: 100%;
-    text-align: center;
 }
 
 .theme-text-column p {
@@ -332,40 +321,36 @@ body.lang-active-en .lang-es {display: none;}
     text-align: center;
 }
 
-/* ESTILOS DE BOTONES ACTUALIZADOS:
-Aseguramos que los botones se vean igual en todas las pantallas.
-*/
+/* --- ESTILOS DE BOTONES --- */
+/* CAMBIO PRINCIPAL: Ahora usa 2 columnas desde móvil */
 .preparation-buttons {
-    display: flex; /* Se mantiene el flex para la versión móvil */
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* DOS columnas en móvil */
     gap: 15px;
-    margin-top: 15px;
+    margin-top: 30px; /* Un poco más de espacio respecto a la imagen */
 }
 
-/* Estilo por defecto del botón (para móviles) */
 .preparation-button {
-    background-color: #2c2c2c; /* Color de fondo similar al de la imagen */
-    color: #fff; /* Color de texto blanco */
-    border: 1.5px solid #666; /* Borde delgado y gris en todos los lados */
-    border-radius: 5px; /* Bordes ligeramente redondeados */
+    background-color: #2c2c2c;
+    color: #fff;
+    border: 1.5px solid #666;
+    border-radius: 5px;
     padding: 15px 10px;
     text-align: center;
     font-weight: bold;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    /* Ajuste para que el texto se vea bien en columnas más estrechas */
+    font-size: 0.9em;
 }
 
-/* Estado al pasar el mouse sobre el botón */
 .preparation-button:hover {
-    background-color: #444; /* Un tono más claro al pasar el cursor */
+    background-color: #444;
     border-color: #888;
 }
 
-/* Estilos para el contenedor de imágenes */
-.image-container {
-    display: block;
-}
-
+/* --- AJUSTE 2: Estilos para la imagen que aparece al hacer clic --- */
+/* Esto ocultará la imagen extra que se ve en la captura de pantalla. */
 .preparation-image {
     width: 100%;
     height: auto;
@@ -373,55 +358,72 @@ Aseguramos que los botones se vean igual en todas las pantallas.
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     margin-top: 2rem;
-    display: none;
+    display: none; /* Oculta por defecto */
 }
 
+/* Esta clase se deberá usar con JavaScript para mostrar la imagen correcta */
 .preparation-image.active {
     display: block;
 }
 
-/* Media query para PC: Habilita el diseño de 2 columnas */
+
 @media (min-width: 768px) {
-    .main-header {
-        justify-content: space-between;
-    }
     
     .theme-content-wrapper {
-        display: grid; /* Cambiado de flex a grid */
-        grid-template-columns: 1fr 1fr; /* 2 columnas */
-        gap: 35px;
+        display: flex; /* Usar flex para mejor control */
+        flex-direction: row;
+        justify-content: center;
         align-items: flex-start;
+        gap: 10px; /* Muy poco espacio entre imagen y botones */
+        margin-top: 20px;
         text-align: left;
     }
 
-    .theme-image-column,
-    .theme-text-column {
-        min-width: 45%;
-        max-width: 50%;
+    .theme-image-column {
+        flex: 0 0 auto; /* No crece, no se encoge, tamaño automático */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        max-width: 350px; /* Limita el ancho de la imagen */
+    }
+
+    .theme-image-column img {
+        width: 100%;
+        max-width: 320px; /* Imagen más pequeña */
+        height: auto;
+        object-fit: cover;
+        border-radius: 10px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     }
 
     .theme-text-column {
+        flex: 1; /* Ocupa el resto del espacio */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
         text-align: left;
+        padding-left: 10px; /* Pequeño padding para separar del borde de la imagen */
     }
 
     .theme-text-column p {
         text-align: left;
+        margin-bottom: 20px;
+        flex-shrink: 0;
     }
 
-    /* ESTILOS DE BOTONES PARA PC:
-    Cambiamos a una cuadrícula para el layout de 2 columnas.
-    */
     .preparation-buttons {
         display: grid;
-        grid-template-columns: 1fr 1fr; /* Crea dos columnas de igual ancho */
-        gap: 15px; /* Añade el espacio entre los botones */
-        margin: 0; /* Elimina el margen superior si no es necesario */
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        justify-content: center;
+        flex-grow: 1;
+        align-content: stretch;
+        margin-top: 0; /* Sin margen superior */
     }
 
-    /* En la media query ya no se necesitan estilos de borde específicos para los botones,
-    ya que se definieron en la clase general .preparation-button */
     .preparation-button {
-      padding: 15px 10px; /* Asegura un padding consistente */
+        font-size: 1em;
+        padding: 18px 15px;
     }
 }
 
