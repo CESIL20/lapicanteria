@@ -320,31 +320,35 @@ body.lang-active-en .lang-es {display: none;}
     margin-bottom: 20px;
     text-align: center;
 }
+
+/* --- ESTILOS DE BOTONES --- */
 .preparation-buttons {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* SIEMPRE 2 columnas */
-  gap: 15px;
-  width: 100%;
-  margin: 0 auto; /* centrar dentro del contenedor */
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* SIEMPRE 2 columnas */
+    gap: 15px;
+    margin-top: 30px;
+    width: 100%;
 }
 
 .preparation-button {
-  width: 100%;
-  padding: 12px 10px;
-  font-size: 1em;
-  text-align: center;
-  border-radius: 6px;
-  border: 1px solid #666;
-  background-color: #2c2c2c;
-  color: #fff;
-  cursor: pointer;
-  transition: background-color 0.2s;
+    background-color: #2c2c2c;
+    color: #fff;
+    border: 1.5px solid #666;
+    border-radius: 5px;
+    padding: 15px 10px;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    font-size: 0.9em;
+    width: 100%; /* ocupa todo el espacio de su celda */
+    box-sizing: border-box;
 }
 
 .preparation-button:hover {
-  background-color: #444;
+    background-color: #444;
+    border-color: #888;
 }
-
 
 
 /* --- AJUSTE 2: Estilos para la imagen que aparece al hacer clic --- */
@@ -423,6 +427,7 @@ body.lang-active-en .lang-es {display: none;}
         font-size: 1em;
         padding: 18px 15px;
     }
+}
 
 /*
  * HISTORY SECTION
