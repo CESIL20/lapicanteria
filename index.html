@@ -320,14 +320,13 @@ body.lang-active-en .lang-es {display: none;}
     margin-bottom: 20px;
     text-align: center;
 }
-
 /* --- ESTILOS DE BOTONES --- */
-/* CAMBIO PRINCIPAL: Ahora usa 2 columnas desde móvil */
 .preparation-buttons {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* DOS columnas en móvil */
+    grid-template-columns: repeat(2, 1fr); /* SIEMPRE 2 columnas */
     gap: 15px;
-    margin-top: 30px; /* Un poco más de espacio respecto a la imagen */
+    margin-top: 30px;
+    width: 100%;
 }
 
 .preparation-button {
@@ -340,14 +339,16 @@ body.lang-active-en .lang-es {display: none;}
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease, border-color 0.3s ease;
-    /* Ajuste para que el texto se vea bien en columnas más estrechas */
     font-size: 0.9em;
+    width: 100%; /* ocupa todo el espacio de su celda */
+    box-sizing: border-box;
 }
 
 .preparation-button:hover {
     background-color: #444;
     border-color: #888;
 }
+
 
 /* --- AJUSTE 2: Estilos para la imagen que aparece al hacer clic --- */
 /* Esto ocultará la imagen extra que se ve en la captura de pantalla. */
