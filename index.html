@@ -428,6 +428,63 @@ body.lang-active-en .lang-es {display: none;}
         padding: 18px 15px;
     }
 }
+/* 🔹 Botón hamburguesa */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    margin-right: 15px;
+}
+
+.hamburger span {
+    width: 28px;
+    height: 3px;
+    background: white;
+    border-radius: 2px;
+    transition: 0.3s;
+}
+
+/* 🔹 Responsive */
+@media (max-width: 768px) {
+    .hamburger {
+        display: flex;
+    }
+
+    /* Ocultamos menú en móviles por defecto */
+    .main-nav {
+        display: none;
+        flex-direction: column;
+        background: #111; /* fondo para que resalte */
+        position: absolute;
+        top: 80px; /* ajusta según altura de tu header */
+        left: 0;
+        width: 100%;
+        text-align: center;
+        padding: 15px 0;
+    }
+
+    .main-nav ul {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    /* Cuando está activo (clic en hamburguesa) */
+    .main-nav.active {
+        display: flex;
+    }
+}
+
+/* 🔹 Animación: hamburguesa a "X" */
+.hamburger.open span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+.hamburger.open span:nth-child(2) {
+    opacity: 0;
+}
+.hamburger.open span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+}
 
 /*
  * HISTORY SECTION
@@ -834,6 +891,12 @@ transform: scaleX(-1);
           </div>
         </div>
       </div>
+      <!-- Botón hamburguesa -->
+    <div class="hamburger" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
     </header>
     <nav class="main-nav">
       <ul>
@@ -1145,6 +1208,15 @@ let reservationMessage;
         
         // Establece el idioma inicial al cargar la página
         setLanguage(currentLanguage);
+      
+     //---BOTON HAMBURGUESA---
+    const hamburger = document.getElementById("hamburger");
+    const menu = document.getElementById("menu");
+
+    hamburger.addEventListener("click", () => {
+    menu.classList.toggle("active");
+    hamburger.classList.toggle("open");
+    });
 
     // --- LÓGICA DEL CARRUSEL ---
     const carouselTrack = document.querySelector('.carousel-track');
