@@ -116,23 +116,21 @@ body.lang-active-en .lang-es {display: none;}
 .titulo {text-align:center;display:flex;flex-direction:column;align-items:center;}
 .titulo h1 {font-family:'Georgia',serif;color:#fff;font-size:2em;margin:0;display:block;text-shadow:5px 5px 10px rgba(0,0,0,1);}
 
-/* ----- NAV POR DEFECTO (desktop) ----- */
+/* ----- NAV GENERAL ----- */
 .main-nav {
   background: transparent;
   padding: 0;
   width: 100%;
   position: relative;
   z-index: 200;
-  margin-top: 0px;
-  padding-bottom: 10px;
 }
 
 .main-nav ul {
   list-style: none;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 10px;
+  display: flex;               /* 👈 siempre en fila */
+  justify-content: center;     /* 👈 centrado */
+  flex-wrap: wrap;             /* 👈 si no entran, bajan a segunda línea */
+  gap: 15px;
   margin: 0;
   padding: 0;
 }
@@ -143,33 +141,25 @@ body.lang-active-en .lang-es {display: none;}
   font-weight: bold;
   font-size: 18px;
   transition: color 0.3s;
-  padding: 0px 8px;
+  padding: 8px 12px;
   display: block;
-  background-color: transparent;
 }
 
 .main-nav ul li a:hover {
-  background-color: transparent;
   color: #d32f2f;
 }
 
-/* ----- HAMBURGUESA ----- */
+/* ----- BOTÓN HAMBURGUESA ----- */
 .hamburger {
   display: none;
   flex-direction: column;
   gap: 5px;
   cursor: pointer;
-  background: transparent;
-  border: none;
-  padding: 0;
-  outline: none;
   position: absolute;
   top: 25px;
-  left: 20px;   /* 👈 ahora está a la izquierda */
-  right: auto;  /* 👈 desactiva el lado derecho */
+  left: 20px; /* 👈 aparece a la izquierda */
   z-index: 999;
 }
-
 
 .hamburger span {
   width: 28px;
@@ -179,32 +169,19 @@ body.lang-active-en .lang-es {display: none;}
   transition: 0.3s;
 }
 
-/* ----- RESPONSIVE (solo móviles) ----- */
+/* ----- RESPONSIVE ----- */
 @media (max-width: 768px) {
   .hamburger {
     display: flex;
   }
 
   .main-nav {
-    display: none;              /* 👈 oculto por defecto en móviles */
-    flex-direction: column;
-    position: absolute;
-    top: 80px;
-    right: 10px;
-    width: 220px;
-    text-align: left;
-    padding: 15px;
-    background: rgba(0, 0, 0, 0.8); /* puedes dejarlo transparent si quieres */
-    border-radius: 8px;
-  }
-
-  .main-nav ul {
-    flex-direction: column;
-    gap: 15px;
+    display: none;   /* 👈 oculto por defecto */
+    justify-content: center; /* 👈 centrado cuando aparezca */
   }
 
   .main-nav.active {
-    display: flex; /* 👈 se muestra solo al hacer click en hamburguesa */
+    display: flex;   /* 👈 se muestra en fila al abrir */
   }
 }
 
@@ -218,6 +195,7 @@ body.lang-active-en .lang-es {display: none;}
 .hamburger.open span:nth-child(3) {
   transform: rotate(-45deg) translate(6px, -6px);
 }
+
 /*
  * CARRUSEL
  */
