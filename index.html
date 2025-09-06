@@ -116,39 +116,108 @@ body.lang-active-en .lang-es {display: none;}
 .titulo {text-align:center;display:flex;flex-direction:column;align-items:center;}
 .titulo h1 {font-family:'Georgia',serif;color:#fff;font-size:2em;margin:0;display:block;text-shadow:5px 5px 10px rgba(0,0,0,1);}
 
+/* ----- NAV POR DEFECTO (desktop) ----- */
 .main-nav {
-    background-color: transparent;
-    padding: 0;
-    width: 100%;
-    position: relative;
-    z-index: 200;
-    margin-top: 0px;
-    padding-bottom: 10px;
-}
-.main-nav ul {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin: 0;
-    padding: 0;
-}
-.main-nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 18px;
-    transition: color 0.3s;
-    padding: 0px 8px;
-    display: block;
-    background-color: transparent;
-}
-.main-nav ul li a:hover {
-    background-color: transparent;
-    color: #d32f2f;
+  background: transparent;
+  padding: 0;
+  width: 100%;
+  position: relative;
+  z-index: 200;
+  margin-top: 0px;
+  padding-bottom: 10px;
 }
 
+.main-nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+}
+
+.main-nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 18px;
+  transition: color 0.3s;
+  padding: 0px 8px;
+  display: block;
+  background-color: transparent;
+}
+
+.main-nav ul li a:hover {
+  background-color: transparent;
+  color: #d32f2f;
+}
+
+/* ----- HAMBURGUESA ----- */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  padding: 0;
+  outline: none;
+  position: absolute;
+  top: 25px;
+  left: 20px;   /* 👈 ahora está a la izquierda */
+  right: auto;  /* 👈 desactiva el lado derecho */
+  z-index: 999;
+}
+
+
+.hamburger span {
+  width: 28px;
+  height: 3px;
+  background: white;
+  border-radius: 2px;
+  transition: 0.3s;
+}
+
+/* ----- RESPONSIVE (solo móviles) ----- */
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex;
+  }
+
+  .main-nav {
+    display: none;              /* 👈 oculto por defecto en móviles */
+    flex-direction: column;
+    position: absolute;
+    top: 80px;
+    right: 10px;
+    width: 220px;
+    text-align: left;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.8); /* puedes dejarlo transparent si quieres */
+    border-radius: 8px;
+  }
+
+  .main-nav ul {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .main-nav.active {
+    display: flex; /* 👈 se muestra solo al hacer click en hamburguesa */
+  }
+}
+
+/* Animación hamburguesa a X */
+.hamburger.open span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+.hamburger.open span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.open span:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
 /*
  * CARRUSEL
  */
@@ -930,7 +999,7 @@ transform: scaleX(-1);
 </div>
 
  <!-- Tu código HTML existente -->
-    <div class="our-theme-section">
+    <div class="our-theme-section" id="our-theme">
         <h2 class="lang-es">Nuestra Temática: Elige tu Pescado</h2>
         <h2 class="lang-en">Our Theme: Choose Your Fish</h2>
         <p>
