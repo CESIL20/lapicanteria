@@ -499,39 +499,84 @@ body.lang-active-en .lang-es {display: none;}
         display: flex;
     }
 
-    /* Ocultamos menú en móviles por defecto */
-    .main-nav {
-        display: none;
-        flex-direction: column;
-        background: #111; /* fondo para que resalte */
-        position: absolute;
-        top: 80px; /* ajusta según altura de tu header */
-        left: 0;
-        width: 100%;
-        text-align: center;
-        padding: 15px 0;
-    }
-
-    .main-nav ul {
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    /* Cuando está activo (clic en hamburguesa) */
-    .main-nav.active {
-        display: flex;
-    }
+    /* ----- NAV GENERAL ----- */
+.main-nav {
+  background: transparent;
+  padding: 0;
+  width: 100%;
+  position: relative;
+  z-index: 200;
 }
 
-/* 🔹 Animación: hamburguesa a "X" */
+.main-nav ul {
+  list-style: none;
+  display: flex;               /* 👈 siempre en fila */
+  justify-content: center;     /* 👈 centrado */
+  flex-wrap: wrap;             /* 👈 si no entran, bajan a segunda línea */
+  gap: 15px;
+  margin: 0;
+  padding: 0;
+}
+
+.main-nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 18px;
+  transition: color 0.3s;
+  padding: 8px 12px;
+  display: block;
+}
+
+.main-nav ul li a:hover {
+  color: #d32f2f;
+}
+
+/* ----- BOTÓN HAMBURGUESA ----- */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  position: absolute;
+  top: 25px;
+  left: 20px; /* 👈 aparece a la izquierda */
+  z-index: 999;
+}
+
+.hamburger span {
+  width: 28px;
+  height: 3px;
+  background: white;
+  border-radius: 2px;
+  transition: 0.3s;
+}
+
+/* ----- RESPONSIVE ----- */
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex;
+  }
+
+  .main-nav {
+    display: none;   /* 👈 oculto por defecto */
+    justify-content: center; /* 👈 centrado cuando aparezca */
+  }
+
+  .main-nav.active {
+    display: flex;   /* 👈 se muestra en fila al abrir */
+  }
+}
+
+/* Animación hamburguesa a X */
 .hamburger.open span:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
+  transform: rotate(45deg) translate(5px, 5px);
 }
 .hamburger.open span:nth-child(2) {
-    opacity: 0;
+  opacity: 0;
 }
 .hamburger.open span:nth-child(3) {
-    transform: rotate(-45deg) translate(6px, -6px);
+  transform: rotate(-45deg) translate(6px, -6px);
 }
 
 /*
