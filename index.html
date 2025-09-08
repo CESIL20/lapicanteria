@@ -75,20 +75,31 @@ body.lang-active-en .lang-es {display: none;}
     color: white;
     padding: 1rem 2rem;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start; /* elementos pegados a la izquierda */
     align-items: center;
     flex-wrap: wrap;
     position: relative;
     z-index: 1;
+    gap: 20px; /* espacio entre switch y demás contenido */
 }
+
 .language-switcher {
-    position: absolute;
-    top: 10px;
-    right: 20px;
+    position: absolute;   /* siempre sobre la imagen */
+    top: 10px;            /* margen superior */
+    right: 10px;          /* margen derecho */
     display: flex;
-    gap: 10px;
-    z-index: 1001;
+    gap: 8px;
+    z-index: 1000;
 }
+
+@media (max-width: 768px) {
+  .language-switcher {
+      top: 12px;     /* un poquito más abajo en móviles */
+      right: 12px;   /* sigue pegado a la derecha */
+  }
+}
+
+
 .language-switcher button {
     background-color: rgba(0,0,0,0.5);
     color: white;
@@ -99,15 +110,19 @@ body.lang-active-en .lang-es {display: none;}
     font-weight: bold;
     transition: background-color 0.3s, border-color 0.3s;
 }
+
 .language-switcher button:hover {
     background-color: rgba(255, 255, 255, 0.2);
     border-color: #3b82f6;
 }
+
 .language-switcher button.active {
     background-color: #007bff;
     color: white;
     border-color: #007bff;
 }
+
+
 
 .header-left-group {display:flex;align-items:center;flex:1;}
 .logo-container {display:flex;align-items:center;flex-shrink:0;margin-top:10px;justify-content:center;}
@@ -244,6 +259,7 @@ body.lang-active-en .lang-es {display: none;}
   transform: rotate(-45deg) translate(6px, -6px);
 }
 
+
 /*
  * CARRUSEL
  */
@@ -372,7 +388,54 @@ body.lang-active-en .lang-es {display: none;}
     color: #bbb;
     text-decoration: none;
 }
+/* Estilos para la ventana emergente de la imagen */
+.image-modal {
+  display: none; /* Oculta la ventana por defecto */
+  position: fixed;
+  z-index: 9999; /* Asegura que esté encima de todo */
+  padding-top: 50px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0); /* Fondo negro */
+  background-color: rgba(0,0,0,0.9); /* Fondo semitransparente */
+}
 
+/* Estilos para el contenido (la imagen ampliada) */
+.modal-content {
+  margin: auto;
+  display: block;
+  width: 90%;
+  max-width: 800px;
+  animation-name: zoom;
+  animation-duration: 0.6s;
+}
+
+/* El botón de cerrar (x) */
+.close-button {
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+  color: #bbb;
+  text-decoration: none;
+}
+
+/* Efecto de animación de zoom */
+@keyframes zoom {
+  from {transform: scale(0.1)}
+  to {transform: scale(1)}
+}
 /* =================================================================== */
 /* ESTILOS BASE (MOBILE-FIRST)                                         */
 /* Estos estilos se aplican a todas las pantallas, empezando por móvil.*/
@@ -523,109 +586,6 @@ body.lang-active-en .lang-es {display: none;}
         padding: 18px 15px;
     }
 }
-/* 🔹 Botón hamburguesa */
-.hamburger {
-    display: none;
-    flex-direction: column;
-    gap: 5px;
-    cursor: pointer;
-    margin-right: 15px;
-}
-
-.hamburger span {
-    width: 28px;
-    height: 3px;
-    background: white;
-    border-radius: 2px;
-    transition: 0.3s;
-}
-
-/* 🔹 Responsive */
-@media (max-width: 768px) {
-    .hamburger {
-        display: flex;
-    }
-
-    /* ----- NAV GENERAL ----- */
-.main-nav {
-  background: transparent;
-  padding: 0;
-  width: 100%;
-  position: relative;
-  z-index: 200;
-}
-
-.main-nav ul {
-  list-style: none;
-  display: flex;               /* 👈 siempre en fila */
-  justify-content: center;     /* 👈 centrado */
-  flex-wrap: wrap;             /* 👈 si no entran, bajan a segunda línea */
-  gap: 15px;
-  margin: 0;
-  padding: 0;
-}
-
-.main-nav ul li a {
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 18px;
-  transition: color 0.3s;
-  padding: 8px 12px;
-  display: block;
-}
-
-.main-nav ul li a:hover {
-  color: #d32f2f;
-}
-
-/* ----- BOTÓN HAMBURGUESA ----- */
-.hamburger {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  cursor: pointer;
-  position: absolute;
-  top: 25px;
-  left: 20px; /* 👈 aparece a la izquierda */
-  z-index: 999;
-}
-
-.hamburger span {
-  width: 28px;
-  height: 3px;
-  background: white;
-  border-radius: 2px;
-  transition: 0.3s;
-}
-
-/* ----- RESPONSIVE ----- */
-@media (max-width: 768px) {
-  .hamburger {
-    display: flex;
-  }
-
-  .main-nav {
-    display: none;   /* 👈 oculto por defecto */
-    justify-content: center; /* 👈 centrado cuando aparezca */
-  }
-
-  .main-nav.active {
-    display: flex;   /* 👈 se muestra en fila al abrir */
-  }
-}
-
-/* Animación hamburguesa a X */
-.hamburger.open span:nth-child(1) {
-  transform: rotate(45deg) translate(5px, 5px);
-}
-.hamburger.open span:nth-child(2) {
-  opacity: 0;
-}
-.hamburger.open span:nth-child(3) {
-  transform: rotate(-45deg) translate(6px, -6px);
-}
-
 /*
  * HISTORY SECTION
  */
@@ -636,7 +596,7 @@ body.lang-active-en .lang-es {display: none;}
     max-width:1330px;
     color:#eee;
     border-radius:10px;
-    box-shadow:0 8px 20px rgba(0,0,0,0.1);
+    box-shadow:0 8px 20px rgba(46, 44, 44, 0.1);
     line-height:1.6;
     position: relative;
     overflow: hidden;
@@ -665,8 +625,6 @@ body.lang-active-en .lang-es {display: none;}
 .historia-section p:last-child {
     margin-bottom: 0;
 }
-
-/*
  * CONTACT & MAP SECTION
  */
 .contact-map-section {
@@ -757,40 +715,77 @@ transform: scaleX(-1);
 .social-icons a {color: white;font-size: 2em;transition: color 0.3s ease, transform 0.2s ease;text-decoration: none;}
 .social-icons a:hover {transform: translateY(-3px);}
 .social-icons .fa-facebook {color: #1877f2;}
-.social-icons .fa-instagram {background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);-webkit-background-clip: text;-webkit-text-fill-color: transparent;}
+.social-icons .fa-instagram {background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);-webkit-background-clip: text; background-clip: text;-webkit-text-fill-color: transparent;}
 .social-icons .fa-whatsapp {color: #25d366;}
-.social-icons .fa-map-marker-alt {color: #db4437;}
-
-/*
- * WHATSAPP BUTTON
- */
-.whatsapp-float {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: #25d366;
-    color: white;
-    padding: 12px 20px;
-    border-radius: 30px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 1.1em;
-    text-decoration: none;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    z-index: 9999;
-    cursor: grab;
-    transition: background-color 0.3s, transform 0.2s;
-}
-.whatsapp-float:active {cursor: grabbing;}
-.whatsapp-float:hover {background-color: #1da851;transform: translateY(-3px);}
-.whatsapp-float i {font-size:1.5em;}
+.social-icons .fa-map-marker-alt {color: #db4437;}/* Ajustes responsive para móviles */
 @media (max-width: 768px) {
+  .content-wrapper {
+    flex-direction: column;     /* apila en columna */
+    align-items: center;        /* centrado */
+    gap: 20px;                  /* menos espacio entre bloques */
+  }
+
+  .map-container-wrapper,
+  .contact-info-wrapper {
+    max-width: 100%;            /* ocupar todo el ancho */
+    min-width: auto;            
+    padding: 20px;              /* menos padding en móviles */
+  }
+
+  .map-container {
+    height: 250px;              /* mapa más pequeño */
+  }
+
+  .contact-item {
+    font-size: 1em;             /* texto un poco más grande y legible */
+  }
+
+  .social-icons {
+    gap: 20px;                  /* menos separación entre íconos */
+  }
+}
+
+
+/*whatsapp flotante*/
+.whatsapp-float {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #25d366;
+  color: white;
+  border-radius: 50px;
+  padding: 12px 16px;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  z-index: 9999;
+}
+
+.whatsapp-float i {
+  font-size: 22px;
+}
+
+.whatsapp-float span {
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+    .whatsapp-float {
+        padding: 12px !important;
+        border-radius: 50% !important;
+        width: 55px !important;
+        height: 55px !important;
+        justify-content: center !important;
+    }
     .whatsapp-float .inline-flex-content {
-        display: none;
+        display: none !important;
     }
 }
-   
+
+
 
 /* FOOTER */
 .main-footer {
@@ -1010,28 +1005,31 @@ transform: scaleX(-1);
     </style>
 </head>
 <body class="lang-active-es"> <!-- Añadido lang-active-es por defecto -->
-  <div class="language-switcher">
-    <button id="lang-es-btn" class="active">ES</button>
-    <button id="lang-en-btn">EN</button>
-  </div>
+
   <div id="reservation-message" class="flash-message info">
     <span class="lang-es inline-content">No contamos con reserva, todo es por orden de llegada.</span>
     <span class="lang-en inline-content">We do not take reservations; it's all first-come, first-served.</span>
-  </div>
-  <div class="header-nav-wrapper">
+    </div>
+    <div class="header-nav-wrapper">
     <header class="main-header">
-      <div class="header-left-group">
+        <div class="header-left-group">
         <div class="header-content">
-          <div class="titulo">
+        <div class="titulo">
             <h1 class="lang-es">Bienvenidos a</h1>
             <h1 class="lang-en">Welcome to</h1>
-            <div class="logo-container">
-              <img src="pikalogo.png" alt="Logo de La Picantería" width="230" height="160" onerror="this.onerror=null;this.src='https://placehold.co/230x160/080808/FFFFFF?text=Logo';" loading="lazy">
+
+            <!-- Switch de idioma junto al título -->
+            <div class="language-switcher">
+              <button id="lang-es-btn" class="active">ES</button>
+              <button id="lang-en-btn">EN</button>
             </div>
-          </div>
+            <div class="logo-container">
+            <img src="pikalogo.png" alt="Logo de La Picantería" width="230" height="160" onerror="this.onerror=null;this.src='https://placehold.co/230x160/080808/FFFFFF?text=Logo';" loading="lazy">
         </div>
-      </div>
-      <!-- Botón hamburguesa -->
+        </div>
+        </div>
+        </div>
+        <!-- Botón hamburguesa -->
     <div class="hamburger" id="hamburger">
       <span></span>
       <span></span>
@@ -1039,16 +1037,16 @@ transform: scaleX(-1);
     </div>
     </header>
     <nav class="main-nav" id="menu">
-      <ul>
+        <ul>
         <li><a href="#carrusel-section"><span class="lang-es inline-content">Inicio</span><span class="lang-en inline-content">Home</span></a></li>
         <li><a href="#our-theme"><span class="lang-es inline-content">Nuestra Temática</span><span class="lang-en inline-content">Our Theme</span></a></li>
         <li><a href="#historia"><span class="lang-es inline-content">Nuestra Historia</span><span class="lang-en inline-content">Our History</span></a></li>
         <li><a href="https://drive.google.com/file/d/1aAkaZ-WnvFu8tN7WBn3rCiXv3gN4wL6i/view?usp=drive_link" target="_blank"><span class="lang-es inline-content">Nuestra Carta</span><span class="lang-en inline-content">Our Menu</span></a></li>
         <li><a href="#contactos"><span class="lang-es inline-content">Contacto</span><span class="lang-en inline-content">Contact</span></a></li>
-      </ul>
+        </ul>
     </nav>
-  </div>
-  <section class="carousel-section" id="carrusel-section">
+    </div>
+    <section class="carousel-section" id="carrusel-section">
     <div class="carousel-container">
         <div class="carousel-track">
             </div>
@@ -1069,18 +1067,23 @@ transform: scaleX(-1);
     <img class="modal-content" id="modal-image-prep">
 </div>
 
- <!-- Tu código HTML existente -->
+<!-- Tu código HTML existente -->
     <div class="our-theme-section" id="our-theme">
         <h2 class="lang-es">Nuestra Temática: Elige tu Pescado</h2>
         <h2 class="lang-en">Our Theme: Choose Your Fish</h2>
         <p>
-          <span class="lang-es inline-content">En La Picantería, tú eres el chef. Elige tu pescado fresco del día y nosotros lo preparamos a tu gusto:</span>
-          <span class="lang-en inline-content">At La Picantería, you are the chef. Choose your fresh fish of the day, and we will prepare it to your liking:</span>
+        <span class="lang-es inline-content">En La Picantería, tú eres el chef. Elige tu pescado fresco del día y nosotros lo preparamos a tu gusto:</span>
+        <span class="lang-en inline-content">At La Picantería, you are the chef. Choose your fresh fish of the day, and we will prepare it to your liking:</span>
         </p>
         <div class="theme-content-wrapper">
             <div class="theme-image-column">
-              <img src="s100.jpg" alt="Pescados frescos en exhibición" width="800" height="500" onerror="this.onerror=null;this.src='https://placehold.co/800x500/808000/FFFFFF?text=Pescados+frescos';" loading="lazy">
+            <img src="img/s100.jpg" alt="Pescados frescos en exhibición" width="800" height="500" onerror="this.onerror=null;this.src='https://placehold.co/800x500/808000/FFFFFF?text=Pescados+frescos';" loading="lazy">
             </div>
+            <div id="image-modal" class="image-modal">
+            <span class="close-button">&times;</span>
+            <img src="" alt="Imagen ampliada" class="modal-content">
+            </div>
+
             <div class="theme-text-column">
                 <div class="preparation-buttons">
                     <button class="preparation-button" data-meal="en-ceviche">
@@ -1290,65 +1293,44 @@ transform: scaleX(-1);
 </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
-let reservationMessage;
+document.addEventListener('DOMContentLoaded', () => {
+
+    // --- LÓGICA DE IDIOMA ---
+    let reservationMessage = document.getElementById('reservation-message');
     let currentLanguage = localStorage.getItem('language') || 'es';
 
-    function setLanguage(lang){
+    function setLanguage(lang) {
         currentLanguage = lang;
-        localStorage.setItem('language',lang);
-
-        // Elimina las clases de idioma existentes del body
+        localStorage.setItem('language', lang);
         document.body.classList.remove('lang-active-es', 'lang-active-en');
-        // Añade la clase del idioma activo al body
         document.body.classList.add(`lang-active-${lang}`);
-
-        document.querySelectorAll('.language-switcher button').forEach(button=>{
+        document.querySelectorAll('.language-switcher button').forEach(button => {
             button.classList.remove('active');
         });
-        document.getElementById(`lang-${lang}-btn`).classList.add('active');
+        document.getElementById(`lang-${lang}-btn`)?.classList.add('active');
         document.documentElement.lang = lang;
 
-        // Asegura que el mensaje de reserva se muestre brevemente al cambiar de idioma
         if (reservationMessage) {
+            clearTimeout(reservationMessage.hideTimeout);
             reservationMessage.classList.add('show');
-            clearTimeout(reservationMessage.hideTimeout); // Limpia cualquier temporizador de ocultación existente
-            reservationMessage.hideTimeout = setTimeout(()=>{
+            reservationMessage.hideTimeout = setTimeout(() => {
                 reservationMessage.classList.remove('show');
-            },5000); // Muestra por 5 segundos
+            }, 5000);
         }
     }
 
-    document.addEventListener('DOMContentLoaded',()=>{
-        reservationMessage = document.getElementById('reservation-message');
-        // Muestra el mensaje inicial por 5 segundos al cargar la página
-        if (reservationMessage) {
-            reservationMessage.classList.add('show');
-            reservationMessage.hideTimeout = setTimeout(()=>{
-                reservationMessage.classList.remove('show');
-            },5000);
-        }
-        
-        document.querySelectorAll('nav.main-nav a').forEach(anchor=>{
-            anchor.addEventListener('click',function(e){
-                const targetId=this.getAttribute('href');
-                if(targetId.startsWith('#')){
-                    e.preventDefault();
-                    const targetElement=document.querySelector(targetId);
-                    if(targetElement){
-                        targetElement.scrollIntoView({
-                            behavior:'smooth'
-                        });
-                    }
-                }
-            });
-        });
+    if (reservationMessage) {
+        clearTimeout(reservationMessage.hideTimeout);
+        reservationMessage.classList.add('show');
+        reservationMessage.hideTimeout = setTimeout(() => {
+            reservationMessage.classList.remove('show');
+        }, 5000);
+    }
 
-        document.getElementById('lang-es-btn').addEventListener('click',()=>setLanguage('es'));
-        document.getElementById('lang-en-btn').addEventListener('click',()=>setLanguage('en'));
-        
-        // Establece el idioma inicial al cargar la página
-        setLanguage(currentLanguage);
-      
+    document.getElementById('lang-es-btn')?.addEventListener('click', () => setLanguage('es'));
+    document.getElementById('lang-en-btn')?.addEventListener('click', () => setLanguage('en'));
+    setLanguage(currentLanguage);
+    
      //---BOTON HAMBURGUESA---
     const hamburger = document.getElementById("hamburger");
     const menu = document.getElementById("menu");
@@ -1360,97 +1342,81 @@ let reservationMessage;
 
     // --- LÓGICA DEL CARRUSEL ---
     const carouselTrack = document.querySelector('.carousel-track');
-    const prevButton = document.querySelector('.carousel-prev');
-    const nextButton = document.querySelector('.carousel-next');
-    const dotsContainer = document.querySelector('.carousel-dots');
-    const carouselContainer = document.querySelector('.carousel-container');
+    if (carouselTrack) {
+        const prevButton = document.querySelector('.carousel-prev');
+        const nextButton = document.querySelector('.carousel-next');
+        const dotsContainer = document.querySelector('.carousel-dots');
+        const carouselContainer = document.querySelector('.carousel-container');
 
-    const images = [
-        'LP 1 (1).jpg', 'LP 2.jpg', '44pimentel1.jpg', 'LP 5.jpg', 'LP 17.jpg',
-        'LP 10.jpg', 'LP 28.jpg', 'LP 29.jpg', 'LP 32.jpg', 'LP 42.jpg', 'solis_0016.jpg',
-        'NAVAJAS.jpg', 'conchas bloody.jpg', 'concha pala.jpg', 'langosta ferreñafe.jpg', 'IMG_7403 (1).jpg', 'IMG_1592 (1).jpg', 'pulpoparrilla.jpg',
-        'costillar.jpg', 'sancochado.jpg', 'rocoto.jpg', 'cacao.jpg', 'crema asada.jpg'
-    ];
-    let currentIndex = 0;
-    let autoSlideInterval;
+        const images = [
+            'LP 1 (1).jpg', 'LP 2.jpg', '44pimentel1.jpg', 'LP 5.jpg', 'LP 17.jpg',
+            'LP 10.jpg', 'LP 28.jpg', 'LP 29.jpg', 'LP 32.jpg', 'LP 42.jpg', 'solis_0016.jpg',
+            'NAVAJAS.jpg', 'conchas bloody.jpg', 'concha pala.jpg', 'langosta ferreñafe.jpg', 'IMG_7403 (1).jpg', 'IMG_1592 (1).jpg', 'pulpoparrilla.jpg',
+            'costillar.jpg', 'sancochado.jpg', 'rocoto.jpg', 'cacao.jpg', 'crema asada.jpg'
+        ];
+        let currentIndex = 0;
+        let autoSlideInterval;
 
-    // Genera dinámicamente el HTML del carrusel y los puntos
-    images.forEach((image, index) => {
-        const item = document.createElement('div');
-        item.className = 'carousel-item';
-        const img = document.createElement('img');
-        img.src = image;
-        img.alt = `Plato Estrella ${index + 1}`;
-        img.setAttribute('loading', 'lazy');
-        img.setAttribute('onerror', 'this.onerror=null;this.src="https://placehold.co/800x500/A0A0A0/FFFFFF?text=Error";');
-        item.appendChild(img);
-        carouselTrack.appendChild(item);
+        images.forEach((image, index) => {
+            const item = document.createElement('div');
+            item.className = 'carousel-item';
+            const img = document.createElement('img');
+            img.src = image;
+            img.alt = `Plato Estrella ${index + 1}`;
+            img.loading = 'lazy';
+            img.onerror = function () {
+                this.onerror = null;
+                this.src = "https://placehold.co/800x500/A0A0A0/FFFFFF?text=Error";
+            };
+            item.appendChild(img);
+            carouselTrack.appendChild(item);
 
-        const dot = document.createElement('div');
-        dot.className = 'dot';
-        if (index === 0) dot.classList.add('active');
-        dot.addEventListener('click', () => {
-            currentIndex = index;
-            updateCarousel();
-            stopAndRestartAutoSlide();
+            const dot = document.createElement('div');
+            dot.className = 'dot';
+            if (index === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => {
+                currentIndex = index;
+                updateCarousel();
+                stopAndRestartAutoSlide();
+            });
+            dotsContainer.appendChild(dot);
         });
-        dotsContainer.appendChild(dot);
-    });
 
-    const dots = document.querySelectorAll('.dot');
-    const items = document.querySelectorAll('.carousel-item');
+        const dots = document.querySelectorAll('.dot');
+        const items = document.querySelectorAll('.carousel-item');
 
-    function updateCarousel() {
-        if (items.length === 0) return;
-        const itemWidth = items[0].offsetWidth;
-        carouselTrack.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
-        dots.forEach((dot, index) => dot.classList.toggle('active', index === currentIndex));
-    }
+        function updateCarousel() {
+            if (items.length === 0) return;
+            const itemWidth = items[0].offsetWidth;
+            carouselTrack.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
+            dots.forEach((dot, index) => dot.classList.toggle('active', index === currentIndex));
+        }
 
-    function nextSlide() {
-        currentIndex = (currentIndex < items.length - 1) ? currentIndex + 1 : 0;
+        const nextSlide = () => { currentIndex = (currentIndex + 1) % items.length; updateCarousel(); };
+        const prevSlide = () => { currentIndex = (currentIndex - 1 + items.length) % items.length; updateCarousel(); };
+        const stopAutoSlide = () => clearInterval(autoSlideInterval);
+        const startAutoSlide = () => { stopAutoSlide(); autoSlideInterval = setInterval(nextSlide, 3000); };
+        const stopAndRestartAutoSlide = () => { stopAutoSlide(); startAutoSlide(); };
+        
+        prevButton?.addEventListener('click', () => { prevSlide(); stopAndRestartAutoSlide(); });
+        nextButton?.addEventListener('click', () => { nextSlide(); stopAndRestartAutoSlide(); });
+        carouselContainer?.addEventListener('mouseenter', stopAutoSlide);
+        carouselContainer?.addEventListener('mouseleave', startAutoSlide);
+
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            carouselTrack.style.transition = 'none';
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                updateCarousel();
+                carouselTrack.style.transition = 'transform 0.5s ease-in-out';
+            }, 200);
+        });
+
         updateCarousel();
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : items.length - 1;
-        updateCarousel();
-    }
-
-    function startAutoSlide() {
-        stopAutoSlide();
-        autoSlideInterval = setInterval(nextSlide, 3000);
-    }
-
-    function stopAutoSlide() {
-        clearInterval(autoSlideInterval);
-    }
-    
-    function stopAndRestartAutoSlide() {
-        stopAutoSlide();
         startAutoSlide();
     }
-    
-    // Event listeners del carrusel
-    prevButton?.addEventListener('click', () => { prevSlide(); stopAndRestartAutoSlide(); });
-    nextButton?.addEventListener('click', () => { nextSlide(); stopAndRestartAutoSlide(); });
-    carouselContainer?.addEventListener('mouseenter', stopAutoSlide);
-    carouselContainer?.addEventListener('mouseleave', startAutoSlide);
 
-    // Debounce para el evento de redimensionamiento
-    let resizeTimeout;
-    window.addEventListener('resize', () => {
-        carouselTrack.style.transition = 'none';
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(() => {
-            updateCarousel();
-            carouselTrack.style.transition = 'transform 0.5s ease-in-out';
-        }, 200);
-    });
-
-    // Inicializa el carrusel
-    updateCarousel();
-    startAutoSlide();
 
     // --- LÓGICA DE MODALES (CENTRALIZADA) ---
     function setupModal(modalId, closeBtnId, triggerElements) {
@@ -1458,60 +1424,48 @@ let reservationMessage;
         const closeBtn = document.getElementById(closeBtnId);
         if (!modal || !closeBtn || !triggerElements) return;
 
+        const openModalWithImage = (imageUrl) => {
+            const modalImage = modal.querySelector('img');
+            if (modalImage && imageUrl) {
+                modalImage.src = imageUrl;
+                modal.classList.add('show');
+            }
+        };
+
         triggerElements.forEach(element => {
-            element.addEventListener('click', (e) => {
-                let imageUrl;
-                
-                // Si el clic es en un botón de preparación
+            element.addEventListener('click', () => {
                 if (element.classList.contains('preparation-button')) {
                     const mealData = element.getAttribute('data-meal');
                     const selectedImage = document.querySelector(`.preparation-image[data-image="${mealData}"]`);
-                    if (selectedImage) {
-                        imageUrl = selectedImage.src;
-                    }
-                } 
-                // Si el clic es en una imagen del carrusel
-                else if (element.tagName === 'IMG') {
-                    imageUrl = element.src;
-                }
-
-                if (imageUrl) {
-                    modal.querySelector('img').src = imageUrl;
-                    modal.classList.add('show');
+                    if (selectedImage) openModalWithImage(selectedImage.src);
+                } else if (element.tagName === 'IMG') {
+                    openModalWithImage(element.src);
                 }
             });
         });
 
-        closeBtn.addEventListener('click', () => modal.classList.remove('show'));
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) modal.classList.remove('show');
-        });
-
-        // Cierra el modal con la tecla ESC
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                modal.classList.remove('show');
-            }
-        });
+        const closeModal = () => modal.classList.remove('show');
+        closeBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
     }
 
-    // Configura los dos modales
     const carouselItems = document.querySelectorAll('.carousel-track img');
     const preparationButtons = document.querySelectorAll('.preparation-button');
     setupModal('image-modal-carousel', 'modal-close-carousel', carouselItems);
     setupModal('image-modal-prep', 'modal-close-prep', preparationButtons);
 
+
     // --- LÓGICA DE SCROLL SUAVE ---
     document.querySelectorAll('nav.main-nav a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
+            const targetElement = document.querySelector(this.getAttribute('href'));
             targetElement?.scrollIntoView({ behavior: 'smooth' });
         });
     });
 
-   // --- LÓGICA DEL BOTÓN FLOTANTE DE WHATSAPP ---
+// --- LÓGICA DEL BOTÓN FLOTANTE DE WHATSAPP ---
 const whatsappBtn = document.getElementById('whatsapp-draggable-button');
 const whatsappURL = "https://wa.me/51953489892?text=Hola!%20Me%20gustar%C3%ADa%20realizar%20un%20pedido.";
 
@@ -1613,6 +1567,7 @@ function endDrag() {
     document.removeEventListener('touchend', endDrag);
     }
 });
-        </script>
+</script>
 </body>
 </html>
+
