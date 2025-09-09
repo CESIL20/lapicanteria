@@ -467,7 +467,7 @@ body.lang-active-en .lang-es {display: none;}
 .theme-image-column img {
     width: 100%;
     /* Añadimos un max-width para que la imagen no sea excesivamente grande en tablets */
-    max-width: 550px; 
+    max-width: 550px;
     height: auto;
     object-fit: contain; /* <-- AJUSTE 1: Evita que la imagen principal se recorte. */
     border-radius: 8px;
@@ -586,15 +586,224 @@ body.lang-active-en .lang-es {display: none;}
         padding: 18px 15px;
     }
 }
-/*
- * HISTORY SECTION
- */
+*/---productos---*/
+:root {
+      --color-primario: #3498db;
+      --color-secundario: #2ecc71;
+      --color-alerta: #e74c3c;
+      --color-fondo: #f4f4f9;
+      --color-texto: #333;
+      --color-blanco: #fff;
+      --sombra-caja: 0 4px 8px rgba(73, 67, 67, 0.692);
+    }
+
+    .container{
+      display: flex;
+      flex-direction: row;
+      gap: 25px;
+      align-items: flex-start;
+      max-width: 1330px;
+      margin: 0 auto;
+      padding: 20px;
+      font-size:18px;
+      margin:20px auto;
+      color:#faf7f7;
+      background-color: #222;
+      border-radius: 10px;
+    }
+
+    .productos-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 25px;
+      flex: 3;
+    }
+
+    .precio-item {
+      background-color: var(--color-blanco);
+      border-radius: 10px;
+      box-shadow: var(--sombra-caja);
+      text-align: center;
+      padding: 20px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .precio-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 12px rgb(231, 226, 226);
+    }
+    
+    .precio-item img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .precio-item h4 {
+      margin: 15px 0 5px;
+      color: #00BFFF;
+      font-size: 1.1em;
+      flex-grow: 1; /* Empuja el contenido hacia abajo */
+    }
+
+    .precio-item h5 {
+      margin: 5px 0 15px;
+      color: var(--color-alerta);
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+
+    .cantidad-control {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .cantidad-control button {
+      background-color: var(--color-primario);
+      color: var(--color-blanco);
+      border: none;
+      width: 35px;
+      height: 35px;
+      font-size: 1.5em;
+      line-height: 35px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    
+    .cantidad-control button:hover {
+      background-color: #2980b9;
+    }
+
+    .cantidad-control .restar {
+      background-color: var(--color-alerta);
+    }
+    
+    .cantidad-control .restar:hover {
+      background-color: #c0392b;
+    }
+    
+    .cantidad-control input {
+      width: 50px;
+      text-align: center;
+      border: 3px solid #faf4f4;
+      border-radius: 5px;
+      height: 33px;
+      margin: 0 10px;
+      font-size: 1.1em;
+      appearance: textfield;
+      -moz-appearance: textfield;
+    }
+    
+    .cantidad-control input::-webkit-outer-spin-button,
+    .cantidad-control input::-webkit-inner-spin-button {
+      -webkit-appearance: none; /* Para Chrome, Safari, etc. */
+      margin: 0;
+    }
+
+    .add-to-cart {
+      background-color: var(--color-secundario);
+      color: var(--color-blanco);
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1em;
+      font-weight: bold;
+      width: 100%;
+      transition: background-color 0.3s ease;
+    }
+    
+    .add-to-cart:hover {
+      background-color: #27ae60;
+    }
+
+    .carrito-container {
+      background-color: var(--color-blanco);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: var(--sombra-caja);
+      flex: 1;
+      min-width: 320px;
+      align-self: flex-start;
+      position: sticky; /* Se queda fijo al hacer scroll */
+      top: 20px;
+    }
+
+    .carrito-container h3 {
+      text-align: center;
+      color: #e2e8ee;
+      border-bottom: 2px solid #f0f0f0;
+      padding-bottom: 10px;
+      margin-top: 0;
+    }
+
+    .carrito-item {
+      border-bottom: 3px solid #fffdfd;
+      padding: 10px 0;
+    }
+    
+    .carrito-item p {
+      margin: 5px 0;
+    }
+
+    .carrito-container h4 {
+      text-align: right;
+      font-size: 1.3em;
+      color: #e2e8ee;
+      margin-top: 20px;
+    }
+
+    #enviar-whatsapp {
+      background-color: #25D366;
+      color: var(--color-blanco);
+      width: 100%;
+      padding: 15px;
+      font-size: 1.1em;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    
+    #enviar-whatsapp:hover {
+      background-color: #1374a1;
+    }
+    
+    /* --- Media Queries para Móviles --- */
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column; /* Apila los productos y el carrito verticalmente */
+        align-items: center;
+      }
+      
+      .productos-container {
+        width: 100%;
+        order: 2; /* El carrito aparecerá primero */
+      }
+      
+      .carrito-container {
+        width: 100%;
+        max-width: 500px; /* Un ancho máximo para el carrito en tablets */
+        position: relative; /* Quita el 'sticky' para que no se quede pegado */
+        top: 0;
+        order: 1; /* El carrito aparecerá primero */
+        margin-bottom: 30px;
+      }
+    }
+
 .historia-section {
     font-size:18px;
     margin:40px auto;
     padding:40px;
     max-width:1330px;
-    color:#eee;
+    color:#ff0000;;
     border-radius:10px;
     box-shadow:0 8px 20px rgba(46, 44, 44, 0.1);
     line-height:1.6;
@@ -728,7 +937,7 @@ transform: scaleX(-1);
   .map-container-wrapper,
   .contact-info-wrapper {
     max-width: 100%;            /* ocupar todo el ancho */
-    min-width: auto;            
+    min-width: auto;
     padding: 20px;              /* menos padding en móviles */
   }
 
@@ -883,7 +1092,7 @@ transform: scaleX(-1);
     /* Contact & Map */
     .contact-map-section .content-wrapper{flex-direction:column;align-items:center;}
     .map-container-wrapper,.contact-info-wrapper{width:100%;max-width:100%;}
-    .social-icons{gap:20px;}
+    .social-icons{gap:15px;}
     .social-icons a{font-size:1em;}
     
 
@@ -1077,7 +1286,7 @@ transform: scaleX(-1);
         </p>
         <div class="theme-content-wrapper">
             <div class="theme-image-column">
-            <img src="s100.jpg" alt="Pescados frescos en exhibición" width="800" height="500" onerror="this.onerror=null;this.src='https://placehold.co/800x500/808000/FFFFFF?text=Pescados+frescos';" loading="lazy">
+            <img src="img/s100.jpg" alt="Pescados frescos en exhibición" width="800" height="500" onerror="this.onerror=null;this.src='https://placehold.co/800x500/808000/FFFFFF?text=Pescados+frescos';" loading="lazy">
             </div>
             <div id="image-modal" class="image-modal">
             <span class="close-button">&times;</span>
@@ -1144,7 +1353,57 @@ transform: scaleX(-1);
             </div>
         </div>
     </div>
-    
+  <h2>Los Mas Solicitados</h2>
+  <div class="container">
+    <main class="productos-container" id="productos">
+      <div class="precio-item" data-product-id="1" data-product-name="JALADITO MOCHE" data-product-price="99.00">
+        <img src="img/300x200/jaladito 1.jpg" alt="jaladito">
+        <h4>JALADITO MOCHE</h4>
+        <h5>S/. 99.00 x 200gr</h5>
+        <div class="cantidad-control">
+          <button class="restar" aria-label="Restar">-</button>
+          <input class="cantidad" type="number" value="1" min="1" aria-label="Cantidad">
+          <button class="sumar" aria-label="Sumar">+</button>
+        </div>
+        <button class="add-to-cart">Añadir al carrito</button>
+      </div>
+      <div class="precio-item" data-product-id="2" data-product-name="CEVICHE DE PESCADO" data-product-price="99.00">
+        <img src="img/300x200/ceviche.jpg" alt="ceviche">
+        <h4>CEVICHE DE PESCADO</h4>
+        <h5>S/. 99.00 x 200gr</h5>
+        <div class="cantidad-control">
+          <button class="restar" aria-label="Restar">-</button>
+          <input class="cantidad" type="number" value="1" min="1" aria-label="Cantidad">
+          <button class="sumar" aria-label="Sumar">+</button>
+        </div>
+        <button class="add-to-cart">Añadir al carrito</button>
+      </div>
+      <div class="precio-item" data-product-id="3" data-product-name="PULPO A LA PARRILLA" data-product-price="89.00">
+        <img src="img/300x200/pulpoparrilla.jpg" alt="almejas">
+        <h4>PULPO A LA PARRILLA</h4>
+        <h5>S/. 89.00 x 200gr</h5>
+        <div class="cantidad-control">
+          <button class="restar" aria-label="Restar">-</button>
+          <input class="cantidad" type="number" value="1" min="1" aria-label="Cantidad">
+          <button class="sumar" aria-label="Sumar">+</button>
+        </div>
+        <button class="add-to-cart">Añadir al carrito</button>
+      </div>
+      </main>
+
+    <aside class="carrito-container">
+      <h3>🛒 Mi Pedido</h3>
+      <div id="carrito-items">
+        <p>Tu carrito está vacío.</p>
+      </div>
+      <h4>Total: S/. <span id="carrito-total">0.00</span></h4>
+      <button id="enviar-whatsapp">Realizar Pedido por WhatsApp</button>
+    </aside>
+
+  </div>
+</div>
+</div>
+
   <section id="historia" class="historia-section">
     <h2 class="lang-es">Nuestra Historia</h2>
     <h2 class="lang-en">Our History</h2>
@@ -1331,14 +1590,16 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('lang-en-btn')?.addEventListener('click', () => setLanguage('en'));
     setLanguage(currentLanguage);
     
-     //---BOTON HAMBURGUESA---
+    // --- BOTON HAMBURGUESA ---
     const hamburger = document.getElementById("hamburger");
     const menu = document.getElementById("menu");
 
-    hamburger.addEventListener("click", () => {
-    menu.classList.toggle("active");
-    hamburger.classList.toggle("open");
-    });
+    if (hamburger && menu) {
+        hamburger.addEventListener("click", () => {
+            menu.classList.toggle("active");
+            hamburger.classList.toggle("open");
+        });
+    }
 
     // --- LÓGICA DEL CARRUSEL ---
     const carouselTrack = document.querySelector('.carousel-track');
@@ -1351,7 +1612,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const images = [
             'LP 1 (1).jpg', 'LP 2.jpg', '44pimentel1.jpg', 'LP 5.jpg', 'LP 17.jpg',
             'LP 10.jpg', 'LP 28.jpg', 'LP 29.jpg', 'LP 32.jpg', 'LP 42.jpg', 'solis_0016.jpg',
-            'NAVAJAS.jpg', 'conchas bloody.jpg', 'concha pala.jpg', 'langosta ferreñafe.jpg', 'IMG_7403 (1).jpg', 'IMG_1592 (1).jpg', 'pulpoparrilla.jpg',
+            'NAVAJAS.jpg', 'conchas bloody.jpg', 'concha pala.jpg', 'IMG_7403 (1).jpg', 'IMG_1592 (1).jpg', 'pulpoparrilla.jpg',
             'costillar.jpg', 'sancochado.jpg', 'rocoto.jpg', 'cacao.jpg', 'crema asada.jpg'
         ];
         let currentIndex = 0;
@@ -1417,7 +1678,6 @@ document.addEventListener('DOMContentLoaded', () => {
         startAutoSlide();
     }
 
-
     // --- LÓGICA DE MODALES (CENTRALIZADA) ---
     function setupModal(modalId, closeBtnId, triggerElements) {
         const modal = document.getElementById(modalId);
@@ -1455,7 +1715,6 @@ document.addEventListener('DOMContentLoaded', () => {
     setupModal('image-modal-carousel', 'modal-close-carousel', carouselItems);
     setupModal('image-modal-prep', 'modal-close-prep', preparationButtons);
 
-
     // --- LÓGICA DE SCROLL SUAVE ---
     document.querySelectorAll('nav.main-nav a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
@@ -1465,109 +1724,226 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-// --- LÓGICA DEL BOTÓN FLOTANTE DE WHATSAPP ---
-const whatsappBtn = document.getElementById('whatsapp-draggable-button');
-const whatsappURL = "https://wa.me/51953489892?text=Hola!%20Me%20gustar%C3%ADa%20realizar%20un%20pedido.";
+    // --- LÓGICA DEL CARRITO DE COMPRAS ---
+    // ⬇️ ¡IMPORTANTE! Reemplaza este número con tu número de WhatsApp (código de país + número)
+    const telefonoWhatsapp = "51971143981";
 
-let isDragging = false;
-let startX, startY;
-let initialX, initialY;
-let holdTimer; // <- temporizador para distinguir clic de arrastre
+    // --- VARIABLES Y SELECTORES ---
+    let carrito = [];
+    const productosContainer = document.getElementById('productos');
+    const carritoItemsContainer = document.getElementById('carrito-items');
+    const carritoTotalSpan = document.getElementById('carrito-total');
+    const botonEnviarWhatsapp = document.getElementById('enviar-whatsapp');
 
-function initializeWhatsappPosition() {
-    const rect = whatsappBtn.getBoundingClientRect();
-    whatsappBtn.style.position = 'fixed';
-    whatsappBtn.style.top = `${rect.top}px`;
-    whatsappBtn.style.left = `${rect.left}px`;
-    whatsappBtn.style.right = 'auto';
-    whatsappBtn.style.bottom = 'auto';
-}
-
-// Inicializa la posición del botón
-initializeWhatsappPosition();
-window.addEventListener('resize', initializeWhatsappPosition);
-
-// --- EVENTOS MOUSE ---
-whatsappBtn.addEventListener('mousedown', (e) => {
-    isDragging = false;
-    whatsappBtn.style.transition = 'none';
-    startX = e.clientX;
-    startY = e.clientY;
-    const rect = whatsappBtn.getBoundingClientRect();
-    initialX = rect.left;
-    initialY = rect.top;
-
-    // Si mantiene presionado más de 200ms -> entra en modo arrastre
-    holdTimer = setTimeout(() => {
-        document.addEventListener('mousemove', doDrag);
-        document.addEventListener('mouseup', endDrag);
-    }, 200);
-});
-
-whatsappBtn.addEventListener('mouseup', (e) => {
-    clearTimeout(holdTimer);
-    if (!isDragging) {
-        window.open(whatsappURL, '_blank'); // abrir solo si fue clic corto
+    if (productosContainer) {
+        // --- EVENTOS ---
+        // Usamos un solo "event listener" en el contenedor de productos para más eficiencia
+        productosContainer.addEventListener('click', (event) => {
+            if (event.target.classList.contains('add-to-cart')) {
+                const boton = event.target;
+                const item = boton.closest('.precio-item');
+                agregarAlCarrito(item);
+            }
+            if (event.target.classList.contains('sumar')) {
+                const item = event.target.closest('.precio-item');
+                const cantidadInput = item.querySelector('.cantidad');
+                cantidadInput.value = parseInt(cantidadInput.value) + 1;
+            }
+            if (event.target.classList.contains('restar')) {
+                const item = event.target.closest('.precio-item');
+                const cantidadInput = item.querySelector('.cantidad');
+                const cantidadActual = parseInt(cantidadInput.value);
+                if (cantidadActual > 1) {
+                    cantidadInput.value = cantidadActual - 1;
+                }
+            }
+        });
     }
-});
+    
+    botonEnviarWhatsapp?.addEventListener('click', enviarPedidoPorWhatsapp);
 
-// --- EVENTOS TOUCH ---
-whatsappBtn.addEventListener('touchstart', (e) => {
-    isDragging = false;
-    whatsappBtn.style.transition = 'none';
-    const touch = e.touches[0];
-    startX = touch.clientX;
-    startY = touch.clientY;
-    const rect = whatsappBtn.getBoundingClientRect();
-    initialX = rect.left;
-    initialY = rect.top;
+    // --- FUNCIONES DEL CARRITO ---
+    function agregarAlCarrito(item) {
+        const productoId = item.dataset.productId;
+        const productoNombre = item.dataset.productName;
+        const productoPrecio = parseFloat(item.dataset.productPrice);
+        const cantidadInput = item.querySelector('.cantidad');
+        const cantidad = parseInt(cantidadInput.value);
 
-    // Igual que en PC: si mantiene presionado entra en arrastre
-    holdTimer = setTimeout(() => {
-        document.addEventListener('touchmove', doDrag, { passive: false });
-        document.addEventListener('touchend', endDrag);
-    }, 200);
-});
+        const productoExistente = carrito.find(p => p.id === productoId);
 
-whatsappBtn.addEventListener('touchend', (e) => {
-    clearTimeout(holdTimer);
-    if (!isDragging) {
-        window.open(whatsappURL, '_blank');
-    }
-});
-
-// --- FUNCIÓN DE ARRASTRE ---
-function doDrag(e) {
-    const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
-    const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
-    const deltaX = clientX - startX;
-    const deltaY = clientY - startY;
-
-    if (Math.abs(deltaX) > 5 || Math.abs(deltaY) > 5) {
-        isDragging = true;
-        e.preventDefault(); // evita scroll en móviles
+        if (productoExistente) {
+            productoExistente.cantidad += cantidad;
+        } else {
+            carrito.push({ id: productoId, nombre: productoNombre, precio: productoPrecio, cantidad: cantidad });
+        }
+        
+        cantidadInput.value = "1"; // Resetea el contador del producto añadido
+        actualizarVistaCarrito();
+        
+        // Pequeña animación en el botón
+        const botonAgregar = item.querySelector('.add-to-cart');
+        botonAgregar.textContent = '¡Añadido!';
+        setTimeout(() => {
+            botonAgregar.textContent = 'Añadir al carrito';
+        }, 1000);
     }
 
-    if (isDragging) {
-        let newX = initialX + deltaX;
-        let newY = initialY + deltaY;
-        newX = Math.max(0, Math.min(newX, window.innerWidth - whatsappBtn.offsetWidth));
-        newY = Math.max(0, Math.min(newY, window.innerHeight - whatsappBtn.offsetHeight));
-        whatsappBtn.style.left = `${newX}px`;
-        whatsappBtn.style.top = `${newY}px`;
-    }
-}
+    function actualizarVistaCarrito() {
+        if (!carritoItemsContainer || !carritoTotalSpan) return;
+        
+        carritoItemsContainer.innerHTML = '';
+        let total = 0;
 
-// --- FINALIZA EL ARRASTRE ---
-function endDrag() {
-    whatsappBtn.style.transition = 'transform 0.2s, background-color 0.3s';
-    document.removeEventListener('mousemove', doDrag);
-    document.removeEventListener('mouseup', endDrag);
-    document.removeEventListener('touchmove', doDrag);
-    document.removeEventListener('touchend', endDrag);
+        if (carrito.length === 0) {
+            carritoItemsContainer.innerHTML = '<p>Tu carrito está vacío.</p>';
+            carritoTotalSpan.textContent = '0.00';
+            return;
+        }
+
+        carrito.forEach(producto => {
+            const subtotal = producto.precio * producto.cantidad;
+            total += subtotal;
+            const itemHTML = `
+                <div class="carrito-item">
+                    <p><b>${producto.nombre}</b></p>
+                    <p>Cantidad: ${producto.cantidad} | Subtotal: S/. ${subtotal.toFixed(2)}</p>
+                </div>`;
+            carritoItemsContainer.innerHTML += itemHTML;
+        });
+
+        carritoTotalSpan.textContent = total.toFixed(2);
+    }
+      
+    function enviarPedidoPorWhatsapp() {
+        if (carrito.length === 0) {
+            alert("Tu carrito está vacío. Añade productos antes de enviar el pedido.");
+            return;
+        }
+
+        let mensaje = "¡Hola! 👋 Quisiera realizar el siguiente pedido:\n\n";
+        let totalPedido = 0;
+
+        carrito.forEach(producto => {
+            const subtotal = producto.precio * producto.cantidad;
+            mensaje += `*${producto.nombre}*\n`;
+            mensaje += `Cantidad: ${producto.cantidad}\n`;
+            mensaje += `Subtotal: S/. ${subtotal.toFixed(2)}\n\n`;
+            totalPedido += subtotal;
+        });
+
+        mensaje += `*TOTAL DEL PEDIDO: S/. ${totalPedido.toFixed(2)}*`;
+
+        const mensajeCodificado = encodeURIComponent(mensaje);
+        const urlWhatsapp = `https://wa.me/${telefonoWhatsapp}?text=${mensajeCodificado}`;
+
+        window.open(urlWhatsapp, '_blank');
+    }
+
+    // --- LÓGICA DEL BOTÓN FLOTANTE DE WHATSAPP ---
+    const whatsappBtn = document.getElementById('whatsapp-draggable-button');
+    const whatsappURL = "https://wa.me/51953489892?text=Hola!%20Me%20gustar%C3%ADa%20realizar%20un%20pedido.";
+
+    if (whatsappBtn) {
+        let isDragging = false;
+        let startX, startY;
+        let initialX, initialY;
+        let holdTimer; // <- temporizador para distinguir clic de arrastre
+
+        function initializeWhatsappPosition() {
+            const rect = whatsappBtn.getBoundingClientRect();
+            whatsappBtn.style.position = 'fixed';
+            whatsappBtn.style.top = `${rect.top}px`;
+            whatsappBtn.style.left = `${rect.left}px`;
+            whatsappBtn.style.right = 'auto';
+            whatsappBtn.style.bottom = 'auto';
+        }
+
+        // Inicializa la posición del botón
+        initializeWhatsappPosition();
+        window.addEventListener('resize', initializeWhatsappPosition);
+
+        // --- EVENTOS MOUSE ---
+        whatsappBtn.addEventListener('mousedown', (e) => {
+            isDragging = false;
+            whatsappBtn.style.transition = 'none';
+            startX = e.clientX;
+            startY = e.clientY;
+            const rect = whatsappBtn.getBoundingClientRect();
+            initialX = rect.left;
+            initialY = rect.top;
+
+            // Si mantiene presionado más de 200ms -> entra en modo arrastre
+            holdTimer = setTimeout(() => {
+                document.addEventListener('mousemove', doDrag);
+                document.addEventListener('mouseup', endDrag);
+            }, 200);
+        });
+
+        whatsappBtn.addEventListener('mouseup', (e) => {
+            clearTimeout(holdTimer);
+            if (!isDragging) {
+                window.open(whatsappURL, '_blank'); // abrir solo si fue clic corto
+            }
+        });
+
+        // --- EVENTOS TOUCH ---
+        whatsappBtn.addEventListener('touchstart', (e) => {
+            isDragging = false;
+            whatsappBtn.style.transition = 'none';
+            const touch = e.touches[0];
+            startX = touch.clientX;
+            startY = touch.clientY;
+            const rect = whatsappBtn.getBoundingClientRect();
+            initialX = rect.left;
+            initialY = rect.top;
+
+            // Igual que en PC: si mantiene presionado entra en arrastre
+            holdTimer = setTimeout(() => {
+                document.addEventListener('touchmove', doDrag, { passive: false });
+                document.addEventListener('touchend', endDrag);
+            }, 200);
+        });
+
+        whatsappBtn.addEventListener('touchend', (e) => {
+            clearTimeout(holdTimer);
+            if (!isDragging) {
+                window.open(whatsappURL, '_blank');
+            }
+        });
+
+        // --- FUNCIÓN DE ARRASTRE ---
+        function doDrag(e) {
+            const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+            const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+            const deltaX = clientX - startX;
+            const deltaY = clientY - startY;
+
+            if (Math.abs(deltaX) > 5 || Math.abs(deltaY) > 5) {
+                isDragging = true;
+                e.preventDefault(); // evita scroll en móviles
+            }
+
+            if (isDragging) {
+                let newX = initialX + deltaX;
+                let newY = initialY + deltaY;
+                newX = Math.max(0, Math.min(newX, window.innerWidth - whatsappBtn.offsetWidth));
+                newY = Math.max(0, Math.min(newY, window.innerHeight - whatsappBtn.offsetHeight));
+                whatsappBtn.style.left = `${newX}px`;
+                whatsappBtn.style.top = `${newY}px`;
+            }
+        }
+
+        // --- FINALIZA EL ARRASTRE ---
+        function endDrag() {
+            whatsappBtn.style.transition = 'transform 0.2s, background-color 0.3s';
+            document.removeEventListener('mousemove', doDrag);
+            document.removeEventListener('mouseup', endDrag);
+            document.removeEventListener('touchmove', doDrag);
+            document.removeEventListener('touchend', endDrag);
+        }
     }
 });
 </script>
 </body>
 </html>
-
