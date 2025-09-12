@@ -994,45 +994,91 @@ transform: scaleX(-1);
     }
 }
 
-
-
-/* FOOTER */
+ /* --- ESTILOS BASE (MÓVIL) --- */
 .main-footer {
-    background-color: #111;
-    color: #ccc;
-    text-align: center;
-    padding: 30px;
-    font-size: 0.9em;
-    margin-top: 0;
+  background-color: #111;
+  color: #ccc;
+  text-align: center;
+  padding: 30px;
+  font-size: 0.9em;
+  margin-top: 0;
+  position: relative; /* Posición relativa para todos los tamaños */
 }
 
 .main-footer .footer-links {
-    margin-top: 5px; /* Adds space between copyright and links on mobile */
+  margin-top: 5px;
 }
 
 .main-footer .footer-links a {
-    color: #007bff;
-    text-decoration: none;
-    margin: 0 ;
-    transition: color 0.3s;
+  color: #007bff;
+  text-decoration: none;
+  margin: 0;
+  transition: color 0.3s;
 }
 
 .main-footer .footer-links a:hover {
-    color: #00BFFF;
+  color: #00BFFF;
 }
 
-@media (min-width: 768px) {
-    .main-footer {
-        display: flex;
-        flex-direction: column; /* apila en columna */
-        justify-content: center;
-        align-items: center;   /* centra horizontalmente */
-        text-align: center;
-    }
-    .main-footer .footer-links {
-        margin-top: 0;
-    }
+/* --- ESTILOS DEL ENLACE DE SOPORTE TÉCNICO --- */
+
+/* Estilo para el contenedor del enlace (ícono + texto) */
+.main-footer .soporte-tecnico a {
+  display: inline-flex;  /* Usamos inline-flex para que se comporte como texto pero con alineación interna */
+  align-items: center;   /* Centra verticalmente el ícono y el texto */
+  text-decoration: none; /* Quita el subrayado del enlace */
+  color: #ccc;           /* Mismo color que el resto del footer */
+  transition: color 0.3s ease;
 }
+
+/* Efecto al pasar el mouse por encima */
+.main-footer .soporte-tecnico a:hover {
+  color: #00BFFF;
+}
+
+/* Estilo para la imagen del ícono dentro del enlace */
+.main-footer .soporte-tecnico img {
+  width: 30px;
+  height: auto;
+  display: block;
+}
+
+/* Estilo para el texto junto al ícono */
+.main-footer .soporte-tecnico a span {
+  margin-left: 8px;
+  font-size: 0.9em;
+}
+
+
+/* ==========================================================================
+  AJUSTES PARA PANTALLAS GRANDES (TABLET Y ESCRITORIO)
+   ========================================================================== */
+
+@media (min-width: 768px) {
+
+  /* El texto del footer se alinea solo por el text-align: center de la base */
+  .main-footer p,
+  .main-footer .footer-links {
+    display: inline; /* Se muestran en la misma línea */
+  }
+  
+  .main-footer .footer-links {
+    margin-top: 0;
+    margin-left: 15px; /* Espacio entre copyright y links */
+  }
+
+  /* Posicionamos el bloque de soporte a la derecha */
+  .main-footer .soporte-tecnico {
+    position: absolute;
+    right: 30px; /* Misma distancia que el padding del footer */
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+
+
+
+
 
 /* --- ALERTA FLOTANTE DE RESERVA --- */
 #reservation-message {
@@ -1548,7 +1594,12 @@ transform: scaleX(-1);
     </p>
     <div class="footer-links">
     </div>
-  
+    <div class="soporte-tecnico">
+    <a href="mailto:soporte@picanteriasdelperu.com">
+        <img src="img/servicio-al-cliente (1).png" alt="Soporte Técnico">
+        <span>soporte tecnico</span>
+    </a>
+</div>
 </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
