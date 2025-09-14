@@ -1193,6 +1193,7 @@ transform: scaleX(-1);
   gap: 8px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.3);
   z-index: 9999;
+  animation: whatsapp-blink 1.5s infinite; /* 👈 Agregado */
 }
 
 .whatsapp-float i {
@@ -1203,30 +1204,39 @@ transform: scaleX(-1);
   white-space: nowrap;
 }
 
-@media (max-width: 768px) {
-    .whatsapp-float {
-        padding: 12px !important;
-        border-radius: 50% !important;
-        width: 55px !important;
-        height: 55px !important;
-        justify-content: center !important;
-    }
-    .whatsapp-float .inline-flex-content {
-        display: none !important;
-    }
+/* Animación de parpadeo */
+@keyframes whatsapp-blink {
+  0% { box-shadow: 0 0 5px #25d366, 0 0 10px #25d366; }
+  50% { box-shadow: 0 0 20px #25d366, 0 0 40px #25d366; }
+  100% { box-shadow: 0 0 5px #25d366, 0 0 10px #25d366; }
 }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .whatsapp-float {
+      padding: 12px !important;
+      border-radius: 50% !important;
+      width: 55px !important;
+      height: 55px !important;
+      justify-content: center !important;
+  }
+  .whatsapp-float .inline-flex-content {
+      display: none !important;
+  }
+}
+
 @media (max-width: 375px) {
   .whatsapp-float {
-        padding: 18px !important;
-        border-radius: 50% !important;
-        width: 30px !important;
-        height: 30px !important;
-        justify-content: center !important;
-    }
-    .whatsapp-float .inline-flex-content {
-        display: none !important;
-    }
+      padding: 18px !important;
+      border-radius: 50% !important;
+      width: 30px !important;
+      height: 30px !important;
+      justify-content: center !important;
   }
+  .whatsapp-float .inline-flex-content {
+      display: none !important;
+  }
+}
 
 /* ==========================================================================
   FOOTER STYLES
@@ -1330,9 +1340,9 @@ transform: scaleX(-1);
 
   /* Posicionamos el bloque de soporte a la derecha */
   .main-footer .soporte-tecnico {
-    position: none;
-    right: 8px; /* Misma distancia que el padding del footer */
-    top: 50%;
+    position: absolute;
+    right: 5px; /* Misma distancia que el padding del footer */
+    top: 10px;
     font-size:0.2em
     transform: translateY(-50%);
   }
