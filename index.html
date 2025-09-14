@@ -52,7 +52,7 @@ body.lang-active-en .lang-es {display: none;}
  * HEADER & NAVIGATION
  */
 .header-nav-wrapper {
-    background-image: url('fondo_piepagina.jpg');
+    background-image: url('img/fondo_piepagina.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -86,22 +86,21 @@ body.lang-active-en .lang-es {display: none;}
 .language-switcher {
     position: absolute;   /* siempre sobre la imagen */
     top: 10px;            /* margen superior */
-    right: 10px;          /* margen derecho */
+    right: 20px;          /* margen derecho */
     display: flex;
     gap: 8px;
-    z-index: 1000;
+    z-index: 1001;
 }
 
 @media (max-width: 768px) {
   .language-switcher {
-      position: absolute;
       top: 10px;     /* un poquito más abajo en móviles */
       right: 10px;   /* sigue pegado a la derecha */
   }
 }
+
 @media (max-width: 375px) {
   .language-switcher {
-      position: absolute;
       top: 20px;     /* un poquito más abajo en móviles */
       right: 30px;   /* sigue pegado a la derecha */
   }
@@ -201,6 +200,7 @@ body.lang-active-en .lang-es {display: none;}
   transform: rotate(-45deg) translate(6px, -6px);
 }
 
+
 /* ----- MENU EN ESCRITORIO ----- */
 .main-nav {
   display: flex;               /* menú siempre visible en escritorio */
@@ -264,6 +264,7 @@ body.lang-active-en .lang-es {display: none;}
     padding: 10px;
   }
 }
+
 @media (max-width: 375px) {
   .hamburger {
     display: flex; /* ahora sí aparece en móviles */
@@ -295,7 +296,6 @@ body.lang-active-en .lang-es {display: none;}
     font-size: 15px;
     padding: 10px;
   }
-/* ----- Animación hamburguesa a X ----- */
 .hamburger.open span:nth-child(1) {
   transform: rotate(45deg) translate(5px, 5px);
 }
@@ -305,8 +305,7 @@ body.lang-active-en .lang-es {display: none;}
 .hamburger.open span:nth-child(3) {
   transform: rotate(-45deg) translate(6px, -6px);
 }
-
-
+}
 /*
  * CARRUSEL
  */
@@ -384,6 +383,85 @@ body.lang-active-en .lang-es {display: none;}
 }
 .dot.active {
     background-color: white;
+}
+@media (max-width: 768px) {
+   * CARRUSEL
+ */
+.carousel-section {
+    width: 100%;
+    max-width: 1330px;
+    margin: 0 auto;
+    padding: 10px;
+    background-color: #222;
+    border-radius: 10px;
+    box-shadow: 0px 8px 20px rgba(0,0,0,0.1);
+    text-align: center;
+    position: relative;
+}
+.carousel-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    height: 600px;
+}
+.carousel-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    height: 100%;
+}
+.carousel-item {
+    flex-shrink: 0;
+    width: 100%;
+    height: 100%;
+}
+.carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    cursor: pointer;
+}
+.carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    padding: 15px;
+    cursor: pointer;
+    z-index: 100;
+    font-size: 1.5em;
+    border-radius: 50%;
+    transition: background-color 0.3s;
+}
+.carousel-button:hover {
+    background-color: rgba(0,0,0,0.8);
+}
+.carousel-prev {left: 10px;}
+.carousel-next {right: 10px;}
+.carousel-dots {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 100;
+}
+.dot {
+    width: 10px;
+    height: 10px;
+    background-color: rgba(255,255,255,0.5);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.dot.active {
+    background-color: white;
+}
 }
 @media (max-width: 375px) {
   .carousel-section {
@@ -989,7 +1067,7 @@ body.lang-active-en .lang-es {display: none;}
     gap: 10px; /* Espacio entre el icono y el texto */
     color: #ccc;
     font-size: 0.9em;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
 }
 .contact-item:last-child {
     margin-bottom: 0;
@@ -1036,7 +1114,7 @@ transform: scaleX(-1);
     text-align: center;
     font-style: italic;
     color: #eee;
-    padding-top: 15px;
+    padding-top: 30px;
     border-top: 1px solid rgba(255,255,255,0.1);
     font-size: 1em;
     line-height: 1.4;
@@ -1137,7 +1215,7 @@ transform: scaleX(-1);
         display: none !important;
     }
 }
-    @media (max-width: 375px) {
+@media (max-width: 375px) {
   .whatsapp-float {
         padding: 18px !important;
         border-radius: 50% !important;
@@ -1150,8 +1228,11 @@ transform: scaleX(-1);
     }
   }
 
+/* ==========================================================================
+  FOOTER STYLES
+   ========================================================================== */
 
- /* --- ESTILOS BASE (MÓVIL) --- */
+/* --- ESTILOS BASE (MÓVIL) --- */
 .main-footer {
   background-color: #111;
   color: #ccc;
@@ -1253,9 +1334,6 @@ transform: scaleX(-1);
   }
 }
 
-
-
-
 /* --- ALERTA FLOTANTE DE RESERVA --- */
 #reservation-message {
   position: fixed;
@@ -1304,7 +1382,7 @@ transform: scaleX(-1);
     .whatsapp-float{width:auto;padding:8px 10px;font-size:0.6em;}
     #mensaje-reserva {position: fixed;bottom: 20px;right: 20px;left: auto;width: auto; max-width: 80%;font-size: 0.6em;padding: 10px 15px;
     }
- 
+
     /* Carousel */
     .carousel-container{height:300px;}
     
@@ -1349,6 +1427,8 @@ transform: scaleX(-1);
     .logo-container {
         margin-bottom: 10px;
     }
+    
+
     .contact-map-section{padding:20px 10px;margin:20px auto;}
     .social-icons{font-size:1.8em;gap:10px;}
     .our-theme-section{padding:20px;margin:20px auto;}
@@ -1425,15 +1505,15 @@ transform: scaleX(-1);
     }
 }
 @media (max-width: 768px) {
-   .logo-container img {
+  .logo-container img {
     width: 150px;
     height: 100px;
   }
   .titulo h1 {
     font-size: 1.5em;
   }
-}
-  @media (max-width: 375px) {
+  }
+@media (max-width: 375px) {
   .logo-container img {
     width: 120px;
     height: 90px;
@@ -1443,7 +1523,6 @@ transform: scaleX(-1);
   }
   
 }
-
     </style>
 </head>
 <body class="lang-active-es"> <!-- Añadido lang-active-es por defecto -->
@@ -1590,7 +1669,7 @@ transform: scaleX(-1);
   <div class="container">
     <main class="productos-container" id="productos">
       <div class="precio-item" data-product-id="1" data-product-name="JALADITO MOCHE" data-product-price="99.00">
-        <img src="jaladito.jpg" alt="jaladito">
+        <img src="jaladito 1.jpg" alt="jaladito">
         <h4>JALADITO MOCHE</h4>
         <h5>S/. 99.00 x 200gr</h5>
         <div class="cantidad-control">
@@ -1774,7 +1853,7 @@ transform: scaleX(-1);
   <span class="lang-en inline-flex-content">Need help? Contact us!</span>
 </div>
 
- <footer class="main-footer">
+  <footer class="main-footer">
     <p>
         <span class="lang-es inline-content">&copy; 2025 La Picantería. Todos los derechos reservados.</span>
         <span class="lang-en inline-content">&copy; 2025 La Picantería. All rights reserved.</span>
@@ -1783,7 +1862,7 @@ transform: scaleX(-1);
     </div>
     <div class="soporte-tecnico">
     <a href="mailto:soporte@picanteriasdelperu.com">
-        <img src="servicio-al-cliente (1).png" alt="Soporte Técnico">
+        <img src="img/servicio-al-cliente (1).png" alt="Soporte Técnico">
         <span>soporte tecnico</span>
     </a>
 </div>
