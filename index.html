@@ -2161,8 +2161,110 @@ document.addEventListener('DOMContentLoaded', () => {
         window.open(urlWhatsapp, '_blank');
     }
 
-   / --- LÓGICA DEL BOTÓN FLOTANTE DE WHATSAPP --- 
-     const whatsappBtn = document.getElementById('whatsapp-draggable-button'); const whatsappURL = "https://wa.me/51953489892?text=Hola!%20Me%20gustar%C3%ADa%20realizar%20un%20pedido."; if (whatsappBtn) { let isDragging = false; let startX, startY; let initialX, initialY; let holdTimer; // <- temporizador para distinguir clic de arrastre function initializeWhatsappPosition() { const rect = whatsappBtn.getBoundingClientRect(); whatsappBtn.style.position = 'fixed'; whatsappBtn.style.top = ${rect.top}px; whatsappBtn.style.left = ${rect.left}px; whatsappBtn.style.right = 'auto'; whatsappBtn.style.bottom = 'auto'; } // Inicializa la posición del botón initializeWhatsappPosition(); window.addEventListener('resize', initializeWhatsappPosition); // --- EVENTOS MOUSE --- whatsappBtn.addEventListener('mousedown', (e) => { isDragging = false; whatsappBtn.style.transition = 'none'; startX = e.clientX; startY = e.clientY; const rect = whatsappBtn.getBoundingClientRect(); initialX = rect.left; initialY = rect.top; // Si mantiene presionado más de 200ms -> entra en modo arrastre holdTimer = setTimeout(() => { document.addEventListener('mousemove', doDrag); document.addEventListener('mouseup', endDrag); }, 200); }); whatsappBtn.addEventListener('mouseup', (e) => { clearTimeout(holdTimer); if (!isDragging) { window.open(whatsappURL, '_blank'); // abrir solo si fue clic corto } }); // --- EVENTOS TOUCH --- whatsappBtn.addEventListener('touchstart', (e) => { isDragging = false; whatsappBtn.style.transition = 'none'; const touch = e.touches[0]; startX = touch.clientX; startY = touch.clientY; const rect = whatsappBtn.getBoundingClientRect(); initialX = rect.left; initialY = rect.top; // Igual que en PC: si mantiene presionado entra en arrastre holdTimer = setTimeout(() => { document.addEventListener('touchmove', doDrag, { passive: false }); document.addEventListener('touchend', endDrag); }, 200); }); whatsappBtn.addEventListener('touchend', (e) => { clearTimeout(holdTimer); if (!isDragging) { window.open(whatsappURL, '_blank'); } }); // --- FUNCIÓN DE ARRASTRE --- function doDrag(e) { const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX; const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY; const deltaX = clientX - startX; const deltaY = clientY - startY; if (Math.abs(deltaX) > 5 || Math.abs(deltaY) > 5) { isDragging = true; e.preventDefault(); // evita scroll en móviles } if (isDragging) { let newX = initialX + deltaX; let newY = initialY + deltaY; newX = Math.max(0, Math.min(newX, window.innerWidth - whatsappBtn.offsetWidth)); newY = Math.max(0, Math.min(newY, window.innerHeight - whatsappBtn.offsetHeight)); whatsappBtn.style.left = ${newX}px; whatsappBtn.style.top = ${newY}px; } } // --- FINALIZA EL ARRASTRE --- function endDrag() { whatsappBtn.style.transition = 'transform 0.2s, background-color 0.3s'; document.removeEventListener('mousemove', doDrag); document.removeEventListener('mouseup', endDrag); document.removeEventListener('touchmove', doDrag); document.removeEventListener('touchend', endDrag); } }
+  // --- LÓGICA DEL BOTÓN FLOTANTE DE WHATSAPP ---
+    const whatsappBtn = document.getElementById('whatsapp-draggable-button');
+    const whatsappURL = "https://wa.me/51953489892?text=Hola!%20Me%20gustar%C3%ADa%20realizar%20un%20pedido.";
+
+    if (whatsappBtn) {
+        let isDragging = false;
+        let startX, startY;
+        let initialX, initialY;
+        let holdTimer; // <- temporizador para distinguir clic de arrastre
+
+        function initializeWhatsappPosition() {
+            const rect = whatsappBtn.getBoundingClientRect();
+            whatsappBtn.style.position = 'fixed';
+            whatsappBtn.style.top = `${rect.top}px`;
+            whatsappBtn.style.left = `${rect.left}px`;
+            whatsappBtn.style.right = 'auto';
+            whatsappBtn.style.bottom = 'auto';
+        }
+
+        // Inicializa la posición del botón
+        initializeWhatsappPosition();
+        window.addEventListener('resize', initializeWhatsappPosition);
+
+        // --- EVENTOS MOUSE ---
+        whatsappBtn.addEventListener('mousedown', (e) => {
+            isDragging = false;
+            whatsappBtn.style.transition = 'none';
+            startX = e.clientX;
+            startY = e.clientY;
+            const rect = whatsappBtn.getBoundingClientRect();
+            initialX = rect.left;
+            initialY = rect.top;
+
+            // Si mantiene presionado más de 200ms -> entra en modo arrastre
+            holdTimer = setTimeout(() => {
+                document.addEventListener('mousemove', doDrag);
+                document.addEventListener('mouseup', endDrag);
+            }, 200);
+        });
+
+        whatsappBtn.addEventListener('mouseup', (e) => {
+            clearTimeout(holdTimer);
+            if (!isDragging) {
+                window.open(whatsappURL, '_blank'); // abrir solo si fue clic corto
+            }
+        });
+
+        // --- EVENTOS TOUCH ---
+        whatsappBtn.addEventListener('touchstart', (e) => {
+            isDragging = false;
+            whatsappBtn.style.transition = 'none';
+            const touch = e.touches[0];
+            startX = touch.clientX;
+            startY = touch.clientY;
+            const rect = whatsappBtn.getBoundingClientRect();
+            initialX = rect.left;
+            initialY = rect.top;
+
+            // Igual que en PC: si mantiene presionado entra en arrastre
+            holdTimer = setTimeout(() => {
+                document.addEventListener('touchmove', doDrag, { passive: false });
+                document.addEventListener('touchend', endDrag);
+            }, 200);
+        });
+
+        whatsappBtn.addEventListener('touchend', (e) => {
+            clearTimeout(holdTimer);
+            if (!isDragging) {
+                window.open(whatsappURL, '_blank');
+            }
+        });
+
+        // --- FUNCIÓN DE ARRASTRE ---
+        function doDrag(e) {
+            const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+            const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+            const deltaX = clientX - startX;
+            const deltaY = clientY - startY;
+
+            if (Math.abs(deltaX) > 5 || Math.abs(deltaY) > 5) {
+                isDragging = true;
+                e.preventDefault(); // evita scroll en móviles
+            }
+
+            if (isDragging) {
+                let newX = initialX + deltaX;
+                let newY = initialY + deltaY;
+                newX = Math.max(0, Math.min(newX, window.innerWidth - whatsappBtn.offsetWidth));
+                newY = Math.max(0, Math.min(newY, window.innerHeight - whatsappBtn.offsetHeight));
+                whatsappBtn.style.left = `${newX}px`;
+                whatsappBtn.style.top = `${newY}px`;
+            }
+        }
+
+        // --- FINALIZA EL ARRASTRE ---
+        function endDrag() {
+            whatsappBtn.style.transition = 'transform 0.2s, background-color 0.3s';
+            document.removeEventListener('mousemove', doDrag);
+            document.removeEventListener('mouseup', endDrag);
+            document.removeEventListener('touchmove', doDrag);
+            document.removeEventListener('touchend', endDrag);
+        }
+    }
+});
 </script>
 </body>
 </html>
