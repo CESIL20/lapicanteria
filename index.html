@@ -1246,11 +1246,11 @@ transform: scaleX(-1);
 .main-footer {
   background-color: #111;
   color: #ccc;
-  text-align: center;
+  text-align: center;  /* ✅ centra el texto */
   padding: 30px;
   font-size: 0.8em;
   margin-top: 0;
-  position: relative; /* Posición relativa para todos los tamaños */
+  position: relative; /* Necesario para posicionar soporte */
 }
 
 .main-footer .footer-links {
@@ -1268,85 +1268,76 @@ transform: scaleX(-1);
   color: #00BFFF;
 }
 
-/* --- ESTILOS DEL ENLACE DE SOPORTE TÉCNICO --- */
-
-/* Estilo para el contenedor del enlace (ícono + texto) */
+/* --- ENLACE DE SOPORTE --- */
 .main-footer .soporte-tecnico a {
-  display: inline-flex;  /* Usamos inline-flex para que se comporte como texto pero con alineación interna */
-  align-items: center;   /* Centra verticalmente el ícono y el texto */
-  text-decoration: none; /* Quita el subrayado del enlace */
-  color: #ccc;           /* Mismo color que el resto del footer */
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  color: #ccc;
   transition: color 0.3s ease;
 }
 
-/* Efecto al pasar el mouse por encima */
 .main-footer .soporte-tecnico a:hover {
   color: #00BFFF;
 }
 
-/* Estilo para la imagen del ícono dentro del enlace */
 .main-footer .soporte-tecnico img {
   width: 30px;
   height: auto;
   display: block;
 }
 
-/* Estilo para el texto junto al ícono */
 .main-footer .soporte-tecnico a span {
   margin-left: 8px;
   font-size: 0.8em;
 }
 
-
-/* ==========================================================================
-  AJUSTES PARA PANTALLAS GRANDES (TABLET Y ESCRITORIO)
-   ========================================================================== */
-
+/* ========================================================================
+   AJUSTES PARA TABLET Y ESCRITORIO
+   ======================================================================== */
 @media (min-width: 768px) {
-
-  /* El texto del footer se alinea solo por el text-align: center de la base */
   .main-footer p,
   .main-footer .footer-links {
-    display: inline; /* Se muestran en la misma línea */
+    display: inline; 
   }
   
   .main-footer .footer-links {
-    margin-top: 0;
-    margin-left: 15px; /* Espacio entre copyright y links */
+    margin-left: 15px;
   }
 
-  /* Posicionamos el bloque de soporte a la derecha */
+  /* soporte a la derecha */
   .main-footer .soporte-tecnico {
     position: absolute;
-    right: 10px; /* Misma distancia que el padding del footer */
+    right: 10px;
     top: 50%;
     transform: translateY(-50%);
   }
 }
+
+/* ========================================================================
+   AJUSTES PARA PANTALLAS PEQUEÑAS
+   ======================================================================== */
 @media (max-width: 375px) {
-   /* El texto del footer se alinea solo por el text-align: center de la base */
   .main-footer p,
   .main-footer .footer-links {
-    display: inline; /* Se muestran en la misma línea */
-    font-size: 0.5em
-    text-align:center;
-    top:0;
-  }
-  
-  .main-footer .footer-links {
-    margin-top: 0;
-    margin-left: 10px; /* Espacio entre copyright y links */
+    display: block;     /* ✅ que no rompa el centrado */
+    font-size: 0.5em;   /* 🔹 corregido con ; */
+    text-align: center;
   }
 
-  /* Posicionamos el bloque de soporte a la derecha */
+  .main-footer .footer-links {
+    margin-top: 5px;
+  }
+
   .main-footer .soporte-tecnico {
     position: absolute;
-    right: 5px; /* Misma distancia que el padding del footer */
+    right: 5px;
     top: 10px;
-    font-size:0.2em
-    transform: translateY(-50%);
+    font-size: 0.7em;   /* 🔹 corregido con ; */
+    transform: translateY(0); /* ✅ mejor control en móviles */
   }
 }
+
 
 /* --- ALERTA FLOTANTE DE RESERVA --- */
 #reservation-message {
