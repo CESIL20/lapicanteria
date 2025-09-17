@@ -1000,6 +1000,7 @@ body.lang-active-en .lang-es {display: none;}
     }
 
 .historia-section {
+    display: none;
     font-size:18px;
     margin:40px auto;
     padding:40px;
@@ -1565,7 +1566,7 @@ transform: scaleX(-1);
         <ul>
         <li><a href="#carrusel-section"><span class="lang-es inline-content">Inicio</span><span class="lang-en inline-content">Home</span></a></li>
         <li><a href="#our-theme"><span class="lang-es inline-content">Nuestra Temática</span><span class="lang-en inline-content">Our Theme</span></a></li>
-        <li><a href="#historia"><span class="lang-es inline-content">Nuestra Historia</span><span class="lang-en inline-content">Our History</span></a></li>
+        <li><a href="#historia-link" id="historia-link"><span class="lang-es inline-content">Nuestra Historia</span><span class="lang-en inline-content">Our History</span></a></li>
         <li><a href="https://drive.google.com/file/d/1aAkaZ-WnvFu8tN7WBn3rCiXv3gN4wL6i/view?usp=drive_link" target="_blank"><span class="lang-es inline-content">Nuestra Carta</span><span class="lang-en inline-content">Our Menu</span></a></li>
         <li><a href="#contactos"><span class="lang-es inline-content">Contacto</span><span class="lang-en inline-content">Contact</span></a></li>
         </ul>
@@ -2160,7 +2161,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         window.open(urlWhatsapp, '_blank');
     }
-
+// ---
   // --- LÓGICA DEL BOTÓN FLOTANTE DE WHATSAPP ---
     const whatsappBtn = document.getElementById('whatsapp-draggable-button');
     const whatsappURL = "https://wa.me/51953489892?text=Hola!%20Me%20gustar%C3%ADa%20realizar%20un%20pedido.";
