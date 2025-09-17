@@ -2161,7 +2161,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
         window.open(urlWhatsapp, '_blank');
     }
-// ---
+// ---historia oculta---
+const historiaLink = document.getElementById('historia-link');
+    const historiaSection = document.getElementById('historia');
+
+    // Añadimos un "escuchador de eventos" para el clic en el enlace
+    historiaLink.addEventListener('click', function(event) {
+        // Previene el comportamiento por defecto del enlace (que se desplace a la sección)
+        event.preventDefault();
+
+        // Comprobamos si la sección está visible o no
+        if (historiaSection.style.display === 'none' || historiaSection.style.display === '') {
+            historiaSection.style.display = 'block'; // Muestra la sección
+        } else {
+            historiaSection.style.display = 'none'; // Oculta la sección
+        }
+    });
+});
   // --- LÓGICA DEL BOTÓN FLOTANTE DE WHATSAPP ---
     const whatsappBtn = document.getElementById('whatsapp-draggable-button');
     const whatsappURL = "https://wa.me/51953489892?text=Hola!%20Me%20gustar%C3%ADa%20realizar%20un%20pedido.";
